@@ -2,15 +2,53 @@
   "name": "spacebar-smasher",
   "version": "0.1.0",
   "private": true,
+  "description": "little online game using socket.io where players battle eachother with the amount of spacebar hits they make",
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "react-scripts": "1.0.17",
+    "uuid4": "^1.0.0",
+    "ws": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "preinstall": "npm install -g eslint-cli",
+    "start": "concurrently \"react-scripts start\" \"nodemon server/socket.js\"",
+    "precommit": "eslint \"server/*.js\" \"src/*.js\" --fix",
+    "server": "node server/socket.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonnyVerduijn/spacebar-smasher.git"
+  },
+  "author": "Donny Verduijn",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/DonnyVerduijn/spacebar-smasher/issues"
+  },
+  "homepage": "https://github.com/DonnyVerduijn/spacebar-smasher#readme",
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "eslint": "^4.15.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-jest": "^21.6.1",
+    "eslint-plugin-react": "^7.5.1",
+    "husky": "^0.14.3",
+    "nodemon": "^1.14.9"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "src/*",
+      "public/*"
+    ],
+    "delay": "2500"
+  },
+  "proxy": {
+    "/socket": {
+      "target": "ws://localhost:3001",
+      "ws": true
+    }
   }
 }
