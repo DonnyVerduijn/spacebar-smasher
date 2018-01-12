@@ -4,6 +4,7 @@
   "private": true,
   "description": "little online game using socket.io where players battle eachother with the amount of spacebar hits they make",
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17",
@@ -12,7 +13,10 @@
   },
   "scripts": {
     "preinstall": "npm install -g eslint-cli",
-    "start": "concurrently \"react-scripts start\" \"nodemon server/socket.js\"",
+    "eslint": "eslint \"server/*.js\" \"src/*.js\" --fix",
+    "start": "concurrently \"react-scripts start\" \"nodemon server/index.js\"",
+    "devserver": "react-scripts start",
+    "socketserver": "nodemon server/index.js", 
     "precommit": "eslint \"server/*.js\" \"src/*.js\" --fix",
     "server": "node server/socket.js",
     "build": "react-scripts build",
@@ -46,7 +50,7 @@
     "delay": "2500"
   },
   "proxy": {
-    "/socket": {
+    "/": {
       "target": "ws://localhost:3001",
       "ws": true
     }
