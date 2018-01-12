@@ -9,6 +9,7 @@
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17",
     "uuid4": "^1.0.0",
+    "whatwg-fetch": "^2.0.3",
     "ws": "^4.0.0"
   },
   "scripts": {
@@ -16,7 +17,7 @@
     "eslint": "eslint \"server/*.js\" \"src/*.js\" --fix",
     "start": "concurrently \"react-scripts start\" \"nodemon server/index.js\"",
     "devserver": "react-scripts start",
-    "socketserver": "nodemon server/index.js", 
+    "socketserver": "nodemon server/index.js",
     "precommit": "eslint \"server/*.js\" \"src/*.js\" --fix",
     "server": "node server/socket.js",
     "build": "react-scripts build",
@@ -50,9 +51,12 @@
     "delay": "2500"
   },
   "proxy": {
-    "/": {
+    "/api": {
       "target": "ws://localhost:3001",
       "ws": true
+    },
+    "/api/status": {
+      "target": "http://localhost:3001"
     }
   }
 }

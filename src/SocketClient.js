@@ -4,6 +4,25 @@ const SocketClient = () => {
 
   // initialiaze socket
   const connect = () => {
+      getServerStatus.then(status => {
+        console.log(status);
+        if (status === 'available') {
+          instantiateSocket();
+        }
+      });
+    },
+    getServerStatus = new Promise((resolve, reject) => {
+      fetch('/api/status')
+        .then(response => {
+          response.json().then(({ status }) => {
+            resolve(status);
+          });
+        })
+        .catch(error => {
+          reject(error);
+        });
+    }),
+    instantiateSocket = () => {
       socket = new WebSocket('ws://localhost:3001');
 
       // on each received event
@@ -42,6 +61,7 @@ const SocketClient = () => {
         // throw Error(error.message);
       };
     },
+
     // define on method
     on = (type, callback) => {
       // attach callback by type as key
@@ -54,7 +74,9 @@ const SocketClient = () => {
     };
 
   // connect on initialization
-  connect();
+  connect(status => {
+    console.log(status);
+  });
 
   // expose public API endpoints
   return {

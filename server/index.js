@@ -11,15 +11,15 @@ const gameCollection = GameCollection();
 const playerCollection = PlayerCollection();
 
 socketServer.on('CONNECTION_ESTABLISHED', (data, socket) => {
-  console.log('CONNECTION_ESTABLISHED');
+  console.log('CONNECTION_ESTABLISHED', data.getId());
   socket.send(JSON.stringify({
     type: 'CONNECTION_ESTABLISHED',
     payload: { clientId: data.getId() }
   }));
 });
 
-socketServer.on('CONNECTION_CLOSED', () => {
-  console.log('CONNECTION_CLOSED');
+socketServer.on('CONNECTION_CLOSED', (socketId) => {
+  console.log('CONNECTION_CLOSED', socketId);
 });
 
 socketServer.on('CONNECTION_ERROR', () => {
@@ -29,9 +29,10 @@ socketServer.on('CONNECTION_ERROR', () => {
 socketServer.on('CREATE_PLAYER', (data, socket) => {
     const player = Player({ name: data.name });
     playerCollection.add(player);
+    console.log('USER_CREATED', player.getId());
     socket.send(
       JSON.stringify({
-        type: 'PLAYER_CREATED',
+        type: 'USER_CREATED',
         payload: {
           id: player.getId(),
           name: player.getName()

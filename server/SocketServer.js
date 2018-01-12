@@ -10,11 +10,19 @@ const SocketServer = () => {
   const server = http.createServer(app);
   const clientCollection = ClientCollection();
 
+  app.get('/api/status', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ status: 'available' }));
+  });
+
   const socketServer = new WebSocket.Server({ server });
   const eventListeners = {};
 
-  socketServer.on('connection', (socket, request) => {
+  socketServer.on('error', error => {
+    console.log('SERVER_ERROR', error);
+  });
 
+  socketServer.on('connection', (socket, request) => {
     const socketId = uuid();
     const newClient = Client({
       id: socketId,
@@ -24,7 +32,6 @@ const SocketServer = () => {
     // add new client to collection
     clientCollection.add(newClient);
     console.log(clientCollection.size());
-    
 
     // if connection handler exists
     if (typeof eventListeners.CONNECTION_ESTABLISHED === 'function') {
@@ -71,32 +78,30 @@ const SocketServer = () => {
       // if a corresponding event handler exists
       if (typeof eventListeners.CONNECTION_CLOSED === 'function') {
         // call it
-        eventListeners.CONNECTION_CLOSED(socket);
+        eventListeners.CONNECTION_CLOSED(socketId);
       }
     });
   });
 
-  const on = (type, callback) => {
-    // store specified callback by type
-    eventListeners[type] = callback;
-  };
-
   const broadcast = message => {
-    // for each client
-    clientCollection.forEach(client => {
+      // for each client
+      clientCollection.forEach(client => {
+        // send the specified message
+        client.getSocket().send(message);
+      });
+    },
+    on = (type, callback) => {
+      // store specified callback by type
+      eventListeners[type] = callback;
+    },
+    sendById = (id, message) => {
+      // for the client with the specified id
+      clientCollection
+        .getById(id)
+        .getSocket()
+        .send(message);
       // send the specified message
-      client.getSocket().send(message);
-    });
-  };
-
-  const sendById = (id, message) => {
-    // for the client with the specified id
-    clientCollection
-      .getById(id)
-      .getSocket()
-      .send(message);
-    // send the specified message
-  };
+    };
 
   server.listen(3001, () => {
     console.log('listening to 3001');

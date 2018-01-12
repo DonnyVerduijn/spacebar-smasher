@@ -172,7 +172,7 @@ window.onkeydown = e => {
   }
 };
 
-//   'PLAYER_CREATED'
+//   'USER_CREATED'
 //   'GAME_CREATED'
 //   'GAME_STARTED'
 //   'GAME_UPDATED'
@@ -182,8 +182,8 @@ window.onkeydown = e => {
 //   'GAME_RESUMED'
 //   'GAME_QUIT'
 
-socketClient.on('PLAYER_CREATED', data => {
-  console.log('PLAYER_CREATED', data);
+socketClient.on('USER_CREATED', data => {
+  console.log('USER_CREATED', data);
   // playerCollection.add(
   //   Player({
   //     id: data.id,
@@ -196,22 +196,22 @@ socketClient.on('PLAYER_CREATED', data => {
   //   })
   // );
 });
-
-socketClient.on('CONNECTION_ESTABLISHED', data => {
+let localState = null;
+socketClient.on('CONNECTION_ESTABLISHED', (data) => {
   console.log('CONNECTION_ESTABLISHED', data);
+  localState = data;
 });
 
 socketClient.on('CONNECTION_ERROR', () => {
-  console.log('CONNECTION_ERROR');
+  console.log('CONNECTION_ERROR', localState);
 });
 
 socketClient.on('CONNECTION_CLOSED', () => {
-  console.log('CONNECTION_CLOSED');
-  try {
-    socketClient.connect();
-  } catch (error) {
-    console.log('cannot connect');
-  }
+  console.log('CONNECTION_CLOSED', localState);
+
+  socketClient.connect((result) => {
+    console.log(result);
+  });
 });
 
 socketClient.on('PARSE_ERROR', error => {
