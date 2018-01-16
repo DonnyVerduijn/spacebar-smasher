@@ -69,7 +69,7 @@ const SocketServer = () => {
         // call it with the new client and socket
         eventListeners.CONNECTION_ESTABLISHED(newClient, socket);
       }
-      
+
       // when a message is received
       socket.on('message', onMessage);
       // when a socket error occurs
