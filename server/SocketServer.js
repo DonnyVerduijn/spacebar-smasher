@@ -41,71 +41,78 @@ const SocketServer = () => {
       // store specified callback by type
       eventListeners[type] = callback;
     },
-    onClose = socketId => {
+    onClose = client => {
       return () => {
+        console.log('CONNECTION_CLOSED', client.getId());
         // remove it from the client collection
-        clientCollection.removeById(socketId);
+        clientCollection.removeById(client.getId());
         // if a corresponding event handler exists
         if (typeof eventListeners.CONNECTION_CLOSED === 'function') {
           // call it
-          eventListeners.CONNECTION_CLOSED(socketId);
+          eventListeners.CONNECTION_CLOSED(client.getId());
         }
       };
     },
     onConnection = (socket, request) => {
       const socketId = uuid();
-      const newClient = ClientFactory({
+      const client = ClientFactory({
         id: socketId,
         ipAddress: request.connection.remoteAddress,
         socket
       });
       // add new client to collection
-      clientCollection.add(newClient);
-      console.log('CONNECTION_ESTABLISHED', newClient.getId());
+      clientCollection.add(client);
+      console.log('CONNECTION_ESTABLISHED', client.getId());
       console.log('CLIENTS CONNECTED: ', clientCollection.size());
 
       // if connection handler exists
       if (typeof eventListeners.CONNECTION_ESTABLISHED === 'function') {
         // call it with the new client and socket
-        eventListeners.CONNECTION_ESTABLISHED(newClient, socket);
+        eventListeners.CONNECTION_ESTABLISHED(client, socket);
       }
 
       // when a message is received
-      socket.on('message', onMessage);
+      socket.on('message', onMessage(client));
       // when a socket error occurs
-      socket.on('error', onError(socket));
+      socket.on('error', onError(client));
       // when a client closes its connection
-      socket.on('close', onClose(socketId));
+      socket.on('close', onClose(client));
     },
-    onError = socket => {
+    onError = client => {
       return error => {
+        console.log('CONNECTION_ERROR', client.getId());
         // if a CLIENT_ERROR event handler exists
         if (typeof eventListeners.CONNECTION_ERROR === 'function') {
           // call it with the error event
-          eventListeners.CONNECTION_ERROR(error, socket);
+          eventListeners.CONNECTION_ERROR(client, error);
         }
         // terminate the socket
-        socket.terminate();
+        clientCollection
+          .getById(client.getId())
+          .getSocket()
+          .terminate();
       };
     },
-    onMessage = message => {
-      let data;
-      try {
-        // try to parse the message
-        data = JSON.parse(message);
-      } catch (error) {
-        // and create a parse error message
-        // if it fails
-        data = {
-          type: 'PARSE_ERROR',
-          payload: { message: error.message }
-        };
-      }
-      // when a event exists for the specified type property
-      if (typeof eventListeners[data.type] === 'function') {
-        // call the attached event listener
-        eventListeners[data.type](data.payload);
-      }
+    onMessage = client => {
+      return message => {
+        let data;
+        try {
+          // try to parse the message
+          data = JSON.parse(message);
+        } catch (error) {
+          // and create a parse error message
+          // if it fails
+          data = {
+            type: 'PARSE_ERROR',
+            payload: { message: error.message }
+          };
+        }
+        // when a event exists for the specified type property
+        if (typeof eventListeners[data.type] === 'function') {
+          // call the attached event listener
+          eventListeners[data.type](client, data.payload);
+        }
+      };
     },
     sendById = (id, message) => {
       // for the client with the specified id

@@ -17,12 +17,12 @@ socketServer.on('CONNECTION_ESTABLISHED', (client) => {
   }));
 });
 
-socketServer.on('CONNECTION_CLOSED', (socketId) => {
-  console.log('CONNECTION_CLOSED', socketId);
+socketServer.on('CONNECTION_CLOSED', () => {
+  //
 });
 
 socketServer.on('CONNECTION_ERROR', () => {
-  console.log('CONNECTION_ERROR');
+  //
 });
 
 socketServer.on('CREATE_PLAYER', (data, socket) => {
