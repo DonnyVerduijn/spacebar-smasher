@@ -3,7 +3,7 @@ const http = require('http');
 const WebSocket = require('ws');
 const uuid = require('uuid4');
 const ClientCollection = require('./ClientCollection');
-const Client = require('./Client');
+const ClientFactory = require('./ClientFactory');
 
 const SocketServer = () => {
   const app = express(express);
@@ -12,32 +12,28 @@ const SocketServer = () => {
 
   app.get('/api/status', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ status: 'available' }));
+    res.send(JSON.stringify({ isAvailable: true }));
   });
 
   const socketServer = new WebSocket.Server({ server });
   const eventListeners = {};
 
-  socketServer.on('error', error => {
-    console.log('SERVER_ERROR', error);
-  });
-
   socketServer.on('connection', (socket, request) => {
     const socketId = uuid();
-    const newClient = Client({
+    const newClient = ClientFactory({
       id: socketId,
       ipAddress: request.connection.remoteAddress,
       socket
     });
-    // add new client to collection
-    clientCollection.add(newClient);
-    console.log(clientCollection.size());
-
     // if connection handler exists
     if (typeof eventListeners.CONNECTION_ESTABLISHED === 'function') {
       // call it with the new client and socket
       eventListeners.CONNECTION_ESTABLISHED(newClient, socket);
     }
+    // add new client to collection
+    clientCollection.add(newClient);
+    console.log('CLIENTS CONNECTED: ', clientCollection.size());
+
 
     // when a message is received
     socket.on('message', message => {

@@ -14,11 +14,14 @@ class Canvas extends Component {
 
     const that = this;
     function step() {
+      // console.log(this);
       if (that.state.isActive) {
         that.update();
       }
       window.requestAnimationFrame(step);
     }
+
+    // ignite
     window.requestAnimationFrame(step);
   }
 
@@ -35,7 +38,10 @@ class Canvas extends Component {
   }
 
   update() {
-    console.log('test');
+    this.clear();
+    // this.elements.forEach(player => {
+    //   this.draw(player);
+    // });
   }
 
   clear() {

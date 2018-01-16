@@ -14,11 +14,11 @@
   },
   "scripts": {
     "preinstall": "npm install -g eslint-cli",
-    "eslint": "eslint \"server/*.js\" \"src/*.js\" --fix",
+    "eslint": "eslint \"server/*.js\" \"src/**/*.js\" --fix",
     "start": "concurrently \"react-scripts start\" \"nodemon server/index.js\"",
     "devserver": "react-scripts start",
     "socketserver": "nodemon server/index.js",
-    "precommit": "eslint \"server/*.js\" \"src/*.js\" --fix",
+    "precommit": "eslint \"server/*.js\" \"src/**/*.js --fix",
     "server": "node server/socket.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -56,7 +56,8 @@
       "ws": true
     },
     "/api/status": {
-      "target": "http://localhost:3001"
+      "target": "http://localhost:3001",
+      "logLevel": "silent"
     }
   }
 }
