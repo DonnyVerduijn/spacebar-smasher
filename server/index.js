@@ -10,11 +10,10 @@ const socketServer = SocketServer();
 const gameCollection = GameCollection();
 const playerCollection = PlayerCollection();
 
-socketServer.on('CONNECTION_ESTABLISHED', (data, socket) => {
-  console.log('CONNECTION_ESTABLISHED', data.getId());
-  socket.send(JSON.stringify({
+socketServer.on('CONNECTION_ESTABLISHED', (client) => {
+  socketServer.sendById(client.getId(), JSON.stringify({
     type: 'CONNECTION_ESTABLISHED',
-    payload: { clientId: data.getId() }
+    payload: { clientId: client.getId() }
   }));
 });
 
