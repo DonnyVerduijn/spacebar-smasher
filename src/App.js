@@ -209,9 +209,7 @@ socketClient.on('CONNECTION_ERROR', () => {
 socketClient.on('CONNECTION_CLOSED', () => {
   console.log('CONNECTION_CLOSED', localState);
 
-  socketClient.connect((result) => {
-    console.log(result);
-  });
+  socketClient.connect();
 });
 
 socketClient.on('PARSE_ERROR', error => {
