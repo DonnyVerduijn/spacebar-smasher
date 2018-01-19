@@ -5,14 +5,17 @@ const Game = data => {
     let players = [];
     let isActive = false;
     let isPaused = false;
-    const { name, createdBy, createdAt } = data;
-    players.push(createdBy);
+    const { name, ownerId, createdAt } = data;
+    players.push(ownerId);
     return {
       getId: () => {
         return id;
       },
       getCreatedAt: () => {
         return createdAt;
+      },
+      getOwnerId: () => {
+        return ownerId;
       },
       removePlayerById: playerId => {
         players = players.filter(player => {

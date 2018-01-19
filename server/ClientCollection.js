@@ -2,7 +2,7 @@ const ClientCollection = () => {
   const clients = {};
 
   const add = client => {
-      clients[client.getId()] = client;
+      clients[client.id] = client;
     },
     forEach = callback => {
       Object.keys(clients).forEach((key, index) => {

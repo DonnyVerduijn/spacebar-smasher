@@ -25,10 +25,10 @@ const ClientState = () => {
   };
 };
 
-const SocketClient = () => {
+export default (function SocketClient() {
   let socket;
   const events = {};
-  const clientState = ClientState(ClientState);
+  const client = ClientState(ClientState);
   const responseLogger = ResponseLogger();
 
   // initialiaze socket
@@ -51,6 +51,12 @@ const SocketClient = () => {
         responseLogger.log(response);
       });
     },
+    getConnectionAvailable = () => {
+      return client.getConnectionAvailable();
+    },
+    getId = () => {
+      return client.getId();
+    },
     instantiateSocket = serverAddress => {
       socket = new WebSocket(serverAddress);
       socket.onmessage = onMessage;
@@ -63,14 +69,14 @@ const SocketClient = () => {
       events[type] = callback;
     },
     onClose = () => {
-      console.log('CONNECTION_CLOSED', { clientId: clientState.getId() });
+      console.log('CONNECTION_CLOSED', { clientId: client.getId() });
       // see if a close handler exists
       if (typeof events.CONNECTION_CLOSED === 'function') {
         // and call it if the case
         events.CONNECTION_CLOSED();
       }
-      clientState.setConnectionAvailable(false);
-      clientState.setId(null);
+      client.setConnectionAvailable(false);
+      client.setId(null);
       // try to reconnect
       connect();
     },
@@ -96,8 +102,8 @@ const SocketClient = () => {
         };
       }
       if (data.type === 'CONNECTION_ESTABLISHED') {
-        clientState.setId(data.payload.clientId);
-        clientState.setConnectionAvailable(true);
+        client.setId(data.payload.clientId);
+        client.setConnectionAvailable(true);
       }
       if (typeof events[data.type] === 'function') {
         // call the attached event listener
@@ -106,8 +112,8 @@ const SocketClient = () => {
       }
     },
     send = message => {
-      if (clientState.getConnectionAvailable()) {
-        socket.send(message);
+      if (client.getConnectionAvailable()) {
+        socket.send(JSON.stringify(message));
       }
     };
 
@@ -117,8 +123,8 @@ const SocketClient = () => {
   // expose public API endpoints
   return {
     on,
-    send
+    send,
+    getId,
+    getConnectionAvailable
   };
-};
-
-export default SocketClient;
+}());

@@ -1,16 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Item.css';
+import Link from './Link';
 
-const Item = ({ label, onClick }) => {
+const Item = ({ id, label, onClick }) => {
   return (
     <li className="Item">
-      <button className="Button" onClick={onClick}>
+      <Link
+        onClick={() => {
+          return onClick(id);
+        }}
+      >
         {label}
-      </button>
+      </Link>
     </li>
   );
 };
 Item.propTypes = {
+  id: PropTypes.number,
   label: PropTypes.string,
   onClick: PropTypes.func
 };

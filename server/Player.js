@@ -2,11 +2,14 @@ const uuid = require('uuid4');
 
 const Player = data => {
     const id = uuid();
-    const { name } = data;
+    const { name, clientId } = data;
     let score = 0;
     return {
       getId: () => {
         return id;
+      },
+      getClientId: () => {
+        return clientId;
       },
       getName: () => {
         return name;

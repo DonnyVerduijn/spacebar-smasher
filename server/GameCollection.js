@@ -10,6 +10,11 @@ const GameCollection = () => {
       getAll: () => {
         return games;
       },
+      getAllByOwnerId: () => {
+        return Object.keys(games).map(key => {
+          return games[key].getOwnerId();
+        });
+      },
       getById: id => {
         return games[id];
       }
