@@ -1,34 +1,24 @@
 import ResponseLogger from './ResponseLogger';
 
 const ClientState = () => {
-  let connectionAvailable = null;
-  let id = null;
-
-  const getConnectionAvailable = () => {
-      return connectionAvailable;
+  const params = {
+    connectionAvailable: {
+      value: null,
+      writable: true
     },
-    getId = () => {
-      return id;
-    },
-    setConnectionAvailable = value => {
-      connectionAvailable = value;
-    },
-    setId = newId => {
-      id = newId;
-    };
-
-  return {
-    getId,
-    setId,
-    getConnectionAvailable,
-    setConnectionAvailable
+    id: {
+      value: null,
+      writable: true
+    }
   };
+
+  return Object.create({}, params);
 };
 
 export default (function SocketClient() {
   let socket;
   const events = {};
-  const client = ClientState(ClientState);
+  const client = ClientState();
   const responseLogger = ResponseLogger();
 
   // initialiaze socket
@@ -52,10 +42,10 @@ export default (function SocketClient() {
       });
     },
     getConnectionAvailable = () => {
-      return client.getConnectionAvailable();
+      return client.connectionAvailable;
     },
     getId = () => {
-      return client.getId();
+      return client.id;
     },
     instantiateSocket = serverAddress => {
       socket = new WebSocket(serverAddress);
@@ -69,23 +59,23 @@ export default (function SocketClient() {
       events[type] = callback;
     },
     onClose = () => {
-      console.log('CONNECTION_CLOSED', { clientId: client.getId() });
+      // console.log('CONNECTION_CLOSED', { clientId: client.getId() });
       // see if a close handler exists
       if (typeof events.CONNECTION_CLOSED === 'function') {
         // and call it if the case
-        events.CONNECTION_CLOSED();
+        events.CONNECTION_CLOSED(client);
       }
-      client.setConnectionAvailable(false);
-      client.setId(null);
+      client.connectionAvailable = false;
+      client.id = null;
       // try to reconnect
       connect();
     },
     onError = error => {
       // if a handler exists
-      console.log('CONNECTION_ERROR', error);
+      // console.log('CONNECTION_ERROR', error);
       if (typeof events.CONNECTION_ERROR === 'function') {
         // call it
-        events.CONNECTION_ERROR(error);
+        events.CONNECTION_ERROR(client, error);
       }
     },
     onMessage = message => {
@@ -102,17 +92,17 @@ export default (function SocketClient() {
         };
       }
       if (data.type === 'CONNECTION_ESTABLISHED') {
-        client.setId(data.payload.clientId);
-        client.setConnectionAvailable(true);
+        client.id = data.payload.id;
+        client.connectionAvailable = true;
       }
       if (typeof events[data.type] === 'function') {
         // call the attached event listener
-        console.log(data.type, data.payload);
+        // console.log(data.type, data.payload);
         events[data.type](data.payload);
       }
     },
     send = message => {
-      if (client.getConnectionAvailable()) {
+      if (client.connectionAvailable) {
         socket.send(JSON.stringify(message));
       }
     };

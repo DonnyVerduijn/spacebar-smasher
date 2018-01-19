@@ -10,23 +10,23 @@ const menuItems = [
   { id: 'HIGHSCORES_BTN', label: 'highscores' }
 ];
 
-const MainMenuWindow = ({ onClick }) => {
+const MainWindow = ({ onClick }) => {
   return (
     <Window>
       <ItemList
         className="Menu"
         items={menuItems}
         onClick={id => {
-          onClick('MAIN_MENU', menuItems[id].id);
+          onClick('MAIN', menuItems[id].id);
         }}
       />
     </Window>
   );
 };
 
-MainMenuWindow.propTypes = {
+MainWindow.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node
 };
 
-export default MainMenuWindow;
+export default MainWindow;

@@ -13,6 +13,7 @@ socketClient.on('CONNECTION_ERROR', (data) => {
 });
 
 socketClient.on('CONNECTION_CLOSED', (data) => {
+  console.log(data);
   store.dispatch(actions.connectionClosed(data));
 });
 

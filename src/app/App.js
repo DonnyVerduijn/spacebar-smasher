@@ -2,19 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
 import Canvas from './../components/Canvas';
-// import AvailableGameWindow from './AvailableGameWindow';
-// import HighScoreWindow from './HighScoreWindow';
-// import LobbyWindow from './LobbyWindow';
-import MainWindowContainer from './../modules/window/containers/MainWindowContainer';
-// import NewGameWindow from './NewGameWindow';
-// import NewUserWindow from './NewUserWindow';
-// import ActiveWindow from './ActiveWindow';
+
+import ActiveWindowContainer from './../modules/window/containers/ActiveWindowContainer';
+
 
 const App = () => {
   return (
     <div className="App">
       <Canvas />
-      <MainWindowContainer/>
+      <ActiveWindowContainer/>
     </div>
   );
 };

@@ -14,7 +14,7 @@ socketServer.on('CONNECTION_ESTABLISHED', client => {
   // send clientId back to the client from the request
   socketServer.sendById(client.id, {
     type: 'CONNECTION_ESTABLISHED',
-    payload: { clientId: client.id }
+    payload: { id: client.id }
   });
 });
 

@@ -12,8 +12,11 @@ export const connectionError = ({ id }) => {
   };
 };
 
-export const connectionClosed = () => {
-  return { type: 'CONNECTION_CLOSED' };
+export const connectionClosed = ({ id }) => {
+  return {
+    type: 'CONNECTION_CLOSED',
+    id
+  };
 };
 
 export const parseError = () => {
