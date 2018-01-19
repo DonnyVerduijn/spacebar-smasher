@@ -1,5 +1,5 @@
 // import files
-import windowState from './menuReducer';
+import windowState from './windowReducer';
 
 // create public api
 export { windowState };

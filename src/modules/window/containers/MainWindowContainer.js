@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import MainMenuWindow from './../../../app/MainMenuWindow';
-import * as actions from './../menuActions';
+import MainWindow from './../../../app/MainWindow';
+import * as actions from './../windowActions';
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -10,4 +10,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(MainMenuWindow);
+export default connect(null, mapDispatchToProps)(MainWindow);

@@ -5,7 +5,7 @@ import Canvas from './../components/Canvas';
 // import AvailableGameWindow from './AvailableGameWindow';
 // import HighScoreWindow from './HighScoreWindow';
 // import LobbyWindow from './LobbyWindow';
-import MainMenuWindowContainer from './../modules/menu/containers/MainMenuWindowContainer';
+import MainWindowContainer from './../modules/window/containers/MainWindowContainer';
 // import NewGameWindow from './NewGameWindow';
 // import NewUserWindow from './NewUserWindow';
 // import ActiveWindow from './ActiveWindow';
@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div className="App">
       <Canvas />
-      <MainMenuWindowContainer/>
+      <MainWindowContainer/>
     </div>
   );
 };
