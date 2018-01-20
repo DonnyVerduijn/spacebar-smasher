@@ -27,7 +27,7 @@ socketServer.on('CONNECTION_ERROR', () => {
 });
 
 socketServer.on('VALIDATE_USER', (client, { name }) => {
-  const result = userCollection.nameExists(name);
+  const result = userCollection.nameExists(name) && name.length > 0;
   client.socket.send(JSON.stringify({
     type: 'USER_VALIDATED',
     payload: {
@@ -56,7 +56,7 @@ socketServer.on('CREATE_USER', (client, { name, clientId }) => {
 });
 
 socketServer.on('VALIDATE_GAME', (client, { name }) => {
-  const result = gameCollection.nameExists(name);
+  const result = gameCollection.nameExists(name) && name.length > 0;
   client.socket.send(JSON.stringify({
     type: 'GAME_VALIDATED',
     payload: {

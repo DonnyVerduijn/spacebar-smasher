@@ -4,3 +4,7 @@
 export const getNameAvailable = (state) => {
     return state.user.nameAvailable;
 };
+
+export const getName = (state) => {
+    return state.user.name;
+};

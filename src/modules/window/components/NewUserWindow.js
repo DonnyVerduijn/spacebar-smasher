@@ -7,11 +7,11 @@ import Button from './../../../components/Button';
 import Flex from './../../../components/Flex';
 import { validateUser } from './../../user/userRequests';
 
-const NewUserWindow = ({ onClick, nameAvailable }) => {
+const NewUserWindow = ({ onClick, name, nameAvailable }) => {
   return (
     <Window>
       <Label>username:</Label>
-      <TextBox onChange={(value) => {
+      <TextBox value={name} onChange={(value) => {
         validateUser({
           name: value
         });
@@ -39,6 +39,7 @@ const NewUserWindow = ({ onClick, nameAvailable }) => {
 
 NewUserWindow.propTypes = {
   onClick: PropTypes.func,
+  name: PropTypes.string,
   nameAvailable: PropTypes.bool
 };
 

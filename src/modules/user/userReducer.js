@@ -11,7 +11,8 @@ const userReducer = (user = userState, action) => {
     case 'USER_VALIDATED':
       console.log(action);
       return Object.assign({}, user, {
-        nameAvailable: action.nameAvailable
+        nameAvailable: action.nameAvailable,
+        name: action.name
       });
     default:
       return user;

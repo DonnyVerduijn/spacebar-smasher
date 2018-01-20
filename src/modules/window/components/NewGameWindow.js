@@ -40,7 +40,7 @@ const NewGameWindow = ({ onClick, nameAvailable }) => {
 
 NewGameWindow.propTypes = {
   onClick: PropTypes.func,
-  gameAvailable: PropTypes.bool
+  nameAvailable: PropTypes.bool
 };
 
 export default NewGameWindow;
