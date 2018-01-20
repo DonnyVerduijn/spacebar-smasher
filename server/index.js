@@ -1,14 +1,14 @@
 const SocketServer = require('./SocketServer');
 
-const Player = require('./Player');
-const PlayerCollection = require('./PlayerCollection');
+const User = require('./User');
+const UserCollection = require('./UserCollection');
 const Game = require('./Game');
 const GameCollection = require('./GameCollection');
 
 // create instances
 const socketServer = SocketServer();
 const gameCollection = GameCollection();
-const playerCollection = PlayerCollection();
+const userCollection = UserCollection();
 
 socketServer.on('CONNECTION_ESTABLISHED', client => {
   // send clientId back to the client from the request
@@ -26,18 +26,28 @@ socketServer.on('CONNECTION_ERROR', () => {
   // quit game
 });
 
-socketServer.on('CREATE_USER', (client, { name, clientId }) => {
-  if (!playerCollection.playerExistsByClientId(clientId)) {
-    const player = Player({ name, clientId });
-    playerCollection.add(player);
+socketServer.on('VALIDATE_USER', (client, { name }) => {
+  const result = userCollection.userByNameExists(name);
+  client.socket.send(JSON.stringify({
+    type: 'USER_VALIDATED',
+    payload: {
+      userNameAvailable: result
+    }
+  }));
+});
 
-    console.log('USER_CREATED', player.getId());
+socketServer.on('CREATE_USER', (client, { name, clientId }) => {
+  if (!userCollection.userByClientIdExists(clientId)) {
+    const user = User({ name, clientId });
+    userCollection.add(user);
+
+    console.log('USER_CREATED', user.getId());
     client.socket.send(
       JSON.stringify({
         type: 'USER_CREATED',
         payload: {
-          id: player.getId(),
-          name: player.getName()
+          id: user.getId(),
+          name: user.getName()
         }
       })
     );
@@ -48,7 +58,7 @@ socketServer.on('CREATE_GAME', (client, data) => {
   console.log(gameCollection.getAllByOwnerId());
   console.log(data);
   const game = Game({
-    ownerId: data.playerId,
+    ownerId: data.userId,
     createdAt: Date.now(),
     name: data.name
   });
@@ -68,7 +78,7 @@ socketServer.on('CREATE_GAME', (client, data) => {
 });
 socketServer.on('JOIN_GAME', (client, data) => {
   const game = gameCollection.getById(data.gameId);
-  game.addPlayer(data.playerId);
+  game.addUser(data.userId);
   client.socket.send(
     JSON.stringify({
       type: 'GAME_JOINED',
@@ -104,14 +114,14 @@ socketServer.on('RESUME_GAME', (client, data) => {
 socketServer.on('QUIT_GAME', (client, data) => {
   const game = gameCollection.getById(data.gameId);
   game.setIsActive(false);
-  // game.getPlayerIds().forEach(playerId => {
-  //   playerCollection.getById(playerId).getScore();
+  // game.getUserIds().forEach(userId => {
+  //   userCollection.getById(userId).getScore();
   // });
   client.socket.send(JSON.stringify({ type: 'GAME_QUIT' }));
 });
 socketServer.on('EXIT_GAME', data => {
   console.log(data);
 });
-socketServer.on('PLAYER_ACTION', data => {
+socketServer.on('USER_ACTION', data => {
   console.log(data);
 });

@@ -2,15 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Button.css';
 
-const Button = ({ onClick, label, className, children }) => {
-    return <button className={`Button ${className}`} onClick={onClick}>{label || children}</button>;
+const Button = ({ onClick, disabled, label, className, children }) => {
+  return (
+    <button
+      className={`Button ${className}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {label || children}
+    </button>
+  );
 };
 
 Button.propTypes = {
-    onClick: PropTypes.func,
-    label: PropTypes.string,
-    className: PropTypes.string,
-    children: PropTypes.string
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  label: PropTypes.string,
+  className: PropTypes.string,
+  children: PropTypes.string
 };
 
 export default Button;

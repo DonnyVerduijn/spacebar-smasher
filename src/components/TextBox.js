@@ -8,7 +8,9 @@ export const TextBox = ({ onChange }) => {
       className="TextBox"
       type="text"
       spellCheck="false"
-      onChange={onChange}
+      onChange={(e) => {
+        onChange(e.target.value);
+      }}
     />
   );
 };

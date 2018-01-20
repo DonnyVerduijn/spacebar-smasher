@@ -20,15 +20,6 @@ class NewGameWindow extends Component {
       actions.createUser(name);
     }
 
-    createPlayer(name) {
-      actions.createPlayer(name);
-    }
-
-    sendFormData() {
-      this.createUser(this.state.userName);
-      this.createPlayer(this.state.gameName);
-    }
-
     handleChange(event) {
       this.setState({ [event.target.name]: event.target.value });
     }

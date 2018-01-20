@@ -8,7 +8,7 @@ export const createGame = name => {
     type: 'CREATE_GAME',
     payload: {
       name
-      // playerId,
+      // userId,
     }
   });
 };

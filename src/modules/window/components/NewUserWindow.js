@@ -5,12 +5,17 @@ import Label from './../../../components/Label';
 import TextBox from './../../../components/TextBox';
 import Button from './../../../components/Button';
 import Flex from './../../../components/Flex';
+import { validateUser } from './../../user/userRequests';
 
-const NewUserWindow = ({ onClick }) => {
+const NewUserWindow = ({ onClick, userNameAvailable }) => {
   return (
     <Window>
       <Label>username:</Label>
-      <TextBox />
+      <TextBox onChange={(value) => {
+        validateUser({
+          name: value
+        });
+      }}/>
       <Flex justifyContent="space-between">
         <Button
           label="back"
@@ -20,6 +25,7 @@ const NewUserWindow = ({ onClick }) => {
           }}
         />
         <Button
+          disabled={!userNameAvailable}
           label="next"
           className="Raised"
           onClick={() => {
@@ -31,6 +37,9 @@ const NewUserWindow = ({ onClick }) => {
   );
 };
 
-NewUserWindow.propTypes = { onClick: PropTypes.func };
+NewUserWindow.propTypes = {
+  onClick: PropTypes.func,
+  userNameAvailable: PropTypes.bool
+};
 
 export default NewUserWindow;

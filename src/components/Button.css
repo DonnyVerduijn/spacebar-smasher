@@ -21,9 +21,15 @@
   .Button.Raised{
     border: 1px solid white;
   }
+
+  .Button:disabled{
+    color: rgb(68, 68, 68) !important;
+    border-color: rgb(88, 88, 88) !important;
+    cursor: default;
+  }
   
   .Button.Raised:hover{
-    color: rgb(138, 90, 67);
-    border-color: rgb(138, 90, 67);
+    color: rgb(153, 93, 65);
+    border-color: rgb(153, 93, 65);
   }
  

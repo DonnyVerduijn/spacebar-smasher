@@ -1,4 +1,4 @@
-import socketClient from './../utils/SocketClient';
+import socketClient from './../../utils/SocketClient';
 
 export const createUser = name => {
   socketClient.send({
@@ -14,9 +14,13 @@ export const createUser = name => {
 export const updateUser = user => {
   socketClient.send({
     type: 'UPDATE_USER',
-    payload: {
-      user,
-      clientId: socketClient.getId()
-    }
+    payload: user
+  });
+};
+
+export const validateUser = user => {
+  socketClient.send({
+    type: 'VALIDATE_USER',
+    payload: user
   });
 };

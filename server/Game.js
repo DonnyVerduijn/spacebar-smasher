@@ -2,11 +2,11 @@ const uuid = require('uuid4');
 
 const Game = data => {
     const id = uuid();
-    let players = [];
+    let users = [];
     let isActive = false;
     let isPaused = false;
     const { name, ownerId, createdAt } = data;
-    players.push(ownerId);
+    users.push(ownerId);
     return {
       getId: () => {
         return id;
@@ -17,13 +17,13 @@ const Game = data => {
       getOwnerId: () => {
         return ownerId;
       },
-      removePlayerById: playerId => {
-        players = players.filter(player => {
-          return player.id !== playerId;
+      removeUserById: userId => {
+        users = users.filter(user => {
+          return user.id !== userId;
         });
       },
-      getPlayerIds: () => {
-        return players.slice();
+      getUserIds: () => {
+        return users.slice();
       },
       getName: () => {
         return name;

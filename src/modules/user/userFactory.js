@@ -1,4 +1,4 @@
-// Player prototype
+// User prototype
 const proto = {
   setScore(value) {
     this.score = value;
@@ -8,7 +8,7 @@ const proto = {
   }
 };
 
-const PlayerFactory = options => {
+const UserFactory = options => {
   return Object.create(proto, {
     id: { value: options.id, writable: false },
     name: { value: options.name || '' },
@@ -35,4 +35,4 @@ const PlayerFactory = options => {
   });
 };
 
-export default PlayerFactory;
+export default UserFactory;

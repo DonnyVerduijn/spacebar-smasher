@@ -39,8 +39,8 @@ class Canvas extends Component {
 
   update() {
     this.clear();
-    // this.elements.forEach(player => {
-    //   this.draw(player);
+    // this.elements.forEach(user => {
+    //   this.draw(user);
     // });
   }
 

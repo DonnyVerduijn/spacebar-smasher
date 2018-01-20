@@ -15,12 +15,12 @@ socketClient.on('GAME_STARTED', (data) => {
 });
 
 socketClient.on('GAME_PAUSED', (data) => {
-  // player in game has game paused
+  // user in game has game paused
   store.dispatch(actions.gamePaused(data));
 });
 
 socketClient.on('GAME_RESUMED', (data) => {
-  // player in game has game resumed
+  // user in game has game resumed
   store.dispatch(actions.gameResumed(data));
 });
 

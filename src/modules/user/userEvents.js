@@ -10,4 +10,8 @@ export default (function userEvents() {
   socketClient.on('USER_UPDATED', data => {
     store.dispatch(actions.userUpdated(data));
   });
+
+  socketClient.on('USER_VALIDATED', data => {
+    store.dispatch(actions.userValidated(data));
+  });
 }());

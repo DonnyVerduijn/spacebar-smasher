@@ -8,3 +8,10 @@ export const userCreated = () => {
 export const userUpdated = () => {
     return { type: 'USER_UPDATED' };
 };
+
+export const userValidated = ({ userNameAvailable }) => {
+    return { 
+        type: 'USER_VALIDATED',
+        userNameAvailable
+    };
+};
