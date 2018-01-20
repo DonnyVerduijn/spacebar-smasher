@@ -1,4 +1,4 @@
 
-export const getGameNameAvailable = (state) => {
-    return state.game.gameNameAvailable;
+export const getNameAvailable = (state) => {
+    return state.game.nameAvailable;
 };

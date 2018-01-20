@@ -7,7 +7,7 @@ import Button from './../../../components/Button';
 import Flex from './../../../components/Flex';
 import { validateUser } from './../../user/userRequests';
 
-const NewUserWindow = ({ onClick, userNameAvailable }) => {
+const NewUserWindow = ({ onClick, nameAvailable }) => {
   return (
     <Window>
       <Label>username:</Label>
@@ -25,7 +25,7 @@ const NewUserWindow = ({ onClick, userNameAvailable }) => {
           }}
         />
         <Button
-          disabled={!userNameAvailable}
+          disabled={!nameAvailable}
           label="next"
           className="Raised"
           onClick={() => {
@@ -39,7 +39,7 @@ const NewUserWindow = ({ onClick, userNameAvailable }) => {
 
 NewUserWindow.propTypes = {
   onClick: PropTypes.func,
-  userNameAvailable: PropTypes.bool
+  nameAvailable: PropTypes.bool
 };
 
 export default NewUserWindow;

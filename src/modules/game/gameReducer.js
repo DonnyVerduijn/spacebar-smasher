@@ -4,7 +4,7 @@ const gameReducer = (state = gameState, action) => {
     switch (action.type) {
         case 'GAME_VALIDATED':
         return Object.assign({}, state, {
-            gameNameAvailable: action.gameNameAvailable
+            nameAvailable: action.nameAvailable
         });
         case 'GAME_CREATED':
         return state;

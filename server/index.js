@@ -31,7 +31,8 @@ socketServer.on('VALIDATE_USER', (client, { name }) => {
   client.socket.send(JSON.stringify({
     type: 'USER_VALIDATED',
     payload: {
-      userNameAvailable: result
+      name,
+      nameAvailable: result
     }
   }));
 });
@@ -41,13 +42,13 @@ socketServer.on('CREATE_USER', (client, { name, clientId }) => {
     const user = User({ name, clientId });
     userCollection.add(user);
 
-    console.log('USER_CREATED', user.getId());
+    console.log('USER_CREATED', user.id);
     client.socket.send(
       JSON.stringify({
         type: 'USER_CREATED',
         payload: {
-          id: user.getId(),
-          name: user.getName()
+          id: user.id,
+          name: user.name
         }
       })
     );
@@ -59,7 +60,7 @@ socketServer.on('VALIDATE_GAME', (client, { name }) => {
   client.socket.send(JSON.stringify({
     type: 'GAME_VALIDATED',
     payload: {
-      gameNameAvailable: result
+      nameAvailable: result
     }
   }));
 });
@@ -77,8 +78,8 @@ socketServer.on('CREATE_GAME', (client, data) => {
     JSON.stringify({
       type: 'GAME_CREATED',
       payload: {
-        id: game.getId(),
-        name: game.getName(),
+        id: game.id,
+        name: game.name,
         ownerId: game.getOwnerId()
       }
     })
@@ -92,7 +93,7 @@ socketServer.on('JOIN_GAME', (client, data) => {
   client.socket.send(
     JSON.stringify({
       type: 'GAME_JOINED',
-      payload: { gameId: game.getId() }
+      payload: { gameId: game.id }
     })
   );
 });
@@ -102,7 +103,7 @@ socketServer.on('START_GAME', (client, data) => {
   client.socket.send(
     JSON.stringify({
       type: 'GAME_STARTED',
-      payload: { gameId: game.getId() }
+      payload: { gameId: game.id }
     })
   );
 });
@@ -112,7 +113,7 @@ socketServer.on('PAUSE_GAME', (client, data) => {
   client.socket.send(
     JSON.stringify({
       type: 'GAME_PAUSED',
-      payload: { gameId: game.getId() }
+      payload: { gameId: game.id }
     })
   );
 });

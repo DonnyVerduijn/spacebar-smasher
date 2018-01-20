@@ -1,7 +1,7 @@
-export const gameValidated = ({ gameNameAvailable }) => {
+export const gameValidated = (game) => {
   return {
     type: 'GAME_VALIDATED',
-    gameNameAvailable
+    ...game
   };
 };
 
