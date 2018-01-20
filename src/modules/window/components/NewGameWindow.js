@@ -1,64 +1,46 @@
-
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import * as actions from './actionCreators';
+import Window from './../../../components/Window';
+import Label from './../../../components/Label';
+import TextBox from './../../../components/TextBox';
+import Button from './../../../components/Button';
+import Flex from './../../../components/Flex';
+import { validateGame } from './../../game/gameRequests';
 
-class NewGameWindow extends Component {
-    constructor(props) {
-      super(props);
-      this.formData = {};
-      this.state = {
-        userName: '',
-        gameName: ''
-      };
+const NewGameWindow = ({ onClick, gameNameAvailable }) => {
+  console.log(gameNameAvailable);
+  return (
+    <Window>
+      <Label>gamename:</Label>
+      <TextBox onChange={(value) => {
+        validateGame({
+          name: value
+        });
+      }}/>
+      <Flex justifyContent="space-between">
+        <Button
+          label="back"
+          className="Flat"
+          onClick={() => {
+            return onClick('NEW_GAME', 'BACK_BTN');
+          }}
+        />
+        <Button
+          disabled={!gameNameAvailable}
+          label="next"
+          className="Raised"
+          onClick={() => {
+            return onClick('NEW_GAME', 'NEXT_BTN');
+          }}
+        />
+      </Flex>
+    </Window>
+  );
+};
 
-      this.handleChange = this.handleChange.bind(this);
-      this.sendFormData = this.sendFormData.bind(this);
-    }
+NewGameWindow.propTypes = {
+  onClick: PropTypes.func,
+  gameNameAvailable: PropTypes.bool
+};
 
-    createUser(name) {
-      actions.createUser(name);
-    }
-
-    handleChange(event) {
-      this.setState({ [event.target.name]: event.target.value });
-    }
-
-    render() {
-      return (
-        <div className="Window">
-          <h1 className="Title">Sp_cebar smɅsher</h1>
-          <form>
-            <label>username:</label>
-            <input
-              type="text"
-              name="userName"
-              value={this.state.userName}
-              onChange={this.handleChange}
-            />
-            <label>gamename:</label>
-            <input
-              type="text"
-              name="gameName"
-              value={this.state.gameName}
-              onChange={this.handleChange}
-            />
-          </form>
-          <button
-            className="LinkButton left"
-            onClick={() => {
-              this.props.onClickBackBtn('main');
-            }}
-          >
-            back
-          </button>
-          <button className="right" onClick={this.sendFormData}>
-            Next
-          </button>
-        </div>
-      );
-    }
-  }
-
-  NewGameWindow.propTypes = { onClickBackBtn: PropTypes.func };
-
+export default NewGameWindow;

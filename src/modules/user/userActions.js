@@ -10,7 +10,7 @@ export const userUpdated = () => {
 };
 
 export const userValidated = ({ userNameAvailable }) => {
-    return { 
+    return {
         type: 'USER_VALIDATED',
         userNameAvailable
     };

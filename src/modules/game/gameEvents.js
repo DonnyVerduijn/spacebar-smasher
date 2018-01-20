@@ -4,6 +4,11 @@ import * as actions from './gameActions';
 
 // these events are called by the server
 export default (function gameEvents() {
+socketClient.on('GAME_VALIDATED', (data) => {
+  // user has game created
+  store.dispatch(actions.gameValidated(data));
+});
+
 socketClient.on('GAME_CREATED', (data) => {
   // user has game created
   store.dispatch(actions.gameCreated(data));

@@ -2,7 +2,7 @@ const GameCollection = () => {
     const games = {};
     return {
       add: game => {
-        games[game.getId()] = game;
+        games[game.id] = game;
       },
       removeById: gameId => {
         games[gameId] = undefined;
@@ -12,11 +12,20 @@ const GameCollection = () => {
       },
       getAllByOwnerId: () => {
         return Object.keys(games).map(key => {
-          return games[key].getOwnerId();
+          return games[key].ownerId;
         });
       },
       getById: id => {
         return games[id];
+      },
+      nameExists: name => {
+        const gameNames = Object.keys(games).map(key => {
+          return games[key];
+        });
+        gameNames.push({ name: 'game' });
+        return gameNames.every(game => {
+          return game.name !== name;
+        });
       }
     };
   };

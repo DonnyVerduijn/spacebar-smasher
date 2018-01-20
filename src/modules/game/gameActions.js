@@ -1,3 +1,10 @@
+export const gameValidated = ({ gameNameAvailable }) => {
+  return {
+    type: 'GAME_VALIDATED',
+    gameNameAvailable
+  };
+};
+
 export const gameCreated = () => {
   return { type: 'GAME_CREATED' };
 };

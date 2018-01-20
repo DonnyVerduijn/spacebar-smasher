@@ -1,6 +1,11 @@
+import gameState from './gameState.json';
 
-const gameReducer = (state = {}, action) => {
+const gameReducer = (state = gameState, action) => {
     switch (action.type) {
+        case 'GAME_VALIDATED':
+        return Object.assign({}, state, {
+            gameNameAvailable: action.gameNameAvailable
+        });
         case 'GAME_CREATED':
         return state;
         case 'GAME_STARTED':

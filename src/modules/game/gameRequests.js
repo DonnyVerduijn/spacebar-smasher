@@ -1,4 +1,4 @@
-import socketClient from './../utils/SocketClient';
+import socketClient from './../../utils/SocketClient';
 
 // these actions are used only
 // to send data or requests to the server
@@ -15,6 +15,14 @@ export const createGame = name => {
 
 export const startGame = () => {
   socketClient.send({ type: 'START_GAME' });
+};
+
+export const validateGame = ({ name }) => {
+  socketClient.send({ type: 'VALIDATE_GAME',
+    payload: {
+      name
+    }
+  });
 };
 
 export const pauseGame = () => {

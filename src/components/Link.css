@@ -1,8 +1,8 @@
 .Link{
     text-decoration: none;
     color: black;
-    font-size: 3em;
-    line-height: 1em;
+    font-size: 2.5em;
+    line-height: 1.25em;
     width: 100%;
     padding: .25em 0;
     background: none;
@@ -11,7 +11,7 @@
     text-decoration: none;
     text-transform: lowercase;
     font-variant: small-caps;
-    font-weight: 300;
+    font-weight: 900;
     padding: 0;
     margin: 0, 0, .5em 0;
     transition: color 0.1s ease-in-out;

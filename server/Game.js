@@ -1,46 +1,73 @@
 const uuid = require('uuid4');
 
+const proto = {
+  getId() {
+    return this.id;
+  },
+  getCreatedAt() {
+    return this.createdAt;
+  },
+  getOwnerId() {
+    return this.ownerId;
+  },
+  removeUserById(userId) {
+    this.users = this.users.filter(user => {
+      return user.id !== userId;
+    });
+  },
+  getUserIds() {
+    return this.users.slice();
+  },
+  getName() {
+    return this.name;
+  },
+  getIsActive() {
+    return this.isActive;
+  },
+  setIsActive(value) {
+    this.isActive = value;
+  },
+  getIsPaused() {
+    return this.isPaused;
+  },
+  setIsPaused(value) {
+    this.isPaused = value;
+  }
+};
+
 const Game = data => {
-    const id = uuid();
-    let users = [];
-    let isActive = false;
-    let isPaused = false;
-    const { name, ownerId, createdAt } = data;
-    users.push(ownerId);
-    return {
-      getId: () => {
-        return id;
+
+    const params = {
+      id: {
+        value: uuid(),
+        writable: false
       },
-      getCreatedAt: () => {
-        return createdAt;
+      users: {
+        users: [data.ownerId],
+        writable: true
       },
-      getOwnerId: () => {
-        return ownerId;
+      isActive: {
+        value: false,
+        writable: true
       },
-      removeUserById: userId => {
-        users = users.filter(user => {
-          return user.id !== userId;
-        });
+      isPaused: {
+        value: false,
+        writable: true
       },
-      getUserIds: () => {
-        return users.slice();
+      name: {
+        value: data.name,
+        writable: true
       },
-      getName: () => {
-        return name;
+      createdAt: {
+        value: Date.now(),
+        writable: false
       },
-      getIsActive: () => {
-        return isActive;
-      },
-      setIsActive: value => {
-        isActive = value;
-      },
-      getIsPaused: () => {
-        return isPaused;
-      },
-      setIsPaused: value => {
-        isPaused = value;
+      ownerId: {
+        value: data.ownerId
       }
     };
+
+    return Object.create(proto, params);
   };
 
   module.exports = Game;

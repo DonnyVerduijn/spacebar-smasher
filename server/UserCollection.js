@@ -21,7 +21,7 @@ const UserCollection = () => {
     getById: id => {
       return users[id];
     },
-    userByClientIdExists: clientId => {
+    clientIdExists: clientId => {
       return Boolean(Object.keys(users)
         .map(key => {
           return users[key];
@@ -30,7 +30,7 @@ const UserCollection = () => {
           return user.clientId === clientId;
         }));
     },
-    userByNameExists: name => {
+    nameExists: name => {
       const userNames = Object.keys(users).map(key => {
         return users[key];
       });
