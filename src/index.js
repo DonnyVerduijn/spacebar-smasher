@@ -6,7 +6,7 @@ import './index.css';
 import App from './app/App';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import registerServiceWorker from './registerServiceWorker';
-import store from './createStore';
+import store from './utils/ReduxStore';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941

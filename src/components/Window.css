@@ -3,7 +3,7 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: rgb(19, 19, 19);
+    background: rgba(0, 0, 0, 0.65);
     padding: 2.5em;
     border-radius: .25em;
     /* border: 1em white outset */

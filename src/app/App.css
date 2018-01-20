@@ -3,17 +3,3 @@
   width: 100%;
   height: 100%;
 }
-
-
-
-
-.LinkButton{
-  border: 0;
-  background: none;
-  padding: .75em 0;
-}
-
-.LinkButton:hover {
-  background: none;
-  /* border-bottom: 2px solid white; */
-}

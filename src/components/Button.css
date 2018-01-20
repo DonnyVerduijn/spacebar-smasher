@@ -11,19 +11,19 @@
     cursor: pointer;
     padding: .5em 1.25em;
     border-radius: .25em;
-    transition: background-color .15s ease-in-out
+    transition: border-color color .15s ease-in-out
   }
    
   .Button.Flat:hover{
-    background: rgba(0,0,0,0.25);
+    color: rgb(138, 90, 67);
   }
 
   .Button.Raised{
-    background: rgba(0,0,0,0.25);;
     border: 1px solid white;
   }
   
   .Button.Raised:hover{
-    background: rgba(0,0,0,1);
+    color: rgb(138, 90, 67);
+    border-color: rgb(138, 90, 67);
   }
  
