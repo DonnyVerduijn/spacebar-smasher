@@ -1,0 +1,29 @@
+.Button{
+    /* display: block; */
+    font-size: 1em;
+    background: none;
+    font-weight: 400;
+    color: white;
+    border: none;
+    text-transform: lowercase;
+    font-variant: small-caps;
+    outline: none;
+    cursor: pointer;
+    padding: .5em 1.25em;
+    border-radius: .25em;
+    transition: background-color .15s ease-in-out
+  }
+   
+  .Button.Flat:hover{
+    background: rgba(0,0,0,0.25);
+  }
+
+  .Button.Raised{
+    background: rgba(0,0,0,0.25);;
+    border: 1px solid white;
+  }
+  
+  .Button.Raised:hover{
+    background: rgba(0,0,0,1);
+  }
+ 

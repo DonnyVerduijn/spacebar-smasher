@@ -3,16 +3,10 @@ import PropTypes from 'prop-types';
 import './Item.css';
 import Link from './Link';
 
-const Item = ({ id, label, onClick }) => {
+const Item = ({ label, onClick }) => {
   return (
     <li className="Item">
-      <Link
-        onClick={() => {
-          return onClick(id);
-        }}
-      >
-        {label}
-      </Link>
+      <Link onClick={onClick}>{label}</Link>
     </li>
   );
 };

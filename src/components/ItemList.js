@@ -8,10 +8,12 @@ const ItemList = ({ className, items, onClick }) => {
     <ul className={`ItemList ${className}`}>
       {items.map((item, index) => {
         return (
-          <Item key={index}
-          id={index}
-          label={item.label}
-          onClick={onClick}
+          <Item
+            key={index}
+            label={item.label}
+            onClick={() => {
+              return onClick(item.id);
+            }}
           />
         );
       })}

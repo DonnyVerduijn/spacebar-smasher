@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Window from './../components/Window';
-import ItemList from './../components/ItemList';
-import './../components/Window.css';
+import Window from './../../../components/Window';
+import ItemList from './../../../components/ItemList';
 
 const menuItems = [
-  { id: 'NEW_GAME_BTN', label: 'new game' },
-  { id: 'JOIN_GAME_BTN', label: 'join game' },
-  { id: 'HIGHSCORES_BTN', label: 'highscores' }
+  { id: 'NEW_GAME_BTN', label: 'New game' },
+  { id: 'JOIN_GAME_BTN', label: 'Join game' },
+  { id: 'HIGHSCORES_BTN', label: 'Highscores' }
 ];
 
 const MainWindow = ({ onClick }) => {
@@ -17,7 +16,7 @@ const MainWindow = ({ onClick }) => {
         className="Menu"
         items={menuItems}
         onClick={id => {
-          onClick('MAIN', menuItems[id].id);
+          onClick('MAIN', id);
         }}
       />
     </Window>

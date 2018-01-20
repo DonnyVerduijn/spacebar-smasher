@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './App.css';
 import Canvas from './../components/Canvas';
-
 import ActiveWindowContainer from './../modules/window/containers/ActiveWindowContainer';
 
 

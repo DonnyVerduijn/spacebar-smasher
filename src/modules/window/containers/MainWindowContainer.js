@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import MainWindow from './../../../app/MainWindow';
+import MainWindow from './../components/MainWindow';
 import * as actions from './../windowActions';
 
 const mapDispatchToProps = dispatch => {

@@ -1,41 +1,36 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-import Window from './../components/Window';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Window from './../../../components/Window';
+import Label from './../../../components/Label';
+import TextBox from './../../../components/TextBox';
+import Button from './../../../components/Button';
+import Flex from './../../../components/Flex';
 
-class NewUserWindow extends Component {
-  constructor(props) {
-    super(props);
-    this.formData = {};
-    this.state = {
-      userName: '',
-      gameName: ''
-    };
-  }
+const NewUserWindow = ({ onClick }) => {
+  return (
+    <Window>
+      <Label>username:</Label>
+      <TextBox />
+      <Flex justifyContent="space-between">
+        <Button
+          label="back"
+          className="Flat"
+          onClick={() => {
+            return onClick('NEW_USER', 'BACK_BTN');
+          }}
+        />
+        <Button
+          label="next"
+          className="Raised"
+          onClick={() => {
+            return onClick('NEW_USER', 'NEXT_BTN');
+          }}
+        />
+      </Flex>
+    </Window>
+  );
+};
 
-  sendFormData() {
-    this.createUser(this.state.userName);
-    this.createPlayer(this.state.gameName);
-  }
+NewUserWindow.propTypes = { onClick: PropTypes.func };
 
-  handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
-  }
-
-  render() {
-    return (
-      <Window>
-        <form>
-          <label>username:</label>
-          <input
-            type="text"
-            name="userName"
-            value={this.state.userName}
-            onChange={this.handleChange}
-          />
-        </form>
-      </Window>
-    );
-  }
-}
-
-NewUserWindow.propTypes = {};
+export default NewUserWindow;

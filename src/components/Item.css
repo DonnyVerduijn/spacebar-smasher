@@ -1,16 +1,5 @@
 
 
 .Item{
-    width: 100%;
-    padding: .25em 0;
-    background: none;
-    color: black;
-    text-transform: lowercase;
-    /* margin: 0; */
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-
-    padding: 0;
-    margin: 0, 0, .5em 0;
+  
 }

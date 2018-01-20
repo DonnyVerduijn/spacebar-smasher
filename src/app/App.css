@@ -4,56 +4,8 @@
   height: 100%;
 }
 
-label{
-  display:block;
-  text-align: left;
-  margin-bottom: .5em;
-  width: 100%;
-  font-size: 1em;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: rgba(0,0,0,1);
-}
 
-.InputText{
-  margin-bottom: 1em;
-  width: 100%;
-  padding: .25em 0;
-  font-size: 1.5em;
-  font-weight: bold;
-  background: none;
-  border-width: 0 0 2px 0;
-  outline: 0;
-  color: white;
-}
 
-.Button{
-  display: block;
-  /* width: 100%; */
-  font-size: 1em;
-  background: rgba(0,0,0,0.25);;
-  border: 2px solid white;
-  font-weight: bold;
-  color: white;
-  border-radius: .1em;
-  /* font-variant: small-caps; */
-  text-transform: uppercase;
-  padding: .75em 1em;
-  outline: none;
-  cursor: pointer;
-}
-
-.Button:hover{
-  background: rgba(0,0,0,1);
-}
-
-.right{
-  float: right;
-}
-
-.left{
-  float: left;
-}
 
 .LinkButton{
   border: 0;

@@ -1,0 +1,9 @@
+.Label{
+    display:block;
+    text-align: left;
+    width: 100%;
+    font-size: 1em;
+    font-weight: 300;
+    text-transform: capitalize;
+    color: rgb(82, 92, 100);
+  }

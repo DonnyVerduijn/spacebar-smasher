@@ -12,10 +12,11 @@ import GameOverWindowContainer from './../containers/GameOverWindowContainer.js'
 
 
 const getActiveWindow = (active) => {
+    console.log(active);
     switch (active) {
         case 'MAIN':
         return <MainWindowContainer/>;
-        case 'NEW_USer':
+        case 'NEW_USER':
         return <NewUserWindowContainer/>;
         case 'NEW_GAME':
         return <NewGameWindowContainer/>;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import NewUserWindow from './../../../app/NewUserWindow';
-import * as actions from './../menuActions';
+import NewUserWindow from './../components/NewUserWindow';
+import * as actions from './../windowActions';
 
 const mapDispatchToProps = dispatch => {
   return {

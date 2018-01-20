@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import 'typeface-roboto';
 import './index.css';
 import App from './app/App';
 import injectTapEventPlugin from 'react-tap-event-plugin';
