@@ -3,14 +3,16 @@ import socketClient from './../../utils/SocketClient';
 // these actions are used only
 // to send data or requests to the server
 
-export const createGame = name => {
-  socketClient.send({
-    type: 'CREATE_GAME',
-    payload: {
-      name
-      // userId,
-    }
-  });
+export const createGame = (dispatch, getState) => {
+  return game => {
+    socketClient.send({
+      type: 'CREATE_GAME',
+      payload: {
+        ...game,
+        users: getState().user.id
+      }
+    });
+  };
 };
 
 export const startGame = () => {
@@ -18,7 +20,8 @@ export const startGame = () => {
 };
 
 export const validateGame = ({ name }) => {
-  socketClient.send({ type: 'VALIDATE_GAME',
+  socketClient.send({
+    type: 'VALIDATE_GAME',
     payload: {
       name
     }

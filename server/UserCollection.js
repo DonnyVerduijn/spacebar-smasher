@@ -18,6 +18,11 @@ const UserCollection = () => {
         return users[key].clientId;
       });
     },
+    getByClientId: (clientId) => {
+      return Object.keys(users).find(key => {
+        return users[key].clientId === clientId;
+      });
+    },
     getById: id => {
       return users[id];
     },

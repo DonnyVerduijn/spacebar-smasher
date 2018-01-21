@@ -24,15 +24,4 @@ Navigation.propTypes = {
   labelNext: PropTypes.String
 };
 
-Navigation.defaultProps = {
-  onClickBack: () => {
-    console.log('back');
-  },
-  onclickNext: () => {
-    console.log('next');
-  },
-  labelBack: 'back',
-  labelNext: 'next'
-};
-
 export default Navigation;

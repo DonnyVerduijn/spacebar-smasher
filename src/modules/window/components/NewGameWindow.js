@@ -7,8 +7,7 @@ import Button from './../../../components/Button';
 import Flex from './../../../components/Flex';
 import { validateGame } from './../../game/gameRequests';
 
-const NewGameWindow = ({ onClick, nameAvailable }) => {
-  console.log(nameAvailable);
+const NewGameWindow = ({ onClick, name, nameAvailable }) => {
   return (
     <Window>
       <Label>gamename:</Label>
@@ -22,7 +21,11 @@ const NewGameWindow = ({ onClick, nameAvailable }) => {
           label="back"
           className="Flat"
           onClick={() => {
-            return onClick('NEW_GAME', 'BACK_BTN');
+            return onClick({
+              windowId: 'NEW_GAME',
+              itemId: 'BACK_BTN',
+              name
+            });
           }}
         />
         <Button
@@ -30,7 +33,11 @@ const NewGameWindow = ({ onClick, nameAvailable }) => {
           label="next"
           className="Raised"
           onClick={() => {
-            return onClick('NEW_GAME', 'NEXT_BTN');
+            return onClick({
+              windowId: 'NEW_GAME',
+              itemId: 'NEXT_BTN',
+              name
+            });
           }}
         />
       </Flex>
@@ -40,6 +47,7 @@ const NewGameWindow = ({ onClick, nameAvailable }) => {
 
 NewGameWindow.propTypes = {
   onClick: PropTypes.func,
+  name: PropTypes.name,
   nameAvailable: PropTypes.bool
 };
 

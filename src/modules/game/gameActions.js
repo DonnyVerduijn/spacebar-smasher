@@ -5,8 +5,11 @@ export const gameValidated = (game) => {
   };
 };
 
-export const gameCreated = () => {
-  return { type: 'GAME_CREATED' };
+export const gameCreated = (game) => {
+  return {
+    type: 'GAME_CREATED',
+    ...game
+  };
 };
 export const gameUpdated = () => {
   return { type: 'GAME_UPDATED' };

@@ -1,29 +1,32 @@
 import gameState from './gameState.json';
 
-const gameReducer = (state = gameState, action) => {
+const gameReducer = (game = gameState, action) => {
     switch (action.type) {
         case 'GAME_VALIDATED':
-        return Object.assign({}, state, {
+        return Object.assign({}, game, {
             nameAvailable: action.nameAvailable
         });
         case 'GAME_CREATED':
-        return state;
+        return Object.assign({}, game, {
+            id: action.id,
+            name: action.name
+        });
         case 'GAME_STARTED':
-        return state;
+        return game;
         case 'GAME_UPDATED':
-        return state;
+        return game;
         case 'GAME_LEAVED':
-        return state;
+        return game;
         case 'GAME_JOINED':
-        return state;
+        return game;
         case 'GAME_PAUSED':
-        return state;
+        return game;
         case 'GAME_RESUMED':
-        return state;
+        return game;
         case 'GAME_QUIT':
-        return state;
+        return game;
         default:
-        return state;
+        return game;
     }
 };
 

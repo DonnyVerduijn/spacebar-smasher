@@ -37,22 +37,26 @@ socketServer.on('VALIDATE_USER', (client, { name }) => {
   }));
 });
 
-socketServer.on('CREATE_USER', (client, { name, clientId }) => {
-  if (!userCollection.clientIdExists(clientId)) {
-    const user = User({ name, clientId });
-    userCollection.add(user);
-
-    console.log('USER_CREATED', user.id);
-    client.socket.send(
-      JSON.stringify({
-        type: 'USER_CREATED',
-        payload: {
-          id: user.id,
-          name: user.name
-        }
-      })
-    );
+socketServer.on('CREATE_USER', (client, { name }) => {
+  // when a user already exists
+  if (userCollection.clientIdExists(client.id)) {
+    userCollection.removeById(client.id);
   }
+  // create a new user
+  const user = User({ name, clientId: client.id });
+  userCollection.add(user);
+
+  console.log('USER_CREATED', user.id);
+  // send back the user object
+  client.socket.send(
+    JSON.stringify({
+      type: 'USER_CREATED',
+      payload: {
+        id: user.id,
+        name: user.name
+      }
+    })
+  );
 });
 
 socketServer.on('VALIDATE_GAME', (client, { name }) => {
@@ -68,9 +72,9 @@ socketServer.on('VALIDATE_GAME', (client, { name }) => {
 socketServer.on('CREATE_GAME', (client, data) => {
   console.log(gameCollection.getAllByOwnerId());
   console.log(data);
+  const user = userCollection.getByClientId(client.id);
   const game = Game({
-    ownerId: data.userId,
-    createdAt: Date.now(),
+    ownerId: data.id,
     name: data.name
   });
   gameCollection.add(game);
@@ -80,7 +84,7 @@ socketServer.on('CREATE_GAME', (client, data) => {
       payload: {
         id: game.id,
         name: game.name,
-        ownerId: game.getOwnerId()
+        ownerId: user.id
       }
     })
   );

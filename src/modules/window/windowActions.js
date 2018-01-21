@@ -1,7 +1,8 @@
-export const menuItemClicked = (menuId, itemId) => {
+export const windowItemClicked = (windowId, itemId) => {
+  console.log(windowId, itemId);
   return {
-    type: 'MENU_ITEM_CLICKED',
-    menuId,
+    type: 'WINDOW_ITEM_CLICKED',
+    windowId,
     itemId
   };
 };

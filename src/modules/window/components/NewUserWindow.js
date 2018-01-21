@@ -21,7 +21,11 @@ const NewUserWindow = ({ onClick, name, nameAvailable }) => {
           label="back"
           className="Flat"
           onClick={() => {
-            return onClick('NEW_USER', 'BACK_BTN');
+            return onClick({
+              windowId: 'NEW_USER',
+              itemId: 'BACK_BTN',
+              name
+            });
           }}
         />
         <Button
@@ -29,7 +33,11 @@ const NewUserWindow = ({ onClick, name, nameAvailable }) => {
           label="next"
           className="Raised"
           onClick={() => {
-            return onClick('NEW_USER', 'NEXT_BTN');
+            return onClick({
+              windowId: 'NEW_USER',
+              itemId: 'NEXT_BTN',
+              name
+            });
           }}
         />
       </Flex>

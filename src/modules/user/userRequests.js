@@ -1,12 +1,10 @@
 import socketClient from './../../utils/SocketClient';
 
-export const createUser = name => {
+export const createUser = user => {
   socketClient.send({
     type: 'CREATE_USER',
     payload: {
-      name,
-      clientId: socketClient.getId(),
-      local: true
+      name: user.name
     }
   });
 };

@@ -8,3 +8,7 @@ export const getNameAvailable = (state) => {
 export const getName = (state) => {
     return state.user.name;
 };
+
+export const getId = (state) => {
+    return state.user.id;
+};

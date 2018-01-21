@@ -30,12 +30,12 @@ const buttonMapping = {
 };
 
 const getActiveWindow = (action) => {
-  return buttonMapping[action.menuId][action.itemId];
+  return buttonMapping[action.windowId][action.itemId];
 };
 
 const windowReducer = (state = windowState, action) => {
   switch (action.type) {
-    case 'MENU_ITEM_CLICKED':
+    case 'WINDOW_ITEM_CLICKED':
       return { ...state, active: getActiveWindow(action) };
     default:
       return state;
