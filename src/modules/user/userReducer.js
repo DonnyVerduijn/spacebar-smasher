@@ -13,7 +13,7 @@ const userReducer = (user = userState, action) => {
       return user;
     case 'USER_VALIDATED':
       return Object.assign({}, user, {
-        nameAvailable: action.nameAvailable,
+        isValid: action.isValid,
         name: action.name
       });
     default:

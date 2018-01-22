@@ -12,7 +12,7 @@ const ItemList = ({ className, items, onClick }) => {
             key={index}
             label={item.label}
             onClick={() => {
-              return onClick(item.id);
+              return onClick(index);
             }}
           />
         );

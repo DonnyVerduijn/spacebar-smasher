@@ -7,7 +7,7 @@ import Button from './../../../components/Button';
 import Flex from './../../../components/Flex';
 import { validateGame, createGame } from './../../game/gameRequests';
 
-const NewGameWindow = ({ onClick, name, nameAvailable }) => {
+const NewGameWindow = ({ onClick, name, isValid }) => {
   console.log(name);
   return (
     <Window>
@@ -30,7 +30,7 @@ const NewGameWindow = ({ onClick, name, nameAvailable }) => {
           }}
         />
         <Button
-          disabled={!nameAvailable}
+          disabled={!isValid}
           label="next"
           className="Raised"
           onClick={createGame}
@@ -43,7 +43,7 @@ const NewGameWindow = ({ onClick, name, nameAvailable }) => {
 NewGameWindow.propTypes = {
   onClick: PropTypes.func,
   name: PropTypes.string,
-  nameAvailable: PropTypes.bool
+  isValid: PropTypes.bool
 };
 
 export default NewGameWindow;

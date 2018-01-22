@@ -4,19 +4,20 @@ import Window from './../../../components/Window';
 import ItemList from './../../../components/ItemList';
 
 const menuItems = [
-  { id: 'NEW_GAME_BTN', label: 'New game' },
-  { id: 'JOIN_GAME_BTN', label: 'Join game' },
-  { id: 'HIGHSCORES_BTN', label: 'Highscores' }
+  { label: 'New game', target: 'NEW_USER' },
+  { label: 'Join game', target: 'NEW_USER' },
+  { label: 'Highscores', target: 'HIGHSCORES' }
 ];
 
-const MainWindow = ({ onClick }) => {
+const MainWindow = ({ listItemClicked }) => {
   return (
     <Window>
       <ItemList
         className="Menu"
         items={menuItems}
         onClick={id => {
-          onClick('MAIN', id);
+          console.log(id);
+          listItemClicked(menuItems[id].target);
         }}
       />
     </Window>
@@ -24,7 +25,7 @@ const MainWindow = ({ onClick }) => {
 };
 
 MainWindow.propTypes = {
-  onClick: PropTypes.func,
+  listItemClicked: PropTypes.func,
   children: PropTypes.node
 };
 

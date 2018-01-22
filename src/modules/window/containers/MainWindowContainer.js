@@ -4,8 +4,8 @@ import * as actions from './../windowActions';
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClick: (menuId, itemId) => {
-      dispatch(actions.windowItemClicked(menuId, itemId));
+    listItemClicked: (target) => {
+      dispatch(actions.listItemClicked(target));
     }
   };
 };

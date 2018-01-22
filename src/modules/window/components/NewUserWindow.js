@@ -5,9 +5,9 @@ import Label from './../../../components/Label';
 import TextBox from './../../../components/TextBox';
 import Button from './../../../components/Button';
 import Flex from './../../../components/Flex';
-import { validateUser } from './../../user/userRequests';
+import { validateUser, createUser } from './../../user/userRequests';
 
-const NewUserWindow = ({ onClick, name, nameAvailable }) => {
+const NewUserWindow = ({ backButtonClicked, name, isValid }) => {
   return (
     <Window>
       <Label>username:</Label>
@@ -21,24 +21,16 @@ const NewUserWindow = ({ onClick, name, nameAvailable }) => {
           label="back"
           className="Flat"
           onClick={() => {
-            return onClick({
-              windowId: 'NEW_USER',
-              itemId: 'BACK_BTN',
-              name
+            return backButtonClicked({
+              target: 'MAIN'
             });
           }}
         />
         <Button
-          disabled={!nameAvailable}
+          disabled={!isValid}
           label="next"
           className="Raised"
-          onClick={() => {
-            return onClick({
-              windowId: 'NEW_USER',
-              itemId: 'NEXT_BTN',
-              name
-            });
-          }}
+          onClick={createUser}
         />
       </Flex>
     </Window>
@@ -46,9 +38,9 @@ const NewUserWindow = ({ onClick, name, nameAvailable }) => {
 };
 
 NewUserWindow.propTypes = {
-  onClick: PropTypes.func,
+  backButtonClicked: PropTypes.func,
   name: PropTypes.string,
-  nameAvailable: PropTypes.bool
+  isValid: PropTypes.bool
 };
 
 export default NewUserWindow;

@@ -1,8 +1,8 @@
 // Defines selectors to interpret the data in the user object
 
 
-export const getNameAvailable = (state) => {
-    return state.user.nameAvailable;
+export const getIsValid = (state) => {
+    return state.user.isValid;
 };
 
 export const getName = (state) => {

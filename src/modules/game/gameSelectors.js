@@ -1,6 +1,6 @@
 
-export const getNameAvailable = (state) => {
-    return state.game.nameAvailable;
+export const getIsValid = (state) => {
+    return state.game.isValid;
 };
 
 export const getName = (state) => {

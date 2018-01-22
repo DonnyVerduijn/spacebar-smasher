@@ -10,15 +10,21 @@ const ConnectionEventFactory = ({ id, status }) => {
     const params = {
         createdAt: {
             value: Date.now(),
-            writable: false
+            writable: false,
+            enumerable: true,
+            configurable: false
         },
         id: {
             value: id,
-            writable: false
+            writable: false,
+            enumerable: true,
+            configurable: false
         },
         status: {
             value: status,
-            writable: false
+            writable: false,
+            enumerable: true,
+            configurable: false
         }
     };
 

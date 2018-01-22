@@ -2,23 +2,20 @@ import { connect } from 'react-redux';
 import NewUserWindow from './../components/NewUserWindow';
 import * as actions from './../windowActions';
 import { createUser } from './../../user/userRequests';
-import { getName, getNameAvailable } from './../../user/userSelectors';
+import { getName, getIsValid } from './../../user/userSelectors';
 
 const mapStateToProps = (state) => {
   return {
     name: getName(state),
-    nameAvailable: getNameAvailable(state)
+    isValid: getIsValid(state),
+    createUser
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClick: ({ windowId, itemId, name }) => {
-      createUser({ name });
-      dispatch(actions.windowItemClicked(
-        windowId,
-        itemId
-      ));
+    backButtonClicked: ({ target }) => {
+      dispatch(actions.backButtonClicked(target));
     }
   };
 };

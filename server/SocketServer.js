@@ -48,7 +48,7 @@ const SocketServer = () => {
     // if connection handler exists
     if (typeof eventListeners.CONNECTION_ESTABLISHED === 'function') {
       // call it with the new client and socket
-      eventListeners.CONNECTION_ESTABLISHED(client, socket);
+      eventListeners.CONNECTION_ESTABLISHED(client);
     }
 
     // when a message is received
@@ -123,9 +123,13 @@ const SocketServer = () => {
       client.getSocket().send(message);
     });
   };
-  const on = (type, callback) => {
+  const on = (type) => {
     // store specified callback by type
-    eventListeners[type] = callback;
+    eventListeners[type] = (client, payload) => {
+      return new Promise((resolve) => {
+        resolve(client, payload);
+      });
+    };
   };
 
   initialize();

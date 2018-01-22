@@ -1,8 +1,13 @@
-export const windowItemClicked = (windowId, itemId) => {
-  console.log(windowId, itemId);
+export const backButtonClicked = (target) => {
   return {
-    type: 'WINDOW_ITEM_CLICKED',
-    windowId,
-    itemId
+    type: 'BACK_BUTTON_CLICKED',
+    target
+  };
+};
+
+export const listItemClicked = (target) => {
+  return {
+    type: 'LIST_ITEM_CLICKED',
+    target
   };
 };

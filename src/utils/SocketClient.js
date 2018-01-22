@@ -4,11 +4,15 @@ const ClientState = () => {
   const params = {
     connectionAvailable: {
       value: null,
-      writable: true
+      writable: true,
+      enumerable: true,
+      configurable: false
     },
     id: {
       value: null,
-      writable: true
+      writable: true,
+      enumerable: true,
+      configurable: false
     }
   };
 

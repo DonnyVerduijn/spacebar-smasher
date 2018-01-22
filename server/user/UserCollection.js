@@ -1,4 +1,4 @@
-import HashMap from 'hashmap';
+const HashMap = require('hashmap');
 
 const UserCollection = () => {
   const users = {};
@@ -7,6 +7,7 @@ const UserCollection = () => {
 
   return {
     add: user => {
+      // console.log('add: ', user);
       users[user.id] = user;
       nameHashMap.set(user.name, user.id);
       clientIdHashMap.set(user.clientId, user.id);
@@ -14,7 +15,7 @@ const UserCollection = () => {
     removeById: id => {
       nameHashMap.delete(users[id].name);
       clientIdHashMap.delete(users[id].clientId);
-      Reflect.deleteProperty(id, users);
+      Reflect.deleteProperty(users, id);
     },
     getAll: () => {
       return users;
@@ -31,8 +32,8 @@ const UserCollection = () => {
     clientIdExists: clientId => {
       return clientIdHashMap.get(clientId);
     },
-    nameExists: name => {
-      return nameHashMap.get(name);
+    nameAvailable: name => {
+      return nameHashMap.get(name) === undefined;
     }
   };
 };

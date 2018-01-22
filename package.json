@@ -22,7 +22,7 @@
   },
   "scripts": {
     "preinstall": "npm install -g eslint-cli",
-    "eslint": "eslint \"server/*.js\" \"src/**/*.js\" --fix",
+    "eslint": "eslint \"server/**/*.js\" \"src/**/*.js\" --fix",
     "start": "concurrently \"react-scripts start\" \"nodemon server/index.js\"",
     "devserver": "react-scripts start",
     "socketserver": "nodemon server/index.js",

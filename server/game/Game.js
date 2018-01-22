@@ -40,30 +40,45 @@ const Game = data => {
     const params = {
       id: {
         value: uuid(),
-        writable: false
+        writable: false,
+        configurable: false,
+        enumerable: true
       },
       users: {
         users: [data.ownerId],
-        writable: true
+        writable: true,
+        configurable: false,
+        enumerable: true
       },
       isActive: {
         value: false,
-        writable: true
+        writable: true,
+        configurable: false,
+        enumerable: true
       },
       isPaused: {
         value: false,
-        writable: true
+        writable: true,
+        configurable: false,
+        enumerable: true
       },
       name: {
         value: data.name,
-        writable: true
+        writable: true,
+        configurable: false,
+        enumerable: true
       },
       createdAt: {
         value: Date.now(),
-        writable: false
+        writable: false,
+        configurable: false,
+        enumerable: true
       },
       ownerId: {
-        value: data.ownerId
+        value: data.ownerId,
+        writable: false,
+        configurable: false,
+        enumerable: true
       }
     };
 
