@@ -9,7 +9,8 @@ const gameReducer = (game = gameState, action) => {
         case 'GAME_CREATED':
         return Object.assign({}, game, {
             id: action.id,
-            name: action.name
+            name: action.name,
+            ownerId: action.ownerId
         });
         case 'GAME_STARTED':
         return game;

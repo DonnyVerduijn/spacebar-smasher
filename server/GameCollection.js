@@ -1,11 +1,19 @@
+import HashMap from 'hashmap';
+
 const GameCollection = () => {
     const games = {};
+    const nameHashMap = new HashMap();
+    const ownerIdHashMap = new HashMap();
     return {
       add: game => {
         games[game.id] = game;
+        nameHashMap.set(game.name, game.id);
+        ownerIdHashMap.set(game.ownerId, game.id);
       },
-      removeById: gameId => {
-        games[gameId] = undefined;
+      removeById: id => {
+        nameHashMap.remove(games[id].name);
+        ownerIdHashMap.remove(games[id].ownerId);
+        Reflect.deleteProperty(id, games);
       },
       getAll: () => {
         return games;
@@ -19,13 +27,7 @@ const GameCollection = () => {
         return games[id];
       },
       nameExists: name => {
-        const gameNames = Object.keys(games).map(key => {
-          return games[key];
-        });
-        gameNames.push({ name: 'game' });
-        return gameNames.every(game => {
-          return game.name !== name;
-        });
+        nameHashMap.get(name);
       }
     };
   };

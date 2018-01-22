@@ -8,7 +8,7 @@ const GameCollection = require('./GameCollection');
 // create instances
 const socketServer = SocketServer();
 const gameCollection = GameCollection();
-const userCollection = UserCollection();
+const users = UserCollection();
 
 socketServer.on('CONNECTION_ESTABLISHED', client => {
   // send clientId back to the client from the request
@@ -27,7 +27,7 @@ socketServer.on('CONNECTION_ERROR', () => {
 });
 
 socketServer.on('VALIDATE_USER', (client, { name }) => {
-  const result = userCollection.nameExists(name) && name.length > 0;
+  const result = users.nameExists(name) && name.length > 0;
   client.socket.send(JSON.stringify({
     type: 'USER_VALIDATED',
     payload: {
@@ -39,12 +39,12 @@ socketServer.on('VALIDATE_USER', (client, { name }) => {
 
 socketServer.on('CREATE_USER', (client, { name }) => {
   // when a user already exists
-  if (userCollection.clientIdExists(client.id)) {
-    userCollection.removeById(client.id);
+  if (users.clientIdExists(client.id)) {
+    users.removeByClientId(client.id);
   }
   // create a new user
   const user = User({ name, clientId: client.id });
-  userCollection.add(user);
+  users.add(user);
 
   console.log('USER_CREATED', user.id);
   // send back the user object
@@ -70,11 +70,11 @@ socketServer.on('VALIDATE_GAME', (client, { name }) => {
 });
 
 socketServer.on('CREATE_GAME', (client, data) => {
-  console.log(gameCollection.getAllByOwnerId());
-  console.log(data);
-  const user = userCollection.getByClientId(client.id);
+  console.log('owned', gameCollection.getAllByOwnerId(client.id));
+  console.log('data', data);
+  const user = users.getByClientId(client.id);
   const game = Game({
-    ownerId: data.id,
+    ownerId: user.id,
     name: data.name
   });
   gameCollection.add(game);

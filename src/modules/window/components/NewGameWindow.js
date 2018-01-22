@@ -5,9 +5,10 @@ import Label from './../../../components/Label';
 import TextBox from './../../../components/TextBox';
 import Button from './../../../components/Button';
 import Flex from './../../../components/Flex';
-import { validateGame } from './../../game/gameRequests';
+import { validateGame, createGame } from './../../game/gameRequests';
 
 const NewGameWindow = ({ onClick, name, nameAvailable }) => {
+  console.log(name);
   return (
     <Window>
       <Label>gamename:</Label>
@@ -32,13 +33,7 @@ const NewGameWindow = ({ onClick, name, nameAvailable }) => {
           disabled={!nameAvailable}
           label="next"
           className="Raised"
-          onClick={() => {
-            return onClick({
-              windowId: 'NEW_GAME',
-              itemId: 'NEXT_BTN',
-              name
-            });
-          }}
+          onClick={createGame}
         />
       </Flex>
     </Window>
@@ -47,7 +42,7 @@ const NewGameWindow = ({ onClick, name, nameAvailable }) => {
 
 NewGameWindow.propTypes = {
   onClick: PropTypes.func,
-  name: PropTypes.name,
+  name: PropTypes.string,
   nameAvailable: PropTypes.bool
 };
 

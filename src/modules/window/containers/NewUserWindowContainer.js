@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClick: (windowId, itemId, name) => {
+    onClick: ({ windowId, itemId, name }) => {
       createUser({ name });
       dispatch(actions.windowItemClicked(
         windowId,

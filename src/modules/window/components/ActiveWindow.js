@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import AvailableGameWindowContainer from './../containers/AvailableGameWindowContainer';
 import HighScoreWindowContainer from './../containers/HighScoreWindowContainer';
-import LobbyWindowContainer from './../containers/LobbyWindowContainer';
+// import LobbyWindowContainer from './../containers/LobbyWindowContainer';
 import NewGameWindowContainer from './../containers/NewGameWindowContainer';
 import NewUserWindowContainer from './../containers/NewUserWindowContainer';
 import MainWindowContainer from '../containers/MainWindowContainer';
@@ -23,7 +23,8 @@ const getActiveWindow = (active) => {
         case 'JOIN_GAME':
         return <AvailableGameWindowContainer/>;
         case 'LOBBY':
-        return <LobbyWindowContainer/>;
+        return null;
+        // return <LobbyWindowContainer/>;
         case 'PAUSE':
         return <PauseWindowContainer/>;
         case 'GAME_OVER':
