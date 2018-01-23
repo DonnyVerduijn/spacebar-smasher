@@ -1,66 +1,50 @@
-const Game = require('./game/Game');
-const GameCollection = require('./game/GameCollection');
+const Game = require('./Game');
+const GameCollection = require('./GameCollection');
 
 const games = GameCollection();
 
 const gameActions = {
   gameCreated(client, data, users) {
-    return new Promise(resolve => {
-      const user = users.getByClientId(client.id);
-      const game = Game({
-        ownerId: user.id,
-        name: data.name
-      });
-      games.add(game);
-      resolve(game);
+    const user = users.getByClientId(client.id);
+    const game = Game({
+      ownerId: user.id,
+      name: data.name
     });
+    games.add(game);
+    return game;
   },
   validateGame(client, data) {
-    return new Promise(resolve => {
-      const result = games.nameAvailable(name) && name.length > 0;
-      resolve({ name: data.name, clientId: client.id, isValid: result });
-    });
+    const result = games.nameAvailable(name) && name.length > 0;
+    return { name: data.name, clientId: client.id, isValid: result };
   },
   startGame(client, data) {
-    return new Promise(resolve => {
-      const game = games.getById(data.gameId);
-      game.setIsActive(true);
-      resolve(game);
-    });
+    const game = games.getById(data.gameId);
+    game.setIsActive(true);
+    return game;
   },
   joinGame(client, data) {
-    return new Promise(resolve => {
-      const game = games.getById(data.gameId);
-      game.addUser(data.userId);
-    resolve(game);
-    });
+    const game = games.getById(data.gameId);
+    game.addUser(data.userId);
+    return game;
   },
   pauseGame(client, data) {
-    return new Promise(resolve => {
-      const game = games.getById(data.gameId);
-      game.setIsPaused(true);
-        resolve(game);
-    });
+    const game = games.getById(data.gameId);
+    game.setIsPaused(true);
+    return game;
   },
   resumeGame(client, data) {
-    return new Promise(resolve => {
-      const game = games.getById(data.gameId);
-      game.setIsPaused(false);
-      resolve(game);
-    });
+    const game = games.getById(data.gameId);
+    game.setIsPaused(false);
+    return game;
   },
   quitGame(client, data) {
-    return new Promise(resolve => {
-      const game = games.getById(data.gameId);
-      game.setIsActive(false);
-      resolve(game);
-    });
+    const game = games.getById(data.gameId);
+    game.setIsActive(false);
+    return game;
   },
   exitGame(client, data) {
-    return new Promise(resolve => {
-      const game = games.getById(data.gameId);
-      resolve(game);
-    });
+    const game = games.getById(data.gameId);
+    return game;
   }
 };
 

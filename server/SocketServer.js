@@ -3,11 +3,12 @@ const http = require('http');
 const WebSocket = require('ws');
 const uuid = require('uuid4');
 const ClientCollection = require('./ClientCollection');
+const Rx = require('rxjs/Rx');
 
 const SocketServer = () => {
-
   const clientCollection = ClientCollection();
   const eventListeners = {};
+  const eventStream = new Rx.Subject();
 
   const initialize = () => {
     const app = express(express);
@@ -42,14 +43,11 @@ const SocketServer = () => {
     };
     // add new client to collection
     clientCollection.add(client);
-    console.log('CONNECTION_ESTABLISHED', client.id);
-    console.log('CLIENTS CONNECTED: ', clientCollection.size());
 
-    // if connection handler exists
-    if (typeof eventListeners.CONNECTION_ESTABLISHED === 'function') {
-      // call it with the new client and socket
-      eventListeners.CONNECTION_ESTABLISHED(client);
-    }
+    eventStream.next({
+      type: 'ESTABLISH_CONNECTION',
+      client
+    });
 
     // when a message is received
     socket.on('message', onMessage(client));
@@ -63,26 +61,22 @@ const SocketServer = () => {
       console.log('CONNECTION_CLOSED', client.id);
       // remove it from the client collection
       clientCollection.removeById(client.id);
-      // if a corresponding event handler exists
-      if (typeof eventListeners.CONNECTION_CLOSED === 'function') {
-        // call it
-        eventListeners.CONNECTION_CLOSED(client);
-      }
+      eventStream.next({
+        type: 'ERROR_CONNECTION',
+        client
+      });
     };
   };
   const onError = client => {
     return error => {
       console.log('CONNECTION_ERROR', client.id);
-      // if a CLIENT_ERROR event handler exists
-      if (typeof eventListeners.CONNECTION_ERROR === 'function') {
-        // call it with the error event
-        eventListeners.CONNECTION_ERROR(client, error);
-      }
       // terminate the socket
-      clientCollection
-        .getById(client.id)
-        .socket
-        .terminate();
+      clientCollection.getById(client.id).socket.terminate();
+      eventStream.next({
+        type: 'ERROR_CONNECTION',
+        client,
+        error
+      });
     };
   };
   const onMessage = client => {
@@ -99,21 +93,21 @@ const SocketServer = () => {
           payload: { message: error.message }
         };
       }
-      // when a event exists for the specified type property
-      if (typeof eventListeners[data.type] === 'function') {
-        // call the attached event listener
-        eventListeners[data.type](client, data.payload);
-      }
+
+      // call the attached event listener
+      eventListeners[data.type](client, data.payload);
+      eventStream.next({
+        type: data.type,
+        client,
+        data: data.payload
+      });
     };
   };
 
   // public API method implementation
   const sendById = (id, message) => {
     // for the client with the specified id
-    clientCollection
-      .getById(id)
-      .socket
-      .send(JSON.stringify(message));
+    clientCollection.getById(id).socket.send(JSON.stringify(message));
     // send the specified message
   };
   const broadcast = message => {
@@ -123,12 +117,17 @@ const SocketServer = () => {
       client.getSocket().send(message);
     });
   };
-  const on = (type) => {
-    // store specified callback by type
-    eventListeners[type] = (client, payload) => {
-      return new Promise((resolve) => {
-        resolve(client, payload);
-      });
+  const on = type => {
+    return {
+      then(resolve) {
+        return new Promise(resolveAfter => {
+          eventStream.subscribe(event => {
+            if (type === event.type) {
+              resolveAfter(resolve(event.client, event.data));
+            };
+          });
+        });
+      }
     };
   };
 

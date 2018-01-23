@@ -11,11 +11,7 @@ const NewUserWindow = ({ backButtonClicked, name, isValid }) => {
   return (
     <Window>
       <Label>username:</Label>
-      <TextBox value={name} onChange={(value) => {
-        validateUser({
-          name: value
-        });
-      }}/>
+      <TextBox value={name} onChange={validateUser}/>
       <Flex justifyContent="space-between">
         <Button
           label="back"

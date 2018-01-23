@@ -1,11 +1,11 @@
-const socketServer = require('./../SocketServer');
+
 
 const connectionResponses = {
   establishConnection({ id }) {
-    socketServer.sendById(id, {
+    return {
       type: 'CONNECTION_ESTABLISHED',
       payload: { id }
-    });
+    };
   }
 };
 

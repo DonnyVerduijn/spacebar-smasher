@@ -16,9 +16,9 @@ export const updateUser = user => {
   });
 };
 
-export const validateUser = user => {
+export const validateUser = name => {
   socketClient.send({
     type: 'VALIDATE_USER',
-    payload: user
+    payload: { name }
   });
 };
