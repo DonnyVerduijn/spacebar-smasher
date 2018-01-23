@@ -13,9 +13,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClick: ({ windowId, itemId, name }) => {
-      createGame(name);
-      dispatch(actions.backButtonClicked(windowId, itemId));
+    switchWindow: (target) => {
+      dispatch(actions.switchWindow(target));
     }
   };
 };

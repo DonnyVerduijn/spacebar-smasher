@@ -5,13 +5,18 @@ import Label from './../../../components/Label';
 import TextBox from './../../../components/TextBox';
 import Button from './../../../components/Button';
 import Flex from './../../../components/Flex';
-import { validateUser, createUser } from './../../user/userRequests';
 
-const NewUserWindow = ({ backButtonClicked, name, isValid }) => {
+const NewUserWindow = ({
+  validateUser,
+  createUser,
+  backButtonClicked,
+  name,
+  isValid
+}) => {
   return (
     <Window>
       <Label>username:</Label>
-      <TextBox value={name} onChange={validateUser}/>
+      <TextBox value={name} onChange={validateUser} />
       <Flex justifyContent="space-between">
         <Button
           label="back"
@@ -34,6 +39,8 @@ const NewUserWindow = ({ backButtonClicked, name, isValid }) => {
 };
 
 NewUserWindow.propTypes = {
+  validateUser: PropTypes.string,
+  createUser: PropTypes.string,
   backButtonClicked: PropTypes.func,
   name: PropTypes.string,
   isValid: PropTypes.bool

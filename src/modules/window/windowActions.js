@@ -1,6 +1,6 @@
-export const backButtonClicked = (target) => {
+export const switchWindow = (target) => {
   return {
-    type: 'BACK_BUTTON_CLICKED',
+    type: 'SWITCH_WINDOW',
     target
   };
 };

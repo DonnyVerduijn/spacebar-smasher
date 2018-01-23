@@ -1,50 +1,52 @@
-import socketClient from './../../utils/SocketClient';
-
 // these actions are used only
 // to send data or requests to the server
+const gameRequests = client => ({
 
-export const createGame = (game) => {
-  socketClient.send({
-    type: 'CREATE_GAME',
-    payload: {
-      name: game.name
-    }
-  });
-};
+  createGame(game) {
+    client.send({
+      type: 'CREATE_GAME',
+      payload: {
+        name: game.name
+      }
+    });
+  },
 
-export const startGame = () => {
-  socketClient.send({ type: 'START_GAME' });
-};
+  startGame() {
+    client.send({ type: 'START_GAME' });
+  },
 
-export const validateGame = ({ name }) => {
-  socketClient.send({
-    type: 'VALIDATE_GAME',
-    payload: {
-      name
-    }
-  });
-};
+  validateGame({ name }) {
+    client.send({
+      type: 'VALIDATE_GAME',
+      payload: {
+        name
+      }
+    });
+  },
 
-export const pauseGame = () => {
-  socketClient.send({ type: 'PAUSE_GAME' });
-};
+  pauseGame() {
+    client.send({ type: 'PAUSE_GAME' });
+  },
 
-export const leaveGame = () => {
-  socketClient.send({ type: 'LEAVE_GAME' });
-};
+  leaveGame() {
+    client.send({ type: 'LEAVE_GAME' });
+  },
 
-export const joinGame = () => {
-  socketClient.send({ type: 'JOIN_GAME' });
-};
+  joinGame() {
+    client.send({ type: 'JOIN_GAME' });
+  },
 
-export const resumeGame = () => {
-  socketClient.send({ type: 'RESUME_GAME' });
-};
+  resumeGame() {
+    client.send({ type: 'RESUME_GAME' });
+  },
 
-export const quitGame = () => {
-  socketClient.send({ type: 'QUIT_GAME' });
-};
+  quitGame() {
+    client.send({ type: 'QUIT_GAME' });
+  },
 
-export const listGames = () => {
-  socketClient.send({ type: 'LIST_GAMES' });
-};
+  listGames() {
+    client.send({ type: 'LIST_GAMES' });
+  }
+});
+
+export default gameRequests;

@@ -2,15 +2,16 @@ const express = require('express');
 const http = require('http');
 const WebSocket = require('ws');
 const uuid = require('uuid4');
-const ClientCollection = require('./ClientCollection');
+// const ClientCollection = require('./ClientCollection');
 const Rx = require('rxjs/Rx');
+const HashMap = require('hashmap');
 
 const SocketServer = () => {
-  const clientCollection = ClientCollection();
-  const eventListeners = {};
+  // const clients = ClientCollection();
   const eventStream = new Rx.Subject();
+  const sockets = new HashMap();
 
-  const initialize = () => {
+  const create = handlers => {
     const app = express(express);
     const server = http.createServer(app);
 
@@ -32,112 +33,86 @@ const SocketServer = () => {
     // instantiate websocket server
     const socketServer = new WebSocket.Server({ server });
     // listen for connection requests
-    socketServer.on('connection', onConnection);
+    socketServer.on('connection', handlers.onConnection(handlers));
   };
-  const onConnection = (socket, request) => {
-    // create new client object
-    const client = {
-      id: uuid(),
-      ipAddress: request.connection.remoteAddress,
-      socket
-    };
-    // add new client to collection
-    clientCollection.add(client);
+  const onConnection = handlers => (socket, request) => {
+    // dispatch event
+
+    const id = uuid();
+    sockets.set(id, socket);
 
     eventStream.next({
-      type: 'ESTABLISH_CONNECTION',
-      client
+      type: 'CREATE_CLIENT',
+      ipAddress: request.connection.remoteAddress,
+      id
     });
 
     // when a message is received
-    socket.on('message', onMessage(client));
+    socket.on('message', handlers.onMessage(id));
     // when a socket error occurs
-    socket.on('error', onError(client));
+    socket.on('error', handlers.onError(id));
     // when a client closes its connection
-    socket.on('close', onClose(client));
+    socket.on('close', handlers.onClose(id));
   };
-  const onClose = client => {
-    return () => {
-      console.log('CONNECTION_CLOSED', client.id);
-      // remove it from the client collection
-      clientCollection.removeById(client.id);
-      eventStream.next({
-        type: 'ERROR_CONNECTION',
-        client
-      });
-    };
+  const onClose = id => () => {
+    // remove it from the client collection
+    eventStream.next({
+      type: 'CLOSE_CLIENT',
+      id
+    });
   };
-  const onError = client => {
-    return error => {
-      console.log('CONNECTION_ERROR', client.id);
-      // terminate the socket
-      clientCollection.getById(client.id).socket.terminate();
-      eventStream.next({
-        type: 'ERROR_CONNECTION',
-        client,
-        error
-      });
-    };
+  const onError = id => () => {
+    eventStream.next({
+      type: 'ERROR_CLIENT',
+      id
+    });
   };
-  const onMessage = client => {
-    return message => {
-      let data;
-      try {
-        // try to parse the message
-        data = JSON.parse(message);
-      } catch (error) {
-        // and create a parse error message
-        // if it fails
-        data = {
-          type: 'PARSE_ERROR',
-          payload: { message: error.message }
-        };
-      }
-
-      // call the attached event listener
-      eventListeners[data.type](client, data.payload);
-      eventStream.next({
-        type: data.type,
-        client,
-        data: data.payload
-      });
-    };
+  const onMessage = id => message => {
+    const data = JSON.parse(message);
+    eventStream.next({
+      type: data.type,
+      id,
+      data: data.payload
+    });
   };
 
   // public API method implementation
-  const sendById = (id, message) => {
-    // for the client with the specified id
-    clientCollection.getById(id).socket.send(JSON.stringify(message));
-    // send the specified message
+  const attach = (events) => {
+    events(publicApi);
   };
-  const broadcast = message => {
-    // for each client
-    clientCollection.forEach(client => {
-      // send the specified message
-      client.getSocket().send(message);
-    });
-  };
-  const on = type => {
-    return {
-      then(resolve) {
-        return new Promise(resolveAfter => {
+  const on = type => ({
+    // specify fake then method
+    then(resolve) {
+      // return a new promise
+      return {
+        then(resolveNext) {
           eventStream.subscribe(event => {
             if (type === event.type) {
-              resolveAfter(resolve(event.client, event.data));
-            };
+              const result = resolve(event.client, event.data);
+              if (typeof resolveNext === 'function') {
+                resolveNext(result);
+              };
+            }
           });
-        });
-      }
-    };
+        }
+      };
+    }
+  });
+
+  // create websocket
+  create({
+    onConnection,
+    onMessage,
+    onError,
+    onClose
+  });
+  // expose public API endpoints
+  const publicApi = {
+    attach,
+    on
   };
 
-  initialize();
-  // expose public API endpoints
-  return {
-    on,
-    sendById,
-    broadcast
-  };
+  return publicApi;
 };
 
 module.exports = SocketServer;

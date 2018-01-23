@@ -19,14 +19,17 @@ const ClientState = () => {
   return Object.create({}, params);
 };
 
-export default (function SocketClient() {
+const SocketClient = () => {
   let socket;
   const events = {};
   const client = ClientState();
   const responseLogger = ResponseLogger();
 
   // initialiaze socket
-  const connect = () => {
+  const attach = (eventHandlers) => {
+    eventHandlers(publicApi);
+  },
+  connect = () => {
       fetch('/api/status').then(response => {
         if (response.ok) {
           // create a new socket instance
@@ -45,12 +48,8 @@ export default (function SocketClient() {
         responseLogger.log(response);
       });
     },
-    getConnectionAvailable = () => {
-      return client.connectionAvailable;
-    },
-    getId = () => {
-      return client.id;
-    },
+    getConnectionAvailable = () => client.connectionAvailable,
+    getId = () => client.id,
     instantiateSocket = serverAddress => {
       socket = new WebSocket(serverAddress);
       socket.onmessage = onMessage;
@@ -84,17 +83,7 @@ export default (function SocketClient() {
     },
     onMessage = message => {
       // create a variable to store the received data
-      let data;
-      try {
-        // try to parse the data (assuming JSON formatting)
-        data = JSON.parse(message.data);
-      } catch (error) {
-        // if it fails return a PARSE_ERROR message
-        data = {
-          type: 'PARSE_ERROR',
-          payload: { message: error.message }
-        };
-      }
+      const data = JSON.parse(message.data);
       if (data.type === 'CONNECTION_ESTABLISHED') {
         client.id = data.payload.id;
         client.connectionAvailable = true;
@@ -114,11 +103,15 @@ export default (function SocketClient() {
   // connect on load
   connect();
 
-  // expose public API endpoints
-  return {
+  const publicApi = {
     on,
     send,
     getId,
-    getConnectionAvailable
+    getConnectionAvailable,
+    attach
   };
-}());
+
+  return publicApi;
+};
+
+export default SocketClient;

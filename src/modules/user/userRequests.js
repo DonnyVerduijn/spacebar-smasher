@@ -1,24 +1,26 @@
-import socketClient from './../../utils/SocketClient';
+const userRequests = client => ({
+  createUser(user) {
+    client.send({
+      type: 'CREATE_USER',
+      payload: {
+        name: user.name
+      }
+    });
+  },
 
-export const createUser = user => {
-  socketClient.send({
-    type: 'CREATE_USER',
-    payload: {
-      name: user.name
-    }
-  });
-};
+  updateUser(user) {
+    client.send({
+      type: 'UPDATE_USER',
+      payload: user
+    });
+  },
 
-export const updateUser = user => {
-  socketClient.send({
-    type: 'UPDATE_USER',
-    payload: user
-  });
-};
+  validateUser(name) {
+    client.send({
+      type: 'VALIDATE_USER',
+      payload: { name }
+    });
+  }
+});
 
-export const validateUser = name => {
-  socketClient.send({
-    type: 'VALIDATE_USER',
-    payload: { name }
-  });
-};
+export default userRequests;

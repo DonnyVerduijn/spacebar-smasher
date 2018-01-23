@@ -1,14 +1,14 @@
-import connectionState from './connectionState.json';
-import ConnectionEventFactory from './ConnectionEventFactory';
+import clientState from './clientState.json';
+import ClientEventFactory from './ClientEventFactory';
 
-const connectionReducer = (state = connectionState, action) => {
+const clientReducer = (state = clientState, action) => {
   switch (action.type) {
     case 'CONNECTION_ESTABLISHED':
       return {
         ...state,
         events: [
           ...state.events,
-          ConnectionEventFactory({ id: action.id, status: 'established' })
+          ClientEventFactory({ id: action.id, status: 'established' })
         ]
       };
     case 'CONNECTION_ERROR':
@@ -16,7 +16,7 @@ const connectionReducer = (state = connectionState, action) => {
         ...state,
         events: [
           ...state.events,
-          ConnectionEventFactory({ id: action.id, status: 'error' })
+          ClientEventFactory({ id: action.id, status: 'error' })
         ]
       };
     case 'CONNECTION_CLOSED':
@@ -24,7 +24,7 @@ const connectionReducer = (state = connectionState, action) => {
         ...state,
         events: [
           ...state.events,
-          ConnectionEventFactory({ id: action.id, status: 'closed' })
+          ClientEventFactory({ id: action.id, status: 'closed' })
         ]
       };
     default:
@@ -32,4 +32,4 @@ const connectionReducer = (state = connectionState, action) => {
   }
 };
 
-export default connectionReducer;
+export default clientReducer;

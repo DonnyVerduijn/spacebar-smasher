@@ -1,9 +1,9 @@
 
 
 const connectionResponses = {
-  establishConnection({ id }) {
+  clientCreated({ id }) {
     return {
-      type: 'CONNECTION_ESTABLISHED',
+      type: 'CLIENT_CREATED',
       payload: { id }
     };
   }

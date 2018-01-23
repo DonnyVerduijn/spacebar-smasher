@@ -5,27 +5,33 @@ import Label from './../../../components/Label';
 import TextBox from './../../../components/TextBox';
 import Button from './../../../components/Button';
 import Flex from './../../../components/Flex';
-import { validateGame, createGame } from './../../game/gameRequests';
 
-const NewGameWindow = ({ onClick, name, isValid }) => {
+const NewGameWindow = ({
+  createGame,
+  validateGame,
+  switchWindow,
+  name,
+  isValid
+}) => {
   console.log(name);
   return (
     <Window>
       <Label>gamename:</Label>
-      <TextBox onChange={(value) => {
-        validateGame({
-          name: value
-        });
-      }}/>
+      <TextBox
+        value={name}
+        onChange={value => {
+          validateGame({
+            name: value
+          });
+        }}
+      />
       <Flex justifyContent="space-between">
         <Button
           label="back"
           className="Flat"
           onClick={() => {
-            return onClick({
-              windowId: 'NEW_GAME',
-              itemId: 'BACK_BTN',
-              name
+            return switchWindow({
+              target: 'NEW_USER'
             });
           }}
         />
@@ -41,7 +47,9 @@ const NewGameWindow = ({ onClick, name, isValid }) => {
 };
 
 NewGameWindow.propTypes = {
-  onClick: PropTypes.func,
+  switchWindow: PropTypes.func,
+  createGame: PropTypes.func,
+  validateGame: PropTypes.func,
   name: PropTypes.string,
   isValid: PropTypes.bool
 };

@@ -3,13 +3,13 @@
 import { combineReducers } from 'redux';
 import { userReducer } from './modules/user';
 import { gameReducer } from './modules/game';
-import { connectionReducer } from './modules/connection';
+import { clientReducer } from './modules/client';
 import { windowState } from './modules/window';
 
 const rootReducer = combineReducers({
     user: userReducer,
     game: gameReducer,
-    connection: connectionReducer,
+    client: clientReducer,
     window: windowState
 });
 

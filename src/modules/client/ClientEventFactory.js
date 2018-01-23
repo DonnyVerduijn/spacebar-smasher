@@ -5,7 +5,7 @@ const proto = {
     }
 };
 
-const ConnectionEventFactory = ({ id, status }) => {
+const ClientEventFactory = ({ id, status }) => {
 
     const params = {
         createdAt: {
@@ -31,4 +31,4 @@ const ConnectionEventFactory = ({ id, status }) => {
     return Object.create(proto, params);
 };
 
-export default ConnectionEventFactory;
+export default ClientEventFactory;
