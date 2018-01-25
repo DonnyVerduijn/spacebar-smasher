@@ -3,14 +3,14 @@
 import { combineReducers } from 'redux';
 import { userReducer } from './modules/user';
 import { gameReducer } from './modules/game';
-import { clientReducer } from './modules/client';
-import { windowState } from './modules/window';
+import { socketReducer } from './modules/socket';
+import { windowReducer } from './modules/window';
 
 const rootReducer = combineReducers({
     user: userReducer,
     game: gameReducer,
-    client: clientReducer,
-    window: windowState
+    socket: socketReducer,
+    window: windowReducer
 });
 
 export default rootReducer;

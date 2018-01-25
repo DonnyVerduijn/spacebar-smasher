@@ -5,6 +5,7 @@
   "description": "little online game using socket.io where players battle eachother with the amount of spacebar hits they make",
   "dependencies": {
     "hashmap": "^2.3.0",
+    "lodash.snakecase": "^4.1.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -14,7 +15,6 @@
     "react-tap-event-plugin": "^3.0.2",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.2.0",
     "rxjs": "^5.5.6",
     "typeface-roboto": "0.0.50",
     "uuid4": "^1.0.0",

@@ -1,26 +1,15 @@
-const userRequests = client => ({
-  createUser(user) {
-    client.send({
+  export const createUser = (name) => ({
       type: 'CREATE_USER',
-      payload: {
-        name: user.name
-      }
-    });
-  },
+      name
+  });
 
-  updateUser(user) {
-    client.send({
+  export const updateUser = (user) => ({
       type: 'UPDATE_USER',
-      payload: user
-    });
-  },
+      ...user
+  });
 
-  validateUser(name) {
-    client.send({
+  export const validateUser = (name) => ({
       type: 'VALIDATE_USER',
-      payload: { name }
-    });
-  }
-});
+      name
+  });
 
-export default userRequests;

@@ -1,52 +1,40 @@
 // these actions are used only
 // to send data or requests to the server
-const gameRequests = client => ({
 
-  createGame(game) {
-    client.send({
-      type: 'CREATE_GAME',
-      payload: {
-        name: game.name
-      }
-    });
-  },
-
-  startGame() {
-    client.send({ type: 'START_GAME' });
-  },
-
-  validateGame({ name }) {
-    client.send({
-      type: 'VALIDATE_GAME',
-      payload: {
-        name
-      }
-    });
-  },
-
-  pauseGame() {
-    client.send({ type: 'PAUSE_GAME' });
-  },
-
-  leaveGame() {
-    client.send({ type: 'LEAVE_GAME' });
-  },
-
-  joinGame() {
-    client.send({ type: 'JOIN_GAME' });
-  },
-
-  resumeGame() {
-    client.send({ type: 'RESUME_GAME' });
-  },
-
-  quitGame() {
-    client.send({ type: 'QUIT_GAME' });
-  },
-
-  listGames() {
-    client.send({ type: 'LIST_GAMES' });
-  }
+export const createGame = game => ({
+  type: 'CREATE_GAME',
+  name: game.name
 });
 
-export default gameRequests;
+export const startGame = () => ({
+  type: 'START_GAME'
+});
+
+export const validateGame = ({ name }) => ({
+  type: 'VALIDATE_GAME',
+  name
+});
+
+export const pauseGame = () => ({
+  type: 'PAUSE_GAME'
+});
+
+export const leaveGame = () => ({
+  type: 'LEAVE_GAME'
+});
+
+export const joinGame = () => ({
+  type: 'JOIN_GAME'
+});
+
+export const resumeGame = () => ({
+  type: 'RESUME_GAME'
+});
+
+export const quitGame = () => ({
+  type: 'QUIT_GAME'
+});
+
+export const listGames = () => ({
+  type: 'LIST_GAMES'
+});

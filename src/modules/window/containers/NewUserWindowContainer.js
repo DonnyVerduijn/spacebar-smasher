@@ -1,28 +1,29 @@
 import { connect } from 'react-redux';
+import withSocket from './../../../utils/withSocket';
 import NewUserWindow from './../components/NewUserWindow';
-import * as actions from './../windowActions';
-// import { createUser } from './../../user/userRequests';
+import { switchWindow } from './../windowActions';
+import { createUser, validateUser } from './../../user/userRequests';
 import { getName, getIsValid } from './../../user/userSelectors';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, { socket }) => {
   return {
     name: getName(state),
     isValid: getIsValid(state),
-    createUser: value => {
-      console.log(value);
+    createUser: name => {
+      socket.send(createUser(name));
     },
-    validateUser: value => {
-      console.log(value);
+    validateUser: name => {
+      socket.send(validateUser(name));
     }
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    backButtonClicked: ({ target }) => {
-      dispatch(actions.switchWindow(target));
+    previousWindow: () => {
+      dispatch(switchWindow('MAIN'));
     }
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewUserWindow);
+export default withSocket(connect(mapStateToProps, mapDispatchToProps)(NewUserWindow));

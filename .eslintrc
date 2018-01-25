@@ -13,8 +13,10 @@
         "prettier/react",
         "plugin:jest/recommended"
     ],
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
+            "classes": true,
             "experimentalObjectRestSpread": true,
             "jsx": true
         },

@@ -1,42 +1,39 @@
-const socketServer = require('./../SocketServer');
-
-const gameResponses = {
-  gameCreated(game) {
-    socketServer.sendById(game.id, {});
-  },
-  gameValidated(game) {
-    // needs to be client ID
-    socketServer.sendById(game.id, {});
-  },
-  gameStarted(game) {
-    game.players.foreach(player => {
-      socketServer.sendById(player.clientId, {
-        type: 'GAME_STARTED',
-        payload: {}
+const gameActionResponses = (socketServer) => {
+  return {
+    createGame(game) {
+      socketServer.sendById(game.id, {});
+    },
+    validateGame() {
+      // needs to be client ID
+      // socketServer.sendById(game.id, {});
+    },
+    startGame() {
+      // socketServer.sendById(user.socketId, {
+      //   type: 'START_GAME'
+      // });
+    },
+    joinGame(game) {
+      socketServer.sendById(game.id, {
+        type: 'JOIN_GAME',
+        id: game.id
       });
-    });
-  },
-  gameJoined(game) {
-    socketServer.sendById(game.id, {
-      type: 'GAME_JOINED',
-      payload: { gameId: game.id }
-    });
-  },
-  gamePaused(game) {
-    socketServer.sendById(game.id, {
-        type: 'GAME_PAUSED',
-        payload: { gameId: game.id }
-    });
-  },
-  gameResumed(game) {
-    socketServer.sendById(game.id, { type: 'GAME_RESUMED' });
-  },
-  gameQuit(game) {
-    socketServer.sendById(game.id, { type: 'GAME_QUIT' });
-  },
-  gameExit(game) {
-    socketServer.sendById(game.id, { type: 'GAME_EXIT' });
-  }
+    },
+    pauseGame(game) {
+      socketServer.sendById(game.id, {
+        type: 'PAUSE_GAME',
+        id: game.id
+      });
+    },
+    resumeGame(game) {
+      socketServer.sendById(game.id, { type: 'RESUME_GAME' });
+    },
+    quitGame(game) {
+      socketServer.sendById(game.id, { type: 'QUIT_GAME' });
+    },
+    leaveGame(game) {
+      socketServer.sendById(game.id, { type: 'LEAVE_GAME' });
+    }
+  };
 };
 
-module.exports = gameResponses;
+module.exports = gameActionResponses;

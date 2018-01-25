@@ -19,21 +19,13 @@ const NewGameWindow = ({
       <Label>gamename:</Label>
       <TextBox
         value={name}
-        onChange={value => {
-          validateGame({
-            name: value
-          });
-        }}
+        onChange={validateGame}
       />
       <Flex justifyContent="space-between">
         <Button
           label="back"
           className="Flat"
-          onClick={() => {
-            return switchWindow({
-              target: 'NEW_USER'
-            });
-          }}
+          onClick={switchWindow}
         />
         <Button
           disabled={!isValid}

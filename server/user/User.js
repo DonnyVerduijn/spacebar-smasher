@@ -4,8 +4,8 @@ const proto = {
   getId() {
     return this.id;
   },
-  getClientId() {
-    return this.clientId;
+  getSocketId() {
+    return this.socketId;
   },
   getName() {
     return this.name;
@@ -26,8 +26,8 @@ const User = options => {
         configurable: false,
         enumerable: true
       },
-      clientId: {
-        value: options.clientId,
+      socketId: {
+        value: options.socketId,
         writable: false,
         configurable: false,
         enumerable: true

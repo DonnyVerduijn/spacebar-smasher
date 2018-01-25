@@ -3,18 +3,18 @@ const HashMap = require('hashmap');
 const UserCollection = () => {
   const users = {};
   const nameHashMap = new HashMap();
-  const clientIdHashMap = new HashMap();
+  const socketIdHashMap = new HashMap();
 
   return {
     add: user => {
       // console.log('add: ', user);
       users[user.id] = user;
       nameHashMap.set(user.name, user.id);
-      clientIdHashMap.set(user.clientId, user.id);
+      socketIdHashMap.set(user.socketId, user.id);
     },
     removeById: id => {
       nameHashMap.delete(users[id].name);
-      clientIdHashMap.delete(users[id].clientId);
+      socketIdHashMap.delete(users[id].socketId);
       Reflect.deleteProperty(users, id);
     },
     getAll: () => {
@@ -23,14 +23,14 @@ const UserCollection = () => {
     getAllById: () => {
       return Object.keys(users);
     },
-    getByClientId: (clientId) => {
-      return users[clientIdHashMap.get(clientId)];
+    getBySocketId: (socketId) => {
+      return users[socketIdHashMap.get(socketId)];
     },
     getById: id => {
       return users[id];
     },
-    clientIdExists: clientId => {
-      return clientIdHashMap.get(clientId);
+    userWithSocketIdExists: socketId => {
+      return socketIdHashMap.get(socketId);
     },
     nameAvailable: name => {
       return nameHashMap.get(name) === undefined;

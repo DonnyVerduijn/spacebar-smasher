@@ -6,16 +6,12 @@ import './index.css';
 import App from './app/App';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import registerServiceWorker from './registerServiceWorker';
-import store from './utils/ReduxStore';
+import store from './utils/createStore';
 import SocketClient from './utils/SocketClient';
-import { clientEvents, clientActions } from './modules/client';
-import { userEvents, userActions } from './modules/user';
-import { gameEvents, gameActions } from './modules/game';
+import SocketProvider from './utils/SocketProvider';
 
-const socketClient = SocketClient();
-socketClient.attach((client) => clientEvents(client, store.dispatch, clientActions));
-socketClient.attach((client) => userEvents(client, store.dispatch, userActions));
-socketClient.attach((client) => gameEvents(client, store.dispatch, gameActions));
+const socket = SocketClient();
+socket.onEvent(store.dispatch);
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
@@ -23,7 +19,9 @@ injectTapEventPlugin();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <SocketProvider socket={socket}>
+      <App />
+    </SocketProvider>
   </Provider>,
   document.getElementById('root')
 );
