@@ -17,21 +17,14 @@ const NewGameWindow = ({
   return (
     <Window>
       <Label>gamename:</Label>
-      <TextBox
-        value={name}
-        onChange={validateGame}
-      />
+      <TextBox value={name} onChange={validateGame} />
       <Flex justifyContent="space-between">
-        <Button
-          label="back"
-          className="Flat"
-          onClick={switchWindow}
-        />
+        <Button label="back" className="Flat" onClick={switchWindow} />
         <Button
           disabled={!isValid}
           label="next"
           className="Raised"
-          onClick={createGame}
+          onClick={() => createGame(name)}
         />
       </Flex>
     </Window>

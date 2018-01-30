@@ -57,6 +57,7 @@ const SocketClient = () => {
       eventStream.next(data);
     },
     send = message => {
+        console.log('message', message);
         socket.send(JSON.stringify(message));
     };
 

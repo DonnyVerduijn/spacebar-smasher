@@ -1,6 +1,6 @@
 export const validateGame = (action) => {
   return {
-    type: 'VALIDATE_GAMW',
+    type: 'VALIDATE_GAME',
     ...action
   };
 };

@@ -14,16 +14,15 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, { socket }) => {
   return {
-    previousWindow: () => {
+    switchWindow: () => {
       dispatch(switchWindow('MAIN'));
     },
-    createUser: name => {
-      const action = actions.createUser({ name });
-      socket.send(action);
+    createUser: (name) => {
+      socket.send(actions.createUser({ name }));
+      dispatch(switchWindow('NEW_GAME'));
     },
     validateUser: name => {
-      const action = actions.validateUser({ name });
-      socket.send(action);
+      socket.send(actions.validateUser({ name }));
     }
   };
 };

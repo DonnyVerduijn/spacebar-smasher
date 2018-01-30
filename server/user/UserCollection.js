@@ -28,6 +28,9 @@ const UserCollection = () => {
     getById: id => {
       return users[id];
     },
+    userWithIdExists: (id) => {
+      return users[id] !== undefined;
+    },
     userWithPersistentIdExists: persistentId => {
       return persistentIdHashMap.get(persistentId);
     },

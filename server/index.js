@@ -34,7 +34,7 @@ const bindedResponses = bindToSnakeCase({
 socketServer.onEvent(action => {
   // the defined action on corresponding key is called
   const result = bindedActions[action.type](action);
-  console.log('result', result);
+  // console.log('result', result);
   // the result is converted to the corresponding
   // response object.
   const response = bindedResponses[action.type](result);

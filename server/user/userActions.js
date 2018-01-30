@@ -9,12 +9,12 @@ const userActions = ({ users }) => {
       });
     },
     createUser(action) {
-      if (users.userwithIdExists(action.id)) {
-        users.deleteById(action.id);
+      if (users.userWithIdExists(action.id)) {
+        // we are overwriting the previous user instance
       }
       const user = User({ name: action.name, id: action.id });
       users.add(user);
-      return { ...user, ...action };
+      return { ...user, ...action, targets: [action.id] };
     },
     getUser(action) {
       const user = users.getById(action.id);

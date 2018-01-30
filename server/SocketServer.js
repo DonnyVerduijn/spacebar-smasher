@@ -72,6 +72,7 @@ const SocketServer = () => {
 
   // onMessage handler
   const onMessage = id => message => {
+    console.log('message', message);
     const data = JSON.parse(message);
     eventStream.next({
       type: data.type,

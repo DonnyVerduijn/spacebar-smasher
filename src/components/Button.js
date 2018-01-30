@@ -6,7 +6,7 @@ const Button = ({ onClick, disabled, label, className, children }) => {
   return (
     <button
       className={`Button ${className}`}
-      onClick={onClick}
+      onClick={(e) => onClick(e.target.value)}
       disabled={disabled}
     >
       {label || children}

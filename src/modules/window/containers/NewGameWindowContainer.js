@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import withSocket from './../../../utils/withSocket';
 import NewGameWindow from './../components/NewGameWindow';
-import * as actions from './../windowActions';
+import { switchWindow } from './../windowActions';
 import { getName, getIsValid } from './../../game/gameSelectors';
-import { createGame, validateGame } from './../../game/gameActions';
+import * as actions from './../../game/gameActions';
 
 const mapStateToProps = (state) => {
   // console.log(socket);
@@ -16,17 +16,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, { socket }) => {
   return {
     switchWindow: () => {
-      dispatch(actions.switchWindow('NEW_USER'));
+      dispatch(switchWindow('NEW_USER'));
     },
     validateGame: (name) => {
-      const action = validateGame(name);
-      socket.send();
-      dispatch(action);
+      socket.send(actions.validateGame(name));
     },
     createGame: (name) => {
-      const action = createGame(name);
-      socket.send();
-      dispatch(action);
+      socket.send(actions.createGame(name));
     }
   };
 };
