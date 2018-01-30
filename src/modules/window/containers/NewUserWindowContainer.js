@@ -19,13 +19,10 @@ const mapDispatchToProps = (dispatch, { socket }) => {
     },
     createUser: name => {
       const action = actions.createUser({ name });
-      dispatch(action);
       socket.send(action);
     },
     validateUser: name => {
       const action = actions.validateUser({ name });
-      console.log(action);
-      dispatch(action);
       socket.send(action);
     }
   };
