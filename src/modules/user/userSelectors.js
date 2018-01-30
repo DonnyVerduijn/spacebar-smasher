@@ -15,3 +15,7 @@ export const getName = (state) => {
 export const getId = (state) => {
     return state.user.id;
 };
+
+export const getUser = (state, id) => {
+    return state.user[id];
+};

@@ -21,18 +21,24 @@ const gameActions = ({ games }) => {
   return {
     createGame(action) {
       const game = Game({
-        ownerId: action.ownerId,
+        ownerId: action.userId,
         name: action.name
       });
       games.add(game);
-      return { ...game, targets: [action.id] };
+      return {
+        name: game.name,
+        gameId: game.id,
+        users: game.users,
+        ownerId: game.ownerId,
+        targets: [game.ownerId]
+      };
     },
     validateGame(action) {
-      const result = games.nameAvailable(name) && name.length > 0;
+      const result = games.nameAvailable(action.name) && action.name.length > 0;
       return {
         name: action.name,
         isValid: result,
-        targets: [action.Id]
+        targets: [action.userId]
       };
     },
     startGame(action) {

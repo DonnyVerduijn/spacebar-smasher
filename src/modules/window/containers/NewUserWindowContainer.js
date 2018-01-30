@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, { socket }) => {
   return {
-    switchWindow: () => {
+    previousWindow: () => {
       dispatch(switchWindow('MAIN'));
     },
     createUser: (name) => {

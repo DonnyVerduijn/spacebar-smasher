@@ -1,5 +1,7 @@
 {
     "isValid": false,
+    "ownerId": null,
     "name": "",
-    "id": null
+    "id": null,
+    "users": []
 }

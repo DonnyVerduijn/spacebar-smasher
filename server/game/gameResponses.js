@@ -1,9 +1,19 @@
 const gameResponses = {
   createGame(response) {
-    return { type: 'CREATE_GAME', ...response };
+    return {
+      type: 'CREATE_GAME',
+      gameId: response.gameId,
+      ownerId: response.ownerId,
+      name: response.name,
+      users: response.users
+    };
   },
   validateGame(response) {
-    return { type: 'VALIDATE_GAME', ...response };
+    return {
+      type: 'VALIDATE_GAME',
+      isValid: response.isValid,
+      name: response.name
+  };
   },
   startGame(response) {
     return { type: 'START_GAME', ...response };

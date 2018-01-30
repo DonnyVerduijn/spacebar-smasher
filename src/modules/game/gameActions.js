@@ -11,24 +11,21 @@ export const createGame = (action) => {
     ...action
   };
 };
-export const updateGame = (action) => {
-  return { type: 'UPDATE_GAME', ...action };
+export const startGame = () => {
+  return { type: 'START_GAME' };
 };
-export const startGame = (action) => {
-  return { type: 'START_GAME', ...action };
+export const pauseGame = () => {
+  return { type: 'PAUSE_GAME' };
 };
-export const pauseGame = (action) => {
-  return { type: 'PAUSE_GAME', ...action };
+export const joinGame = () => {
+  return { type: 'JOIN_GAME' };
 };
-export const joinGame = (action) => {
-  return { type: 'JOIN_GAME', ...action };
+export const leaveGame = () => {
+  return { type: 'LEAVE_GAME' };
 };
-export const leaveGame = (action) => {
-  return { type: 'LEAVE_GAME', ...action };
+export const quitGame = () => {
+  return { type: 'QUIT_GAME' };
 };
-export const quitGame = (action) => {
-  return { type: 'QUIT_GAME', ...action };
-};
-export const resumeGame = (action) => {
-  return { type: 'RESUME_GAME', ...action };
+export const resumeGame = () => {
+  return { type: 'RESUME_GAME' };
 };

@@ -28,19 +28,18 @@ const bindedResponses = bindToSnakeCase({
   ...gameResponses
 });
 
-// console.log(bindedActions);
-// console.log(bindedResponses);
 // on every event from the socketserver
 socketServer.onEvent(action => {
   // the defined action on corresponding key is called
   const result = bindedActions[action.type](action);
-  // console.log('result', result);
+  console.log('result', result);
   // the result is converted to the corresponding
   // response object.
   const response = bindedResponses[action.type](result);
+  console.log('response', response);
   // the server broadcasts the response to all clients
   // that are defined by an array of ids stored in the
-  // targets property of the response object.
+  // targets property of the result object.
   if (Array.isArray(result.targets)) {
     result.targets.forEach(target => {
       socketServer.sendById(target, response);

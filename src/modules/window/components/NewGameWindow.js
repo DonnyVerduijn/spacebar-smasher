@@ -9,17 +9,17 @@ import Flex from './../../../components/Flex';
 const NewGameWindow = ({
   createGame,
   validateGame,
-  switchWindow,
+  previousWindow,
   name,
   isValid
 }) => {
-  console.log(name);
+  // console.log(name);
   return (
     <Window>
       <Label>gamename:</Label>
       <TextBox value={name} onChange={validateGame} />
       <Flex justifyContent="space-between">
-        <Button label="back" className="Flat" onClick={switchWindow} />
+        <Button label="back" className="Flat" onClick={previousWindow} />
         <Button
           disabled={!isValid}
           label="next"
@@ -32,7 +32,7 @@ const NewGameWindow = ({
 };
 
 NewGameWindow.propTypes = {
-  switchWindow: PropTypes.func,
+  previousWindow: PropTypes.func,
   createGame: PropTypes.func,
   validateGame: PropTypes.func,
   name: PropTypes.string,

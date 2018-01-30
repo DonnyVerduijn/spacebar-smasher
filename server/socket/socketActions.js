@@ -1,11 +1,9 @@
-const socketActions = ({ users, games }) => {
+const socketActions = ({ games }) => {
   return {
     socketClosed(action) {
-      // distribute updates
-      const user = users.getById(action.id);
-      const game = user ? games.getByUserId(user.id) : undefined;
+      const game = games.getByUserId(action.userId);
       if (game) {
-        game.deleteUserById(action.id);
+        game.deleteUserById(action.userId);
       }
       const targets = game ? game.users : null;
       return { ...action, targets };

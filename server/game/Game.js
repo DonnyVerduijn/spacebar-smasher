@@ -11,6 +11,8 @@ const proto = {
     return this.ownerId;
   },
   deleteUserById(userId) {
+    console.log('userid', userId);
+    console.log('users', this.users);
     this.users = this.users.filter(user => {
       return user.id !== userId;
     });
@@ -38,7 +40,7 @@ const proto = {
   }
 };
 
-const Game = data => {
+const Game = options => {
 
     const params = {
       id: {
@@ -48,7 +50,7 @@ const Game = data => {
         enumerable: true
       },
       users: {
-        users: [data.ownerId],
+        value: [options.ownerId],
         writable: true,
         configurable: false,
         enumerable: true
@@ -66,7 +68,7 @@ const Game = data => {
         enumerable: true
       },
       name: {
-        value: data.name,
+        value: options.name,
         writable: true,
         configurable: false,
         enumerable: true
@@ -78,7 +80,7 @@ const Game = data => {
         enumerable: true
       },
       ownerId: {
-        value: data.ownerId,
+        value: options.ownerId,
         writable: false,
         configurable: false,
         enumerable: true

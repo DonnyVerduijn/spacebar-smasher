@@ -5,23 +5,25 @@ const userActions = ({ users }) => {
     validateUser(action) {
       const result = users.nameAvailable(action.name) && action.name.length > 0;
       return Object.assign({}, action, {
-        isValid: result, ...action, targets: [action.id] 
+        isValid: result,
+        ...action,
+        targets: [action.userId]
       });
     },
     createUser(action) {
-      if (users.userWithIdExists(action.id)) {
+      if (users.userWithIdExists(action.userId)) {
         // we are overwriting the previous user instance
       }
-      const user = User({ name: action.name, id: action.id });
+      const user = User({ name: action.name, id: action.userId });
       users.add(user);
-      return { ...user, ...action, targets: [action.id] };
+      return { ...user, ...action, targets: [action.userId] };
     },
     getUser(action) {
-      const user = users.getById(action.id);
+      const user = users.getById(action.userId);
       return { ...user, ...action };
     },
     updateUser(action) {
-      const user = users.getById(action.id);
+      const user = users.getById(action.userId);
       return { ...user, ...action };
     }
   };

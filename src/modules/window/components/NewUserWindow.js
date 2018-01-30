@@ -9,7 +9,7 @@ import Flex from './../../../components/Flex';
 const NewUserWindow = ({
   validateUser,
   createUser,
-  switchWindow,
+  previousWindow,
   name,
   isValid
 }) => {
@@ -21,13 +21,13 @@ const NewUserWindow = ({
         <Button
           label="back"
           className="Flat"
-          onClick={switchWindow}
+          onClick={previousWindow}
         />
         <Button
           disabled={!isValid}
           label="next"
           className="Raised"
-          onClick={createUser}
+          onClick={() => createUser(name)}
         />
       </Flex>
     </Window>
@@ -37,7 +37,7 @@ const NewUserWindow = ({
 NewUserWindow.propTypes = {
   validateUser: PropTypes.func,
   createUser: PropTypes.func,
-  switchWindow: PropTypes.func,
+  previousWindow: PropTypes.func,
   name: PropTypes.string,
   isValid: PropTypes.bool
 };

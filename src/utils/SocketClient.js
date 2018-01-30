@@ -36,13 +36,13 @@ const SocketClient = () => {
     // SocketServer.on(String, Function)
     onClose = () => {
       eventStream.next({
-        type: 'CLIENT_CLOSED'
+        type: 'SOCKET_CLOSED'
       });
       connect();
     },
     onError = error => {
       eventStream.next({
-        type: 'CLiENT_ERROR',
+        type: 'SOCKET_ERROR',
         message: error.message
       });
     },
