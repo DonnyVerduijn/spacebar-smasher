@@ -35,7 +35,6 @@ const SocketServer = () => {
     socketServer.on('connection', handlers.onConnection(handlers));
   };
   const onConnection = handlers => (socket, request) => {
-
     // create id for socket
     const id = uuid();
     // store socket by id
@@ -59,8 +58,8 @@ const SocketServer = () => {
       type: 'SOCKET_CLOSED',
       id
     });
-    // remove the socket
-    sockets.remove(id);
+    // delete the socket
+    sockets.delete(id);
   };
 
   // onError handler
@@ -76,7 +75,7 @@ const SocketServer = () => {
     const data = JSON.parse(message);
     eventStream.next({
       type: data.type,
-      socketId: id,
+      id,
       ...data
     });
   };
@@ -89,8 +88,8 @@ const SocketServer = () => {
   };
 
   // sendById public API method
-  const sendById = (id, action) => {
-    sockets[id].send(JSON.stringify(action));
+  const sendById = (id, payload) => {
+    sockets.get(id).send(JSON.stringify(payload));
   };
 
   // create websocket

@@ -1,34 +1,34 @@
-export const gameValidated = (game) => {
+export const validateGame = (action) => {
   return {
-    type: 'GAME_VALIDATED',
-    ...game
+    type: 'VALIDATE_GAMW',
+    ...action
   };
 };
 
-export const gameCreated = (game) => {
+export const createGame = (action) => {
   return {
-    type: 'GAME_CREATED',
-    ...game
+    type: 'CREATE_GAME',
+    ...action
   };
 };
-export const gameUpdated = () => {
-  return { type: 'GAME_UPDATED' };
+export const updateGame = (action) => {
+  return { type: 'UPDATE_GAME', ...action };
 };
-export const gameStarted = () => {
-  return { type: 'GAME_STARTED' };
+export const startGame = (action) => {
+  return { type: 'START_GAME', ...action };
 };
-export const gamePaused = () => {
-  return { type: 'GAME_PAUSED' };
+export const pauseGame = (action) => {
+  return { type: 'PAUSE_GAME', ...action };
 };
-export const gameJoined = () => {
-  return { type: 'GAME_JOINED' };
+export const joinGame = (action) => {
+  return { type: 'JOIN_GAME', ...action };
 };
-export const gameLeaved = () => {
-  return { type: 'GAME_LEAVED' };
+export const leaveGame = (action) => {
+  return { type: 'LEAVE_GAME', ...action };
 };
-export const gameQuit = () => {
-  return { type: 'GAME_QUIT' };
+export const quitGame = (action) => {
+  return { type: 'QUIT_GAME', ...action };
 };
-export const gameResumed = () => {
-  return { type: 'GAME_RESUMED' };
+export const resumeGame = (action) => {
+  return { type: 'RESUME_GAME', ...action };
 };

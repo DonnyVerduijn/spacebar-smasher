@@ -1,40 +1,48 @@
-// these actions are used only
+// these request implement the representation from
+// the payload of the request.
 // to send data or requests to the server
 
-export const createGame = game => ({
+export const createGame = request => ({
   type: 'CREATE_GAME',
-  name: game.name
+  name: request.name
 });
 
-export const startGame = () => ({
-  type: 'START_GAME'
+export const startGame = request => ({
+  type: 'START_GAME',
+  id: request.id
 });
 
-export const validateGame = ({ name }) => ({
+export const validateGame = request => ({
   type: 'VALIDATE_GAME',
-  name
+  name: request.name
 });
 
-export const pauseGame = () => ({
-  type: 'PAUSE_GAME'
+export const pauseGame = request => ({
+  type: 'PAUSE_GAME',
+  id: request.id
 });
 
-export const leaveGame = () => ({
-  type: 'LEAVE_GAME'
+export const leaveGame = request => ({
+  type: 'LEAVE_GAME',
+  id: request.id
 });
 
-export const joinGame = () => ({
-  type: 'JOIN_GAME'
+export const joinGame = request => ({
+  type: 'JOIN_GAME',
+  id: request.id
 });
 
-export const resumeGame = () => ({
-  type: 'RESUME_GAME'
+export const resumeGame = request => ({
+  type: 'RESUME_GAME',
+  id: request.id
 });
 
-export const quitGame = () => ({
-  type: 'QUIT_GAME'
+export const quitGame = request => ({
+  type: 'QUIT_GAME',
+  id: request.id
 });
 
-export const listGames = () => ({
-  type: 'LIST_GAMES'
+export const listGames = request => ({
+  type: 'LIST_GAMES',
+  id: request.id
 });

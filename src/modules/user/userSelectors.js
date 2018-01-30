@@ -1,5 +1,8 @@
 // Defines selectors to interpret the data in the user object
 
+export const getIsLocal = (state) => {
+    return state.user.isLocal;
+};
 
 export const getIsValid = (state) => {
     return state.user.isValid;

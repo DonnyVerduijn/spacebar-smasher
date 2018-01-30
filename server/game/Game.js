@@ -10,13 +10,13 @@ const proto = {
   getOwnerId() {
     return this.ownerId;
   },
-  removeUserById(userId) {
+  deleteUserById(userId) {
     this.users = this.users.filter(user => {
       return user.id !== userId;
     });
   },
   getUserIds() {
-    return this.users.slice();
+    return this.users;
   },
   getName() {
     return this.name;
@@ -32,6 +32,9 @@ const proto = {
   },
   setIsPaused(value) {
     this.isPaused = value;
+  },
+  getUsers() {
+    return this.users;
   }
 };
 

@@ -1,22 +1,22 @@
 // these actions are used only to send data to the server
 
-export const userCreated = user => {
+export const createUser = user => {
   return {
-    type: 'USER_CREATED',
+    type: 'CREATE_USER',
     ...user
   };
 };
 
-export const userUpdated = user => {
+export const updateUser = user => {
   return {
-    type: 'USER_UPDATED',
+    type: 'UPDATE_USER',
     ...user
   };
 };
 
-export const userValidated = user => {
+export const validateUser = user => {
   return {
-    type: 'USER_VALIDATED',
+    type: 'VALIDATE_USER',
     ...user
   };
 };

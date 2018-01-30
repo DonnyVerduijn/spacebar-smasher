@@ -4,15 +4,25 @@ const userActions = ({ users }) => {
   return {
     validateUser(action) {
       const result = users.nameAvailable(action.name) && action.name.length > 0;
-      return { name: action.name, isValid: result };
+      return Object.assign({}, action, {
+        isValid: result, ...action, targets: [action.id] 
+      });
     },
     createUser(action) {
-      if (users.userwithSocketIdExists(action.id)) {
-        users.removeBySocketId(action.id);
+      if (users.userwithIdExists(action.id)) {
+        users.deleteById(action.id);
       }
-      const user = User({ name: action.name, socketId: action.socketId });
+      const user = User({ name: action.name, id: action.id });
       users.add(user);
-      return user;
+      return { ...user, ...action };
+    },
+    getUser(action) {
+      const user = users.getById(action.id);
+      return { ...user, ...action };
+    },
+    updateUser(action) {
+      const user = users.getById(action.id);
+      return { ...user, ...action };
     }
   };
 };

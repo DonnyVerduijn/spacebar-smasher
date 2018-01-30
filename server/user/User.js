@@ -4,8 +4,8 @@ const proto = {
   getId() {
     return this.id;
   },
-  getSocketId() {
-    return this.socketId;
+  getPersistentId() {
+    return this.persistentId;
   },
   getName() {
     return this.name;
@@ -21,13 +21,13 @@ const proto = {
 const User = options => {
   const params = {
     id: {
-        value: uuid(),
+        value: options.id,
         writable: false,
         configurable: false,
         enumerable: true
       },
-      socketId: {
-        value: options.socketId,
+      persistantId: {
+        value: uuid(),
         writable: false,
         configurable: false,
         enumerable: true

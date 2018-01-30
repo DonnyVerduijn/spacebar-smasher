@@ -1,18 +1,18 @@
 // const socketServer = require('./../SocketServer');
 
 const userResponses = {
-  userValidated(user) {
+  validateUser(response) {
     return {
-      type: 'USER_VALIDATED',
-      name: user.name,
-      isValid: user.isValid
+      type: 'VALIDATE_USER',
+      name: response.name,
+      isValid: response.isValid
     };
   },
-  userCreated(user) {
+  createUser(response) {
     return {
-      type: 'USER_CREATED',
-      id: user.id,
-      name: user.name
+      type: 'CREATE_USER',
+      id: response.id,
+      name: response.name
     };
   }
 };

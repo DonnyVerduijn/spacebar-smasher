@@ -1,5 +1,6 @@
 {
     "isValid": false,
     "name": "",
-    "id": null
+    "id": null,
+    "isLocal": true
 }

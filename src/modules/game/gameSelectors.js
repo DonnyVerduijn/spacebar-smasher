@@ -1,3 +1,5 @@
+// implements selectors to access the current state
+// used by container components
 
 export const getIsValid = (state) => {
     return state.game.isValid;

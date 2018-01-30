@@ -1,25 +1,20 @@
 const socketActions = ({ users, games }) => {
   return {
     socketClosed(action) {
-      // fetch user instance
-      const user = users.getBySocketId(action.socketId);
-      // fetch game instance
-      const game = user ? games.getByUserId(user.id) : undefined;
       // distribute updates
-      game.userIds.foreach(userId => {
-          console.log(userId);
-        // const user = users.getById(userId);
-        // socketServer.sendById(user.socketId, {
-        //   type: 'GAME_LEAVED',
-        //   id: user.id
-        // });
-      });
+      const user = users.getById(action.id);
+      const game = user ? games.getByUserId(user.id) : undefined;
+      if (game) {
+        game.deleteUserById(action.id);
+      }
+      const targets = game ? game.users : null;
+      return { ...action, targets };
     },
     socketConnected(action) {
-        console.log(action);
+      return { ...action, targets: [action.id] };
     },
     socketError(action) {
-        console.log(action);
+      return { ...action };
     }
   };
 };
