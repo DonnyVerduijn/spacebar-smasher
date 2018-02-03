@@ -4,10 +4,3 @@ export const switchWindow = (target) => {
     target
   };
 };
-
-export const listItemClicked = (target) => {
-  return {
-    type: 'LIST_ITEM_CLICKED',
-    target
-  };
-};

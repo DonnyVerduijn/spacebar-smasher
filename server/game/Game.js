@@ -1,18 +1,9 @@
 const uuid = require('uuid4');
 
 const proto = {
-  getId() {
-    return this.id;
-  },
-  getCreatedAt() {
-    return this.createdAt;
-  },
-  getOwnerId() {
-    return this.ownerId;
-  },
   deleteUserById(userId) {
-    console.log('userid', userId);
-    console.log('users', this.users);
+    // console.log('userid', userId);
+    // console.log('users', this.users);
     this.users = this.users.filter(user => {
       return user.id !== userId;
     });
@@ -20,23 +11,28 @@ const proto = {
   getUserIds() {
     return this.users;
   },
-  getName() {
-    return this.name;
+  addUser(userId) {
+    this.users.push(userId);
   },
-  getIsActive() {
-    return this.isActive;
+  deleteUser(userId) {
+    this.users = this.users.filter(id => {
+      return id !== userId;
+    });
+  },
+  setName(value) {
+    this.name = value;
   },
   setIsActive(value) {
     this.isActive = value;
   },
-  getIsPaused() {
-    return this.isPaused;
+  setIsValid(value) {
+    this.isValid = value;
+  },
+  setIsConfirmed(value) {
+    this.isConfirmed = value;
   },
   setIsPaused(value) {
     this.isPaused = value;
-  },
-  getUsers() {
-    return this.users;
   }
 };
 
@@ -56,6 +52,24 @@ const Game = options => {
         enumerable: true
       },
       isActive: {
+        value: false,
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      isConfirmed: {
+        value: false,
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      isAborted: {
+        value: false,
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      isFinished: {
         value: false,
         writable: true,
         configurable: false,

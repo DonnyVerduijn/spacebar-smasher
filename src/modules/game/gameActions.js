@@ -1,3 +1,10 @@
+export const instantiateGame = (action) => {
+  return {
+    type: 'INSTANTIATE_GAME',
+    ...action
+  };
+};
+
 export const validateGame = (action) => {
   return {
     type: 'VALIDATE_GAME',
@@ -5,9 +12,9 @@ export const validateGame = (action) => {
   };
 };
 
-export const createGame = (action) => {
+export const confirmGame = (action) => {
   return {
-    type: 'CREATE_GAME',
+    type: 'CONFIRM_GAME',
     ...action
   };
 };

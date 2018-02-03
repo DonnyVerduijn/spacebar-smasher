@@ -3,12 +3,17 @@ import withSocket from './../../../utils/withSocket';
 import NewUserWindow from './../components/NewUserWindow';
 import { switchWindow } from './../windowActions';
 import * as actions from './../../user/userActions';
-import { getName, getIsValid } from './../../user/userSelectors';
+import { getUser } from './../../user/userSelectors';
+import { getId } from './../../socket/socketSelectors';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { socket }) => {
+  const localUser = getUser(state, getId(state));
+  if (!localUser) {
+    socket.send(actions.instantiateUser());
+  }
   return {
-    name: getName(state),
-    isValid: getIsValid(state)
+    name: localUser ? localUser.name : '',
+    isValid: localUser ? localUser.isValid : false
   };
 };
 
@@ -17,8 +22,8 @@ const mapDispatchToProps = (dispatch, { socket }) => {
     previousWindow: () => {
       dispatch(switchWindow('MAIN'));
     },
-    createUser: (name) => {
-      socket.send(actions.createUser({ name }));
+    confirmUser: (name) => {
+      socket.send(actions.confirmUser({ name }));
       dispatch(switchWindow('NEW_GAME'));
     },
     validateUser: name => {

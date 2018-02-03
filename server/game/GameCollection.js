@@ -3,7 +3,6 @@ const HashMap = require('hashmap');
 const GameCollection = () => {
     const games = {};
     const nameHashMap = new HashMap();
-    const ownerIdHashMap = new HashMap();
     const userIdHashMap = new HashMap();
 
     const deleteById = id => {
@@ -29,9 +28,6 @@ const GameCollection = () => {
         nameHashMap.set(game.name, game.id);
         userIdHashMap.set(game.ownerId, game.id);
       },
-      addUser: (gameId, userId) => {
-        games[gameId].users.push(userId);
-      },
       deleteById,
       deleteByUserId: userId => {
         // get the game id
@@ -52,7 +48,8 @@ const GameCollection = () => {
         return nameHashMap.get(name) === undefined;
       },
       ownerIdExists: ownerId => {
-        return ownerIdHashMap.get(ownerId) !== undefined;
+        const gameId = userIdHashMap.get(ownerId);
+        return games[gameId] && games[gameId].ownerId === ownerId;
       }
     };
   };

@@ -2,13 +2,20 @@ import { connect } from 'react-redux';
 import withSocket from './../../../utils/withSocket';
 import NewGameWindow from './../components/NewGameWindow';
 import { switchWindow } from './../windowActions';
-import { getName, getIsValid } from './../../game/gameSelectors';
+import { getGame } from './../../game/gameSelectors';
+import { getUser } from './../../user/userSelectors';
+import { getId } from './../../socket/socketSelectors';
 import * as actions from './../../game/gameActions';
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { socket }) => {
+  const localUser = getUser(state, getId(state));
+  const game = getGame(state);
+  if (!game || game.ownerId !== localUser.id) {
+    socket.send(actions.instantiateGame());
+  };
   return {
-    name: getName(state),
-    isValid: getIsValid(state)
+    name: game.name || '',
+    isValid: game.isValid || false
   };
 };
 
@@ -21,7 +28,7 @@ const mapDispatchToProps = (dispatch, { socket }) => {
       socket.send(actions.validateGame({ name }));
     },
     createGame: (name) => {
-      socket.send(actions.createGame({ name }));
+      socket.send(actions.confirmGame({ name }));
       dispatch(switchWindow('LOBBY'));
     }
   };

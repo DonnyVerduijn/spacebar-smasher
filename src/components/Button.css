@@ -15,7 +15,7 @@
   }
    
   .Button.Flat:hover{
-    color: rgb(138, 90, 67);
+    /* color: rgb(255, 255, 255); */
   }
 
   .Button.Raised{
@@ -29,7 +29,7 @@
   }
   
   .Button.Raised:hover{
-    color: rgb(153, 93, 65);
-    border-color: rgb(153, 93, 65);
+    color: rgb(255, 255, 255);
+    border-color: rgb(255, 255, 255);
   }
  

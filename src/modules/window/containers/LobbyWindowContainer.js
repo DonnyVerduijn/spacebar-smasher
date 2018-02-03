@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import withSocket from './../../../utils/withSocket';
-import NewGameWindow from './../components/NewGameWindow';
+import LobbyWindow from './../components/LobbyWindow';
 import { switchWindow } from './../windowActions';
 import { getName, getUserIds } from './../../game/gameSelectors';
 import { getUser } from './../../user/userSelectors';
@@ -29,5 +29,5 @@ const mapDispatchToProps = (dispatch, { socket }) => {
 };
 
 export default withSocket(
-  connect(mapStateToProps, mapDispatchToProps)(NewGameWindow)
+  connect(mapStateToProps, mapDispatchToProps)(LobbyWindow)
 );

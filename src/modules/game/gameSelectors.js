@@ -16,3 +16,7 @@ export const getId = (state) => {
 export const getUsers = (state) => {
     return state.game.users;
 };
+
+export const getGame = (state) => {
+    return state.game;
+};

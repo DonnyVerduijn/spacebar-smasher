@@ -7,7 +7,7 @@ import { socketReducer } from './modules/socket';
 import { windowReducer } from './modules/window';
 
 const rootReducer = combineReducers({
-    user: userReducer,
+    users: userReducer,
     game: gameReducer,
     socket: socketReducer,
     window: windowReducer

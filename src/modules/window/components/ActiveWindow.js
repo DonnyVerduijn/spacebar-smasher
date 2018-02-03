@@ -8,8 +8,8 @@ import NewGameWindowContainer from './../containers/NewGameWindowContainer';
 import NewUserWindowContainer from './../containers/NewUserWindowContainer';
 import MainWindowContainer from '../containers/MainWindowContainer';
 import PauseWindowContainer from './../containers/PauseWindowContainer';
-import GameOverWindowContainer from './../containers/GameOverWindowContainer.js';
-
+import GameOverWindowContainer from './../containers/GameOverWindowContainer';
+import NoConnectionWindowContainer from './../containers/NoConnectionWindowContainer';
 
 const getActiveWindow = (active) => {
     // console.log(active);
@@ -31,8 +31,10 @@ const getActiveWindow = (active) => {
         return <GameOverWindowContainer/>;
         case 'HIGHSCORES':
         return <HighScoreWindowContainer/>;
+        case 'NO_CONNECTION':
+        return <NoConnectionWindowContainer/>;
         default:
-        return <MainWindowContainer/>;
+        return null;
     }
 };
 

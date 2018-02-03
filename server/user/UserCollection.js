@@ -12,9 +12,11 @@ const UserCollection = () => {
       persistentIdHashMap.set(user.persistentId, user.id);
     },
     deleteById: id => {
-      nameHashMap.delete(users[id].name);
-      persistentIdHashMap.delete(users[id].persistentId);
-      Reflect.deleteProperty(users, id);
+      if (users[id]) {
+        nameHashMap.delete(users[id].name);
+        persistentIdHashMap.delete(users[id].persistentId);
+        Reflect.deleteProperty(users, id);
+      }
     },
     getAll: () => {
       return users;
@@ -22,13 +24,13 @@ const UserCollection = () => {
     getAllById: () => {
       return Object.keys(users);
     },
-    getByPersistentId: (persistentId) => {
+    getByPersistentId: persistentId => {
       return users[persistentIdHashMap.get(persistentId)];
     },
     getById: id => {
       return users[id];
     },
-    userWithIdExists: (id) => {
+    userWithIdExists: id => {
       return users[id] !== undefined;
     },
     userWithPersistentIdExists: persistentId => {

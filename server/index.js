@@ -4,10 +4,7 @@ const bindToSnakeCase = require('./utils/bindToSnakeCase');
 const gameActions = require('./game/gameActions');
 const userActions = require('./user/userActions');
 const socketActions = require('./socket/socketActions');
-// responses
-const socketResponses = require('./socket/socketResponses');
-const userResponses = require('./user/userResponses');
-const gameResponses = require('./game/gameResponses');
+const omit = require('./utils/omit');
 
 // create state container
 const state = require('./utils/createState');
@@ -21,28 +18,22 @@ const bindedActions = bindToSnakeCase({
   ...gameActions(state)
 });
 
-// bind responses to snakeCase keyed object
-const bindedResponses = bindToSnakeCase({
-  ...socketResponses,
-  ...userResponses,
-  ...gameResponses
-});
+// console.log(bindedActions);
 
 // on every event from the socketserver
 socketServer.onEvent(action => {
+  // console.log(action);
   // the defined action on corresponding key is called
   const result = bindedActions[action.type](action);
   console.log('result', result);
-  // the result is converted to the corresponding
-  // response object.
-  const response = bindedResponses[action.type](result);
-  console.log('response', response);
+
   // the server broadcasts the response to all clients
   // that are defined by an array of ids stored in the
   // targets property of the result object.
   if (Array.isArray(result.targets)) {
+    const payload = omit(result, ['targets', 'userId']);
     result.targets.forEach(target => {
-      socketServer.sendById(target, response);
+      socketServer.sendById(target, payload);
     });
   }
 });

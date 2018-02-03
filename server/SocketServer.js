@@ -44,7 +44,7 @@ const SocketServer = () => {
     eventStream.next({
       type: 'SOCKET_CONNECTED',
       ipAddress: request.connection.remoteAddress,
-      id
+      userId: id
     });
 
     // attach handlers with id
@@ -56,7 +56,7 @@ const SocketServer = () => {
   const onClose = id => () => {
     eventStream.next({
       type: 'SOCKET_CLOSED',
-      id
+      userId: id
     });
     // delete the socket
     sockets.delete(id);
@@ -66,7 +66,7 @@ const SocketServer = () => {
   const onError = id => () => {
     eventStream.next({
       type: 'SOCKET_ERROR',
-      id
+      userId: id
     });
   };
 

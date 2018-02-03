@@ -1,36 +1,25 @@
-import gameState from './gameState.json';
+import omit from './../../utils/omit';
 
-const gameReducer = (game = gameState, action) => {
-    switch (action.type) {
-        case 'VALIDATE_GAME':
-        return Object.assign({}, game, {
-            isValid: action.isValid,
-            name: action.name
-        });
-        case 'CREATE_GAME':
-        return Object.assign({}, game, {
-            id: action.gameId,
-            name: action.name,
-            ownerId: action.ownerId,
-            users: action.users
-        });
-        case 'START_GAME':
-        return game;
-        case 'UPDATE_GAME':
-        return game;
-        case 'LEAVE_GAME':
-        return game;
-        case 'JOIN_GAME':
-        return game;
-        case 'PAUSE_GAME':
-        return game;
-        case 'RESUME_GAME':
-        return game;
-        case 'QUIT_GAME':
-        return game;
-        default:
-        return game;
-    }
+const gameReducer = (state = {}, action) => {
+  // these actions are tunneled
+  switch (action.type) {
+    case 'INSTANTIATE_GAME':
+    case 'VALIDATE_GAME':
+    case 'CONFIRM_GAME':
+    case 'START_GAME':
+    case 'UPDATE_GAME':
+    case 'LEAVE_GAME':
+    case 'JOIN_GAME':
+    case 'PAUSE_GAME':
+    case 'RESUME_GAME':
+    case 'QUIT_GAME':
+      return {
+        ...state,
+        ...omit(action, 'type')
+      };
+    default:
+      return state;
+  }
 };
 
 export default gameReducer;

@@ -1,8 +1,14 @@
 // these actions are used only to send data to the server
-
-export const createUser = user => {
+export const instantiateUser = user => {
   return {
-    type: 'CREATE_USER',
+    type: 'INSTANTIATE_USER',
+    ...user
+  };
+};
+
+export const confirmUser = user => {
+  return {
+    type: 'CONFIRM_USER',
     ...user
   };
 };

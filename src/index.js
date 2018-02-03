@@ -10,6 +10,7 @@ import store from './utils/createStore';
 import SocketClient from './utils/SocketClient';
 import SocketProvider from './utils/SocketProvider';
 
+// create socket and attach dispatch function
 const socket = SocketClient();
 socket.onEvent(store.dispatch);
 

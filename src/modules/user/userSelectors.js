@@ -1,21 +1,21 @@
-// Defines selectors to interpret the data in the user object
+// Defines selectors to interpret the data in the users object
 
-export const getIsLocal = (state) => {
-    return state.user.isLocal;
+export const getIsValid = (state, id) => {
+    return state.users[id].isValid;
 };
 
-export const getIsValid = (state) => {
-    return state.user.isValid;
+export const getName = (state, id) => {
+    return state.users[id].name;
 };
 
-export const getName = (state) => {
-    return state.user.name;
+export const getId = (state, id) => {
+    return state.users[id].persistentId;
 };
 
-export const getId = (state) => {
-    return state.user.id;
+export const getUsers = (state) => {
+    return state.users;
 };
 
 export const getUser = (state, id) => {
-    return state.user[id];
+    return state.users[id];
 };

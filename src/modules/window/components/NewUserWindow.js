@@ -8,7 +8,7 @@ import Flex from './../../../components/Flex';
 
 const NewUserWindow = ({
   validateUser,
-  createUser,
+  confirmUser,
   previousWindow,
   name,
   isValid
@@ -27,7 +27,7 @@ const NewUserWindow = ({
           disabled={!isValid}
           label="next"
           className="Raised"
-          onClick={() => createUser(name)}
+          onClick={() => confirmUser(name)}
         />
       </Flex>
     </Window>
@@ -36,7 +36,7 @@ const NewUserWindow = ({
 
 NewUserWindow.propTypes = {
   validateUser: PropTypes.func,
-  createUser: PropTypes.func,
+  confirmUser: PropTypes.func,
   previousWindow: PropTypes.func,
   name: PropTypes.string,
   isValid: PropTypes.bool

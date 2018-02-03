@@ -17,7 +17,7 @@ const mapStateToProps = () => {
 const mapDispatchToProps = dispatch => {
   return {
     listItemClicked: id => {
-      dispatch(actions.listItemClicked(menuItems[id].target));
+      dispatch(actions.switchWindow(menuItems[id].target));
     }
   };
 };
