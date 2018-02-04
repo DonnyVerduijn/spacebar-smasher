@@ -15,14 +15,15 @@ const NewUserWindow = ({
 }) => {
   return (
     <Window>
-      <Label>username:</Label>
-      <TextBox value={name} onChange={validateUser} />
+      <TextBox
+        label="username:"
+        isValid={isValid}
+        autoFocus={true}
+        value={name}
+        onChange={validateUser}
+      />
       <Flex justifyContent="space-between">
-        <Button
-          label="back"
-          className="Flat"
-          onClick={previousWindow}
-        />
+        <Button label="back" className="Flat" onClick={previousWindow} />
         <Button
           disabled={!isValid}
           label="next"

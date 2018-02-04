@@ -5,6 +5,7 @@ const userActions = ({ users }) => {
     instantiateUser(action) {
       const user = User({ name: action.name, id: action.userId });
       users.add(user);
+      console.log(users.nameHashMap());
       return Object.assign({}, action, user, { targets: [action.userId] });
     },
     validateUser(action) {
@@ -20,6 +21,7 @@ const userActions = ({ users }) => {
     confirmUser(action) {
       const user = users.getById(action.userId);
       user.setIsConfirmed(true);
+      users.confirmById(user.id);
       return Object.assign({}, user, action, { targets: [action.userId] });
     },
     getUser(action) {

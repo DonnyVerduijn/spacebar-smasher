@@ -8,8 +8,11 @@ const UserCollection = () => {
   return {
     add: user => {
       users[user.id] = user;
-      nameHashMap.set(user.name, user.id);
+
       persistentIdHashMap.set(user.persistentId, user.id);
+    },
+    confirmById: id => {
+      nameHashMap.set(users[id].name, id);
     },
     deleteById: id => {
       if (users[id]) {
@@ -37,7 +40,10 @@ const UserCollection = () => {
       return persistentIdHashMap.get(persistentId);
     },
     nameAvailable: name => {
-      return nameHashMap.get(name) === undefined;
+      return !nameHashMap.has(name);
+    },
+    nameHashMap: () => {
+      return nameHashMap.entries();
     }
   };
 };

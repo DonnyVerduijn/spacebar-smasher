@@ -12,8 +12,8 @@ export const getId = (state, id) => {
     return state.users[id].persistentId;
 };
 
-export const getUsers = (state) => {
-    return state.users;
+export const getUserIds = (state) => {
+    return Object.keys(state.users);
 };
 
 export const getUser = (state, id) => {

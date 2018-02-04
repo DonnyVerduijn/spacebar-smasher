@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import withSocket from './../../../utils/withSocket';
 import LobbyWindow from './../components/LobbyWindow';
 import { switchWindow } from './../windowActions';
-import { getName, getUserIds } from './../../game/gameSelectors';
+import { getUserIds, getName } from './../../game/gameSelectors';
 import { getUser } from './../../user/userSelectors';
 import * as actions from './../../game/gameActions';
 
@@ -11,7 +11,7 @@ const mapStateToProps = state => {
     return getUser(state, id);
   });
   return {
-    name: getName(state),
+    gameName: getName(state),
     users
   };
 };

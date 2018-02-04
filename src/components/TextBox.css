@@ -1,4 +1,14 @@
-.TextBox{
+.TextBox label {
+    display: block;
+    text-align: left;
+    width: 100%;
+    font-size: 1em;
+    font-weight: 300;
+    text-transform: capitalize;
+    color: #525c64;
+}
+
+.TextBox input {
     margin-bottom: 1em;
     width: 100%;
     margin: 0 0 1em;
@@ -10,4 +20,20 @@
     border-color: rgb(82, 92, 100);
     outline: 0;
     color: white;
-  }
+}
+
+.TextBox.invalid label {
+  color: red;
+}
+
+.TextBox.invalid input {
+  border-color: red;
+}
+
+.TextBox.valid label {
+    color: green;
+}
+
+.TextBox.valid input {
+    border-color: green;
+}

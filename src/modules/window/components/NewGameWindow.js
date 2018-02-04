@@ -13,11 +13,15 @@ const NewGameWindow = ({
   name,
   isValid
 }) => {
-  // console.log(name);
   return (
     <Window>
-      <Label>gamename:</Label>
-      <TextBox value={name} onChange={validateGame} />
+      <TextBox
+        label="gamename:"
+        isValid={isValid}
+        autoFocus={true}
+        value={name}
+        onChange={validateGame}
+      />
       <Flex justifyContent="space-between">
         <Button label="back" className="Flat" onClick={previousWindow} />
         <Button

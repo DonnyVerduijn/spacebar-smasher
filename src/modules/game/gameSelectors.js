@@ -6,14 +6,14 @@ export const getIsValid = (state) => {
 };
 
 export const getName = (state) => {
-    return state.game.name;
+    return state.game.name || '';
 };
 
 export const getId = (state) => {
     return state.game.id;
 };
 
-export const getUsers = (state) => {
+export const getUserIds = (state) => {
     return state.game.users;
 };
 

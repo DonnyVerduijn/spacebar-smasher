@@ -25,7 +25,7 @@ socketServer.onEvent(action => {
   // console.log(action);
   // the defined action on corresponding key is called
   const result = bindedActions[action.type](action);
-  console.log('result', result);
+  // console.log('result', result);
 
   // the server broadcasts the response to all clients
   // that are defined by an array of ids stored in the

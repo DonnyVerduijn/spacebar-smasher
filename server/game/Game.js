@@ -22,6 +22,9 @@ const proto = {
   setName(value) {
     this.name = value;
   },
+  setIsAborted(value) {
+    this.isAborted = value;
+  },
   setIsActive(value) {
     this.isActive = value;
   },

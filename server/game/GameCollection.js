@@ -25,8 +25,11 @@ const GameCollection = () => {
     return {
       add: game => {
         games[game.id] = game;
-        nameHashMap.set(game.name, game.id);
+
         userIdHashMap.set(game.ownerId, game.id);
+      },
+      confirmById: (id) => {
+        nameHashMap.set(games[id].name, id);
       },
       deleteById,
       deleteByUserId: userId => {

@@ -26,9 +26,11 @@
     color: rgb(68, 68, 68) !important;
     border-color: rgb(88, 88, 88) !important;
     cursor: default;
+    background: none !important;
   }
   
   .Button.Raised:hover{
+    background-color: rgba(255,255,255,0.05);
     color: rgb(255, 255, 255);
     border-color: rgb(255, 255, 255);
   }
