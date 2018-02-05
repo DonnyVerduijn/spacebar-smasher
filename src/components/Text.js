@@ -4,7 +4,7 @@ import './Text.css';
 
 const Text = ({ children, weight }) => {
   return (
-    <span className="Text" styles={{ fontWeight: weight }}>
+    <span className="Text" style={{ fontWeight: weight }}>
       {children}
     </span>
   );

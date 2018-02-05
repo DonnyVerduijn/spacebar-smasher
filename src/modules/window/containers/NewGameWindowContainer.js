@@ -10,12 +10,16 @@ const mapStateToProps = (state) => {
   return {
     game: {
       name: game.name || '',
-      isValid: game.isValid || false
+      isValid: game.isValid || false,
+      isValidated: game.isValidated || false
     }
   };
 };
 
 const mapDispatchToProps = (dispatch, { socket }) => {
+  const logger = {
+    lastValidateGameRequest: null
+  };
   return {
     instantiateGame: () => {
       socket.send(actions.instantiateGame());
@@ -24,8 +28,13 @@ const mapDispatchToProps = (dispatch, { socket }) => {
       dispatch(switchWindow('NEW_USER'));
     },
     validateGame: (name, id) => {
-      dispatch(actions.validateGame({ id, name }));
-      socket.send(actions.validateGame({ name }));
+      setTimeout(() => {
+        if (Date.now() - logger.lastValidateGameRequest > 200) {
+          socket.send(actions.validateGame({ name }));
+        }
+      }, 250);
+      dispatch(actions.validateGame({ id, name, isValidated: false }));
+      logger.lastValidateGameRequest = Date.now();
     },
     confirmGame: (name) => {
       socket.send(actions.confirmGame({ name }));

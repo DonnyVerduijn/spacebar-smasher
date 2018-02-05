@@ -11,17 +11,13 @@ class NewUserWindow extends Component {
   }
 
   render() {
-    const {
-      validateUser,
-      confirmUser,
-      previousWindow,
-      user
-    } = this.props;
+    const { validateUser, confirmUser, previousWindow, user } = this.props;
     return (
       <Window>
         <TextBox
           label="username:"
           isValid={user.isValid}
+          isValidated={user.isValid || user.isValidated}
           autoFocus={true}
           value={user.name}
           onChange={value => validateUser(user.id, value)}
@@ -29,7 +25,7 @@ class NewUserWindow extends Component {
         <Flex justifyContent="space-between">
           <Button label="back" className="Flat" onClick={previousWindow} />
           <Button
-            disabled={!user.isValid}
+            disabled={!user.isValid || user.name.length === 0}
             label="next"
             className="Raised"
             onClick={() => confirmUser(user.name)}

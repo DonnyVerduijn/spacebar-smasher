@@ -41,6 +41,7 @@ const gameActions = ({ games, users }) => {
       const isValid = games.nameAvailable(action.name) && action.name.length > 0;
       game.setName(action.name);
       game.setIsValid(isValid);
+      game.setIsValidated(true);
       return Object.assign({}, action, game, { targets: [action.userId]
       });
     },

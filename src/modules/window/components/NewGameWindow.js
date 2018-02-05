@@ -22,6 +22,7 @@ class NewGameWindow extends Component {
         <TextBox
           label="gamename:"
           isValid={game.isValid}
+          isValidated={game.isValid || game.isValidated}
           autoFocus={true}
           value={game.name}
           onChange={validateGame}

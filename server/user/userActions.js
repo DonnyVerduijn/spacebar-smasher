@@ -12,6 +12,7 @@ const userActions = ({ users }) => {
       const isValid = users.nameAvailable(action.name) && action.name.length > 0;
       user.setName(action.name);
       user.setIsValid(isValid);
+      user.setIsValidated(true);
       return Object.assign({}, action,
         user,
         { targets: [action.userId] }

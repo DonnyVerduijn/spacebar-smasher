@@ -13,7 +13,8 @@ const mapStateToProps = state => {
     user: {
       id,
       name: localUser ? localUser.name : '',
-      isValid: localUser ? localUser.isValid : false
+      isValid: localUser ? localUser.isValid : false,
+      isValidated: localUser ? localUser.isValidated : false
     }
   };
 };
@@ -33,14 +34,14 @@ const mapDispatchToProps = (dispatch, { socket }) => {
       socket.send(actions.confirmUser({ name }));
       dispatch(switchWindow('NEW_GAME'));
     },
-    validateUser: (id, name, isValid) => {
+    validateUser: (id, name) => {
+      console.clear();
       setTimeout(() => {
         if (Date.now() - logger.lastValidateUserRequest > 200) {
           socket.send(actions.validateUser({ name }));
         }
       }, 250);
-      const isValidNow = name.length > 0 ? false : isValid;
-      dispatch(actions.validateUser({ id, name, isValid: isValidNow }));
+      dispatch(actions.validateUser({ id, name, isValidated: false }));
       logger.lastValidateUserRequest = Date.now();
     }
   };
