@@ -20,3 +20,7 @@ export const getJoinedUsers = (state) => {
 export const getGame = (state) => {
     return state.game;
 };
+
+export const getAllGames = (state) => {
+    return state.games;
+};

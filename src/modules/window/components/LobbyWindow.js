@@ -5,7 +5,7 @@ import Window from './../../../components/Window';
 import Table from './../../../components/Table';
 import Flex from './../../../components/Flex';
 import Button from './../../../components/Button';
-import Text from './../../../components/Text';
+import Display from './../../../components/Display';
 
 // Load locale-specific relative date/time formatting rules.
 import en from 'javascript-time-ago/locale/en';
@@ -59,7 +59,7 @@ class LobbyWindow extends Component {
     const { gameName, startGame, quitGame } = this.props;
     return (
       <Window>
-        <Text>{gameName}</Text>
+        <Display>{gameName}</Display>
         <Table rows={this.state.users} />
         <Flex justifyContent="space-between">
           <Button label="quit" className="Flat" onClick={quitGame} />

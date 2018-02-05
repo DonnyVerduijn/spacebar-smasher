@@ -30,7 +30,7 @@ class NewGameWindow extends Component {
         <Flex justifyContent="space-between">
           <Button label="back" className="Flat" onClick={previousWindow} />
           <Button
-            disabled={!game.isValid}
+            disabled={!game.isValid || game.name.length === 0}
             label="next"
             className="Raised"
             onClick={() => confirmGame(game.name)}

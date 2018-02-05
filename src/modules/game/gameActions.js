@@ -36,3 +36,6 @@ export const quitGame = () => {
 export const resumeGame = () => {
   return { type: 'RESUME_GAME' };
 };
+export const availableGames = () => {
+  return { type: 'AVAILABLE_GAMES' };
+};
