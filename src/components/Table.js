@@ -4,20 +4,26 @@ import './Table.css';
 
 const Table = ({ children, rows, onClick }) => {
   // take the keys from the first row as columns
-  const columnKeys = Object.keys(rows[0]);
+  const columnKeys = rows.length === 0 ? [] : Object.keys(rows[0]);
 
   return (
     <table className="Table">
+      <thead>
+      <tr className="header">
+        {columnKeys.map((key, index) => {
+          return <th key={index}>{key}</th>;
+        })}
+      </tr>
+      </thead>
+      <tbody>
       {rows.map((row, rowIndex) => {
         // take a row key from id or index
         const rowKey = row.id ? row.id : rowIndex;
         return (
           <tr
             key={rowKey}
-            className="Row"
-            onClick={() => {
-              return onClick(row);
-            }}
+            className="row"
+            onClick={onClick ? () => onClick(row) : undefined}
           >
             {columnKeys.map((key, index) => {
               return <th key={index}>{row[key]}</th>;
@@ -26,6 +32,7 @@ const Table = ({ children, rows, onClick }) => {
         );
       })}
       {children}
+      </tbody>
     </table>
   );
 };

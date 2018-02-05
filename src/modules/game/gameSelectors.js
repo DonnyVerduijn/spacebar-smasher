@@ -13,7 +13,7 @@ export const getId = (state) => {
     return state.game.id;
 };
 
-export const getUserIds = (state) => {
+export const getJoinedUsers = (state) => {
     return state.game.users;
 };
 

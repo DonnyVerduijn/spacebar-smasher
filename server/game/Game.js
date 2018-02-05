@@ -2,20 +2,18 @@ const uuid = require('uuid4');
 
 const proto = {
   deleteUserById(userId) {
-    // console.log('userid', userId);
-    // console.log('users', this.users);
     this.users = this.users.filter(user => {
       return user.id !== userId;
     });
   },
   getUserIds() {
-    return this.users;
+    return this.users.map(user => user.id);
   },
-  addUser(userId) {
-    this.users.push(userId);
+  addUser(user) {
+    this.users.push({ id: user.id, joinedAt: Date.now() });
   },
   deleteUser(userId) {
-    this.users = this.users.filter(id => {
+    this.users = this.users.filter(({ id }) => {
       return id !== userId;
     });
   },
@@ -49,7 +47,7 @@ const Game = options => {
         enumerable: true
       },
       users: {
-        value: [options.ownerId],
+        value: [],
         writable: true,
         configurable: false,
         enumerable: true

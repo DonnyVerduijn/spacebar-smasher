@@ -25,7 +25,6 @@ const GameCollection = () => {
     return {
       add: game => {
         games[game.id] = game;
-
         userIdHashMap.set(game.ownerId, game.id);
       },
       confirmById: (id) => {
@@ -42,7 +41,7 @@ const GameCollection = () => {
         return games;
       },
       getByUserId(userId) {
-        return games[userIdHashMap.get(userId)];
+        return userId ? games[userIdHashMap.get(userId)] : undefined;
       },
       getById: id => {
         return games[id];

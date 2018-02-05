@@ -3,9 +3,9 @@ import MainWindow from './../components/MainWindow';
 import * as actions from './../windowActions';
 
 const menuItems = [
-  { label: 'New game', target: 'NEW_USER' },
-  { label: 'Join game', target: 'NEW_USER' },
-  { label: 'Highscores', target: 'HIGHSCORES' }
+  { value: 'New game', target: 'NEW_USER' },
+  { value: 'Join game', target: 'NEW_USER' },
+  { value: 'Highscores', target: 'HIGHSCORES' }
 ];
 
 const mapStateToProps = () => {

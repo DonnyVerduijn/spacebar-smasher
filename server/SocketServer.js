@@ -89,6 +89,7 @@ const SocketServer = () => {
 
   // sendById public API method
   const sendById = (id, payload) => {
+    // console.log('sendById', id, payload);
     sockets.get(id).send(JSON.stringify(payload));
   };
 

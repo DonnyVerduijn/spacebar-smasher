@@ -10,15 +10,17 @@ const ItemList = ({ className, items, onClick }) => {
         return (
           <Item
             key={index}
-            label={item.label}
-            onClick={() => {
-              return onClick(index);
-            }}
+            label={item.value}
+            onClick={onClick ? () => onClick(index) : undefined}
           />
         );
       })}
     </ul>
   );
+};
+
+ItemList.defaultProps = {
+  className: ''
 };
 
 ItemList.propTypes = {

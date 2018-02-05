@@ -17,7 +17,7 @@ const socketActions = ({ games, users }) => {
         // delete the user from the game
         game.deleteUser(user.id);
         // store the targets to be notified
-        targets = game.users;
+        targets = game.getUserIds();
         // if the user owns the game
         if (game.ownerId === user.id) {
           // make the game quit

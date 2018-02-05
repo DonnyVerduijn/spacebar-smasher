@@ -24,12 +24,15 @@ const gameActions = ({ games, users }) => {
         ownerId: action.userId,
         name: action.name
       });
+
       games.add(game);
       return Object.assign({}, action, game, { targets: [game.ownerId] });
     },
     confirmGame(action) {
-      const game = games.getByUserId(action.userId);
+      const user = users.getById(action.userId);
+      const game = games.getByUserId(user.id);
       game.setIsConfirmed(true);
+      game.addUser(user);
       games.confirmById(game.id);
       return Object.assign({}, action, game, { targets: [game.ownerId] });
     },
@@ -63,7 +66,7 @@ const gameActions = ({ games, users }) => {
     },
     quitGame(action) {
       const user = users.getById(action.userId);
-      const game = user ? games.getByUserId(user.id) : undefined;
+      const game = games.getByUserId(user.id);
       game.setIsAborted(false);
       return Object.assign({}, action, game, { targets: game.getUserIds() });
     },

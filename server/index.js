@@ -22,7 +22,7 @@ const bindedActions = bindToSnakeCase({
 
 // on every event from the socketserver
 socketServer.onEvent(action => {
-  // console.log(action);
+  // console.log('action', action);
   // the defined action on corresponding key is called
   const result = bindedActions[action.type](action);
   // console.log('result', result);

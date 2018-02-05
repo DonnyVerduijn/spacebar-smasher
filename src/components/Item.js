@@ -6,7 +6,7 @@ import Link from './Link';
 const Item = ({ label, onClick }) => {
   return (
     <li className="Item">
-      <Link onClick={onClick}>{label}</Link>
+      {onClick ? <Link onClick={onClick}>{label}</Link> : label}
     </li>
   );
 };
