@@ -1,35 +1,20 @@
 const uuid = require('uuid4');
 
 const proto = {
-  getId() {
-    return this.id;
-  },
-  getPersistentId() {
-    return this.persistentId;
-  },
-  getName() {
-    return this.name;
-  },
   setName(value) {
     this.name = value;
-  },
-  getIsConfirmed() {
-    return this.isConfirmed;
   },
   setIsConfirmed(value) {
     this.isConfirmed = value;
   },
-  getIsValid() {
-    return this.isValid;
+  setIsValidated(value) {
+    this.isValidated = value;
   },
   setIsValid(value) {
     this.isValid = value;
   },
   setScore(value) {
     this.score += value;
-  },
-  getScore() {
-    return this.score;
   }
 };
 
@@ -54,6 +39,12 @@ const User = options => {
         enumerable: true
       },
       isConfirmed: {
+        value: false,
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      isValidated: {
         value: false,
         writable: true,
         configurable: false,

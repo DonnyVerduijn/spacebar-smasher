@@ -18,12 +18,7 @@ const timeAgo = new TimeAgo('en-US');
 const options = {
   gradation: [
     {
-      factor: 1,
-      unit: 'now'
-    },
-    {
       threshold: 1,
-      threshold_for_now: 5,
       factor: 1,
       unit: 'second'
     },

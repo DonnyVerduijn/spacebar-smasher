@@ -45,8 +45,7 @@ NewGameWindow.propTypes = {
   previousWindow: PropTypes.func,
   confirmGame: PropTypes.func,
   validateGame: PropTypes.func,
-  name: PropTypes.string,
-  isValid: PropTypes.bool
+  game: PropTypes.object
 };
 
 export default NewGameWindow;

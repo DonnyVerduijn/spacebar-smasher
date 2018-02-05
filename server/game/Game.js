@@ -29,6 +29,9 @@ const proto = {
   setIsValid(value) {
     this.isValid = value;
   },
+  setIsValidated(value) {
+    this.isValidated = value;
+  },
   setIsConfirmed(value) {
     this.isConfirmed = value;
   },
@@ -77,6 +80,18 @@ const Game = options => {
         enumerable: true
       },
       isPaused: {
+        value: false,
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      isValid: {
+        value: false,
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      isValidated: {
         value: false,
         writable: true,
         configurable: false,
