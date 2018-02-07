@@ -6,10 +6,11 @@ import { switchWindow } from './../windowActions';
 import { getJoinedUsers, getName } from './../../game/gameSelectors';
 import { getUser } from './../../user/userSelectors';
 import * as actions from './../../game/gameActions';
+import { getLocalGameId } from './../../window/windowSelectors';
 
 
 const mapStateToProps = state => {
-  const users = getJoinedUsers(state).map(({ id, joinedAt }) => {
+  const users = getJoinedUsers(state, getLocalGameId(state)).map(({ id, joinedAt }) => {
     return { user: getUser(state, id).name, joined: joinedAt };
   });
   return {

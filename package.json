@@ -6,6 +6,7 @@
   "dependencies": {
     "hashmap": "^2.3.0",
     "javascript-time-ago": "^1.0.28",
+    "lodash.debounce": "^4.0.8",
     "lodash.snakecase": "^4.1.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",

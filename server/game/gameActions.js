@@ -74,6 +74,10 @@ const gameActions = ({ games, users }) => {
     exitGame(action) {
       const game = games.getByUserId(action.userId);
       return Object.assign({}, action, game, { targets: game.getUserIds() });
+    },
+    availableGames(action) {
+      const availableGames = games.getConfirmed();
+      return Object.assign({}, action, { availableGames, targets: [action.userId] });
     }
   };
 };

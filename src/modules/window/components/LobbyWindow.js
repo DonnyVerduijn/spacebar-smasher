@@ -18,7 +18,6 @@ const timeAgo = new TimeAgo('en-US');
 const options = {
   gradation: [
     {
-      threshold: 1,
       factor: 1,
       unit: 'second'
     },
@@ -39,6 +38,10 @@ class LobbyWindow extends Component {
   constructor(props) {
     super(props);
     this.state = { users: this.props.users };
+  }
+
+  componentDidMount() {
+    this.tick();
     this.interval = setInterval(() => this.tick(), 1000);
   }
 

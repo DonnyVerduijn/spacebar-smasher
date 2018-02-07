@@ -2,16 +2,17 @@ import { connect } from 'react-redux';
 import withSocket from './../../../utils/withSocket';
 import AvailableGameWindow from './../components/AvailableGameWindow';
 import { switchWindow } from './../windowActions';
-import { getAvailableGames } from './../../game/gameSelectors';
+import { getAllGames } from './../../game/gameSelectors';
 import * as actions from './../../game/gameActions';
 
 const mapStateToProps = state => {
-  const availableGames = getAvailableGames(state);
+  const availableGames = getAllGames(state);
+  const games = availableGames.map(game => ({
+    name: game ? game.name : '',
+    users: game ? game.users.length : 0
+  }));
   return {
-    games: availableGames.map(game => ({
-        name: game.name,
-        users: game.users.length
-    }))
+    games
   };
 };
 

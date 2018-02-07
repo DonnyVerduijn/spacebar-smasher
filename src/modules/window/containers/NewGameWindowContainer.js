@@ -4,22 +4,27 @@ import NewGameWindow from './../components/NewGameWindow';
 import { switchWindow } from './../windowActions';
 import { getGame } from './../../game/gameSelectors';
 import * as actions from './../../game/gameActions';
+import { getLocalGameId } from './../../window/windowSelectors';
+import debounce from 'lodash.debounce';
 
-const mapStateToProps = (state) => {
-  const game = getGame(state);
+const mapStateToProps = state => {
+  const id = getLocalGameId(state);
+  const game = getGame(state, id);
   return {
     game: {
-      name: game.name || '',
-      isValid: game.isValid || false,
-      isValidated: game.isValidated || false
+      id,
+      exists: Boolean(game),
+      name: game ? game.name : '',
+      isValid: game ? game.isValid : false,
+      isValidated: game ? game.isValidated : false
     }
   };
 };
 
 const mapDispatchToProps = (dispatch, { socket }) => {
-  const logger = {
-    lastValidateGameRequest: null
-  };
+  const shouldValidate = debounce((id, name) => {
+    socket.send(actions.validateGame({ name }));
+  }, 200);
   return {
     instantiateGame: () => {
       socket.send(actions.instantiateGame());
@@ -27,20 +32,16 @@ const mapDispatchToProps = (dispatch, { socket }) => {
     previousWindow: () => {
       dispatch(switchWindow('NEW_USER'));
     },
-    validateGame: (name, id) => {
-      setTimeout(() => {
-        if (Date.now() - logger.lastValidateGameRequest > 200) {
-          socket.send(actions.validateGame({ name }));
-        }
-      }, 250);
-      dispatch(actions.validateGame({ id, name, isValidated: false }));
-      logger.lastValidateGameRequest = Date.now();
+    validateGame: (id, name) => {
+      shouldValidate(id, name);
     },
-    confirmGame: (name) => {
+    confirmGame: name => {
       socket.send(actions.confirmGame({ name }));
       dispatch(switchWindow('LOBBY'));
     }
   };
 };
 
-export default withSocket(connect(mapStateToProps, mapDispatchToProps)(NewGameWindow));
+export default withSocket(
+  connect(mapStateToProps, mapDispatchToProps)(NewGameWindow)
+);

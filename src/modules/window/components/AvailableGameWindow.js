@@ -5,11 +5,11 @@ import Table from './../../../components/Table';
 
 class AvailableGameWindow extends Component {
   componentDidMount() {
-    this.props.availableGames();
+    this.props.getAvailableGames();
   }
 
   render() {
-    const games = this.props;
+    const { games } = this.props;
     return (
       <Window>
         <Table rows={games} />
@@ -19,7 +19,7 @@ class AvailableGameWindow extends Component {
 }
 
 AvailableGameWindow.propTypes = {
-  availableGames: PropTypes.func,
+  getAvailableGames: PropTypes.func,
   games: PropTypes.array
 };
 

@@ -12,15 +12,16 @@ import GameOverWindowContainer from './../containers/GameOverWindowContainer';
 import NoConnectionWindowContainer from './../containers/NoConnectionWindowContainer';
 
 const getActiveWindow = (active) => {
-    // console.log(active);
+    console.log(active);
     switch (active) {
         case 'MAIN':
         return <MainWindowContainer/>;
         case 'NEW_USER':
+        case 'JOIN_GAME':
         return <NewUserWindowContainer/>;
         case 'NEW_GAME':
         return <NewGameWindowContainer/>;
-        case 'JOIN_GAME':
+        case 'AVAILABLE_GAMES':
         return <AvailableGameWindowContainer/>;
         case 'LOBBY':
         return <LobbyWindowContainer/>;

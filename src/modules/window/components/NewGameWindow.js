@@ -19,23 +19,25 @@ class NewGameWindow extends Component {
     } = this.props;
     return (
       <Window>
+        <form>
         <TextBox
           label="gamename:"
           isValid={game.isValid}
-          isValidated={game.isValid || game.isValidated}
           autoFocus={true}
           value={game.name}
-          onChange={validateGame}
+          onChange={(value) => validateGame(game.id, value)}
         />
         <Flex justifyContent="space-between">
           <Button label="back" className="Flat" onClick={previousWindow} />
           <Button
-            disabled={!game.isValid || game.name.length === 0}
+            disabled={!game.isValid}
+            type="submit"
             label="next"
             className="Raised"
             onClick={() => confirmGame(game.name)}
           />
         </Flex>
+        </form>
       </Window>
     );
   }

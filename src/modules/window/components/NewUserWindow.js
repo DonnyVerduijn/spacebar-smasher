@@ -7,17 +7,19 @@ import Flex from './../../../components/Flex';
 
 class NewUserWindow extends Component {
   componentDidMount() {
-    this.props.instantiateUser();
+    if (!this.props.user.exists) {
+      this.props.instantiateUser();
+    }
   }
 
   render() {
-    const { validateUser, confirmUser, previousWindow, user } = this.props;
+    const { targetWindow, validateUser, confirmUser, previousWindow, user } = this.props;
     return (
       <Window>
+        <form>
         <TextBox
           label="username:"
           isValid={user.isValid}
-          isValidated={user.isValid || user.isValidated}
           autoFocus={true}
           value={user.name}
           onChange={value => validateUser(user.id, value)}
@@ -25,18 +27,21 @@ class NewUserWindow extends Component {
         <Flex justifyContent="space-between">
           <Button label="back" className="Flat" onClick={previousWindow} />
           <Button
-            disabled={!user.isValid || user.name.length === 0}
+            disabled={!user.isValid}
             label="next"
+            type="submit"
             className="Raised"
-            onClick={() => confirmUser(user.name)}
+            onClick={() => confirmUser(user.name, targetWindow)}
           />
         </Flex>
+        </form>
       </Window>
     );
   }
 }
 
 NewUserWindow.propTypes = {
+  targetWindow: PropTypes.string,
   instantiateUser: PropTypes.func,
   validateUser: PropTypes.func,
   confirmUser: PropTypes.func,

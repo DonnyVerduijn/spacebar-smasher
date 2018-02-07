@@ -4,7 +4,7 @@ import * as actions from './../windowActions';
 
 const menuItems = [
   { value: 'New game', target: 'NEW_USER' },
-  { value: 'Join game', target: 'NEW_USER' },
+  { value: 'Join game', target: 'JOIN_GAME' },
   { value: 'Highscores', target: 'HIGHSCORES' }
 ];
 

@@ -9,23 +9,29 @@ const cloneState = (state, { without }) => {
   });
 };
 
-const userReducer = (users = {}, action) => {
+const userReducer = (state = {}, action) => {
   // console.log('action', action);
   switch (action.type) {
     case 'INSTANTIATE_USER':
     case 'CONFIRM_USER':
     case 'UPDATE_USER':
-    case 'VALIDATE_USER':
       return {
-        ...users,
-        [action.id]: Object.assign({}, users[action.id], omit(action, 'type'))
+        ...state,
+        [action.id]: Object.assign({}, state[action.id], omit(action, 'type'))
       };
     case 'DELETE_USER':
-      return cloneState(users, {
+      return cloneState(state, {
         without: [action.id]
       });
+    case 'VALIDATE_USER':
+    return {
+      ...state,
+      [action.id]: Object.assign({}, state[action.id], omit(action, 'type'), {
+        isValid: action.isValid && action.name.length > 0
+      })
+    };
     default:
-      return users;
+      return state;
   }
 };
 

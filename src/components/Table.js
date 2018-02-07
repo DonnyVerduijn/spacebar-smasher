@@ -37,6 +37,10 @@ const Table = ({ children, rows, onClick }) => {
   );
 };
 
+Table.defaultProps = {
+  rows: []
+};
+
 Table.propTypes = {
   rows: PropTypes.array,
   children: PropTypes.oneOfType([
