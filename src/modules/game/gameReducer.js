@@ -11,6 +11,10 @@ const gameReducer = (state = {}, action) => {
     case 'LEAVE_GAME':
     case 'PAUSE_GAME':
     case 'RESUME_GAME':
+    return {
+      ...state,
+      [action.id]: Object.assign({}, state[action.id], omit(action, 'type'))
+    };
     case 'QUIT_GAME':
       return {};
     case 'AVAILABLE_GAMES':
