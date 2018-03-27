@@ -14,7 +14,7 @@ export const getId = (state, id) => {
 };
 
 export const getGameUsers = (state, id) => {
-    return state.games[id] ? state.games[id].users : [];
+    return state.games[id] ? state.games[id].joinedUsers : [];
 };
 
 export const getGameName = (state, id) => {

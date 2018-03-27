@@ -43,7 +43,8 @@ const gameActions = ({ games, users }) => {
       game.setName(action.name);
       game.setIsValid(isValid);
       game.setIsValidated(true);
-      return Object.assign({}, action, game, { targets: [action.userId]
+      return Object.assign({}, action, game, {
+        targets: [action.userId]
       });
     },
     startGame(action) {
@@ -55,7 +56,16 @@ const gameActions = ({ games, users }) => {
       const user = users.getById(action.userId);
       const game = games.getById(action.id);
       game.addUser(user);
-      return Object.assign({}, action, game, { targets: game.getUserIds() });
+      const userInstances = game
+        .getUserIds()
+        .reduce((previous, next) => ({
+          ...previous,
+          [next]: users.getById(next)
+        }), {});
+      return Object.assign({}, action, game, {
+        users: userInstances,
+        targets: game.getUserIds()
+      });
     },
     pauseGame(action) {
       const game = games.getByUserId(action.userId);
@@ -79,7 +89,10 @@ const gameActions = ({ games, users }) => {
     },
     availableGames(action) {
       const availableGames = games.getConfirmed();
-      return Object.assign({}, action, { availableGames, targets: [action.userId] });
+      return Object.assign({}, action, {
+        availableGames,
+        targets: [action.userId]
+      });
     }
   };
 };

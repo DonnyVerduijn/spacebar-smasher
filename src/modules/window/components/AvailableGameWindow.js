@@ -16,7 +16,7 @@ class AvailableGameWindow extends Component {
         <Table
           rows={games.map(game => ({
             name: game.name,
-            users: game.users.length
+            users: game.joinedUsers.length
           }))}
           onClick={index => {
             joinGame(games[index].id);

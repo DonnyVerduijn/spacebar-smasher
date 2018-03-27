@@ -24,6 +24,11 @@ const userReducer = (state = {}, action) => {
       return cloneState(state, {
         without: [action.id]
       });
+    case 'JOIN_GAME':
+      return {
+        ...state,
+        ...action.users
+      };
     default:
       return state;
   }

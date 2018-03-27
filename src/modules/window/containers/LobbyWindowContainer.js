@@ -13,6 +13,8 @@ const mapStateToProps = state => {
   return {
     gameName: getGameName(state, getLocalGameId(state)),
     users: getGameUsers(state, getLocalGameId(state)).map(({ id, joinedAt }) => {
+      console.log(state.users);
+      console.log(id);
       return { user: getUserName(state, id), joined: joinedAt };
     })
   };

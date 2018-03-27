@@ -11,7 +11,7 @@ const GameCollection = () => {
     // if the instance exists
     if (game) {
       // iterate over every user id in users array
-      game.users.forEach(userId => {
+      game.joinedUsers.forEach(userId => {
         // and clean up the hashmap
         userIdHashMap.delete(userId);
       });
