@@ -19,3 +19,7 @@ export const getUserIds = (state) => {
 export const getUser = (state, id) => {
     return state.users[id];
 };
+
+export const getUserName = (state, id) => {
+    return state.users[id] ? state.users[id].name : '';
+};

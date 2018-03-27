@@ -3,7 +3,11 @@ const User = require('./User');
 const userActions = ({ users }) => {
   return {
     instantiateUser(action) {
+      users.deleteById(action.userId);
       const user = User({ name: action.name, id: action.userId });
+      const isValid = users.nameAvailable(user.name) && user.name.length > 0;
+      user.setIsValid(isValid);
+      user.setIsValidated(true);
       users.add(user);
       return Object.assign({}, action, user, { targets: [action.userId] });
     },

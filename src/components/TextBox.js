@@ -8,6 +8,12 @@ class TextBox extends Component {
     this.state = { value: this.props.value };
   }
 
+  componentDidUpdate(previousProps) {
+    if (previousProps.value !== this.props.value) {
+      this.updateValue(this.props.value);
+    }
+  }
+
   updateValue(value) {
     this.setState({ value });
   }

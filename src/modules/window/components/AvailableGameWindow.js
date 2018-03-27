@@ -9,10 +9,19 @@ class AvailableGameWindow extends Component {
   }
 
   render() {
-    const { games } = this.props;
+    const { games, joinGame } = this.props;
+    console.log(games);
     return (
       <Window>
-        <Table rows={games} />
+        <Table
+          rows={games.map(game => ({
+            name: game.name,
+            users: game.users.length
+          }))}
+          onClick={index => {
+            joinGame(games[index].id);
+          }}
+        />
       </Window>
     );
   }
@@ -20,7 +29,8 @@ class AvailableGameWindow extends Component {
 
 AvailableGameWindow.propTypes = {
   getAvailableGames: PropTypes.func,
-  games: PropTypes.array
+  games: PropTypes.array,
+  joinGame: PropTypes.func
 };
 
 export default AvailableGameWindow;

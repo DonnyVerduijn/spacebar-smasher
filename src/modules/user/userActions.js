@@ -26,3 +26,10 @@ export const validateUser = user => {
     ...user
   };
 };
+
+export const deleteUser = user => {
+  return {
+    type: 'DELETE_USER',
+    ...user
+  };
+};

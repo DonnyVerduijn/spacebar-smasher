@@ -98,7 +98,7 @@ const Game = options => {
         enumerable: true
       },
       name: {
-        value: options.name,
+        value: options.name || '',
         writable: true,
         configurable: false,
         enumerable: true

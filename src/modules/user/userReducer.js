@@ -13,6 +13,7 @@ const userReducer = (state = {}, action) => {
   // console.log('action', action);
   switch (action.type) {
     case 'INSTANTIATE_USER':
+    case 'VALIDATE_USER':
     case 'CONFIRM_USER':
     case 'UPDATE_USER':
       return {
@@ -23,13 +24,6 @@ const userReducer = (state = {}, action) => {
       return cloneState(state, {
         without: [action.id]
       });
-    case 'VALIDATE_USER':
-    return {
-      ...state,
-      [action.id]: Object.assign({}, state[action.id], omit(action, 'type'), {
-        isValid: action.isValid && action.name.length > 0
-      })
-    };
     default:
       return state;
   }

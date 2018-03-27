@@ -15,11 +15,11 @@ const GameCollection = () => {
         // and clean up the hashmap
         userIdHashMap.delete(userId);
       });
+      // also clean up the hashmap with game names
+      nameHashMap.delete(games[id].name);
+      // finally remove the instance
+      Reflect.deleteProperty(games, id);
     }
-    // also clean up the hashmap with game names
-    nameHashMap.delete(games[id].name);
-    // finally remove the instance
-    Reflect.deleteProperty(games, id);
   };
 
   return {

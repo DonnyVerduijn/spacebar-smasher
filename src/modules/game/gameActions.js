@@ -24,8 +24,10 @@ export const startGame = () => {
 export const pauseGame = () => {
   return { type: 'PAUSE_GAME' };
 };
-export const joinGame = () => {
-  return { type: 'JOIN_GAME' };
+export const joinGame = (action) => {
+  return { type: 'JOIN_GAME',
+  ...action
+};
 };
 export const leaveGame = () => {
   return { type: 'LEAVE_GAME' };

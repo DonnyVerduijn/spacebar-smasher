@@ -5,19 +5,50 @@
     text-align: left;
 }
 
-.Table .header{
-    padding: 1em 0;
-    margin: 0 0 1em 0;
+.Table thead{
+    display: block;
     border-bottom: 2px solid white;
 }
 
-.Table .header th{
+.Table tbody
+{
+    display: block;
+}
+
+.Table thead th{
     font-weight: 700;
+    /* color: rgb(82, 92, 100); */
 }
 
 .Table tr{
     display: flex;
-    padding: 0 0 1em 0;
+    padding: 0;
+    margin: 0;
+}
+
+.Table th{
+    padding: 0;
+    margin: 0;
+}
+
+.Table tbody tr{
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.Table tbody tr:hover a{
+    background: rgba(255,255,255,0.05);
+}
+
+.Table span {
+    padding: .75em;
+    display: block;
+}
+
+.Table a{
+    padding: .75em;
+    display: block;
+    color: white;
+    text-decoration: none;
 }
 
 .Table th{

@@ -4,6 +4,7 @@ const gameReducer = (state = {}, action) => {
   // these actions are tunneled
   switch (action.type) {
     case 'INSTANTIATE_GAME':
+    case 'VALIDATE_GAME':
     case 'CONFIRM_GAME':
     case 'START_GAME':
     case 'UPDATE_GAME':
@@ -21,13 +22,6 @@ const gameReducer = (state = {}, action) => {
         ...state,
         ...action.availableGames
       };
-    case 'VALIDATE_GAME':
-    return {
-      ...state,
-      [action.id]: Object.assign({}, state[action.id], omit(action, 'type'), {
-        isValid: action.isValid && action.name.length > 0
-      })
-    };
     default:
       return state;
   }

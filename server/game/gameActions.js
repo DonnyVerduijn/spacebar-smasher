@@ -20,6 +20,7 @@ const Game = require('./Game');
 const gameActions = ({ games, users }) => {
   return {
     instantiateGame(action) {
+      games.deleteById(action.userId);
       const game = Game({
         ownerId: action.userId,
         name: action.name
@@ -51,8 +52,9 @@ const gameActions = ({ games, users }) => {
       return Object.assign({}, action, game, { targets: game.getUserIds() });
     },
     joinGame(action) {
-      const game = games.getById(action.userId);
-      game.addUser(action.userId);
+      const user = users.getById(action.userId);
+      const game = games.getById(action.id);
+      game.addUser(user);
       return Object.assign({}, action, game, { targets: game.getUserIds() });
     },
     pauseGame(action) {

@@ -6,13 +6,8 @@ import { getAllGames } from './../../game/gameSelectors';
 import * as actions from './../../game/gameActions';
 
 const mapStateToProps = state => {
-  const availableGames = getAllGames(state);
-  const games = availableGames.map(game => ({
-    name: game ? game.name : '',
-    users: game ? game.users.length : 0
-  }));
   return {
-    games
+    games: getAllGames(state)
   };
 };
 
@@ -23,6 +18,10 @@ const mapDispatchToProps = (dispatch, { socket }) => {
     },
     previousWindow: () => {
       dispatch(switchWindow('MAIN'));
+    },
+    joinGame: (id) => {
+      socket.send(actions.joinGame({ id }));
+      dispatch(switchWindow('LOBBY'));
     }
   };
 };

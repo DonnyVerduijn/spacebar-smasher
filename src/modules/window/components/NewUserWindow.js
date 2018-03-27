@@ -7,9 +7,7 @@ import Flex from './../../../components/Flex';
 
 class NewUserWindow extends Component {
   componentDidMount() {
-    if (!this.props.user.exists) {
       this.props.instantiateUser();
-    }
   }
 
   render() {

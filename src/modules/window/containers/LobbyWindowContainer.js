@@ -3,19 +3,18 @@ import { connect } from 'react-redux';
 import withSocket from './../../../utils/withSocket';
 import LobbyWindow from './../components/LobbyWindow';
 import { switchWindow } from './../windowActions';
-import { getJoinedUsers, getName } from './../../game/gameSelectors';
-import { getUser } from './../../user/userSelectors';
+import { getGameUsers, getGameName } from './../../game/gameSelectors';
+import { getUserName } from './../../user/userSelectors';
 import * as actions from './../../game/gameActions';
 import { getLocalGameId } from './../../window/windowSelectors';
 
 
 const mapStateToProps = state => {
-  const users = getJoinedUsers(state, getLocalGameId(state)).map(({ id, joinedAt }) => {
-    return { user: getUser(state, id).name, joined: joinedAt };
-  });
   return {
-    gameName: getName(state),
-    users
+    gameName: getGameName(state, getLocalGameId(state)),
+    users: getGameUsers(state, getLocalGameId(state)).map(({ id, joinedAt }) => {
+      return { user: getUserName(state, id), joined: joinedAt };
+    })
   };
 };
 

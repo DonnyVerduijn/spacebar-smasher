@@ -13,8 +13,12 @@ export const getId = (state, id) => {
     return state.games[id].id;
 };
 
-export const getJoinedUsers = (state, id) => {
+export const getGameUsers = (state, id) => {
     return state.games[id] ? state.games[id].users : [];
+};
+
+export const getGameName = (state, id) => {
+    return state.games[id] ? state.games[id].name : '';
 };
 
 export const getGame = (state, id) => {
@@ -22,5 +26,5 @@ export const getGame = (state, id) => {
 };
 
 export const getAllGames = (state) => {
-    return [...Object.keys(state.games).map(key => state.games[key])];
+    return Object.keys(state.games).map(key => state.games[key]);
 };
