@@ -7,8 +7,11 @@ little online game using socket.io where players battle eachother with the amoun
 - fix missing username (from other users) in userlist 1
 - attach handler to reconnect button 3
 - remove game instance when owner quits 1
+- remove user from game when browser window is refreshed or quitted
 - remove game instance when navigating back on NewGameWindow 1
 - add duration to newGameWindow 3
+- reset state on reconnect 1
+- create failsafe send method on server (when nodes do not exist) 1
 
 - implement highscoreList 1
   - show 10 best highscores 1
