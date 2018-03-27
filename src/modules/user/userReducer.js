@@ -29,6 +29,8 @@ const userReducer = (state = {}, action) => {
         ...state,
         ...action.users
       };
+    case 'QUIT_GAME':
+      return {};
     default:
       return state;
   }

@@ -3,6 +3,7 @@ import windowState from './windowState.json';
 const windowReducer = (state = windowState, action) => {
   switch (action.type) {
     case 'SOCKET_CONNECTED':
+    case 'QUIT_GAME':
     return {
       ...state,
       events: [

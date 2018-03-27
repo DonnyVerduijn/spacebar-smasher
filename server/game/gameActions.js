@@ -80,7 +80,7 @@ const gameActions = ({ games, users }) => {
     quitGame(action) {
       const user = users.getById(action.userId);
       const game = games.getByUserId(user.id);
-      game.setIsAborted(false);
+      game.setIsAborted(true);
       return Object.assign({}, action, game, { targets: game.getUserIds() });
     },
     exitGame(action) {
