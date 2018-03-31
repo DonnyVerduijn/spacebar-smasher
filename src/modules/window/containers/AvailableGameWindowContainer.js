@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch, { socket }) => {
         socket.send(actions.availableGames());
     },
     previousWindow: () => {
-      dispatch(switchWindow('MAIN'));
+      dispatch(switchWindow('NEW_USER'));
     },
     joinGame: (id) => {
       socket.send(actions.joinGame({ id }));

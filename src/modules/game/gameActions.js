@@ -1,18 +1,18 @@
-export const instantiateGame = (action) => {
+export const instantiateGame = action => {
   return {
     type: 'INSTANTIATE_GAME',
     ...action
   };
 };
 
-export const validateGame = (action) => {
+export const validateGame = action => {
   return {
     type: 'VALIDATE_GAME',
     ...action
   };
 };
 
-export const confirmGame = (action) => {
+export const confirmGame = action => {
   return {
     type: 'CONFIRM_GAME',
     ...action
@@ -24,10 +24,11 @@ export const startGame = () => {
 export const pauseGame = () => {
   return { type: 'PAUSE_GAME' };
 };
-export const joinGame = (action) => {
-  return { type: 'JOIN_GAME',
-  ...action
-};
+export const joinGame = action => {
+  return {
+    type: 'JOIN_GAME',
+    ...action
+  };
 };
 export const leaveGame = () => {
   return { type: 'LEAVE_GAME' };
@@ -38,8 +39,9 @@ export const quitGame = () => {
 export const resumeGame = () => {
   return { type: 'RESUME_GAME' };
 };
-export const availableGames = (action) => {
-  return { type: 'AVAILABLE_GAMES',
+export const availableGames = action => {
+  return {
+    type: 'AVAILABLE_GAMES',
     ...action
   };
 };

@@ -6,15 +6,18 @@ import * as actions from './../../user/userActions';
 import { getUser } from './../../user/userSelectors';
 import { getId } from './../../socket/socketSelectors';
 import debounce from 'lodash.debounce';
-import { getActiveWindow } from '../windowSelectors';
+import { getActiveWindow, getPreviousWindow } from '../windowSelectors';
 
 const mapStateToProps = state => {
   const id = getId(state);
   const localUser = getUser(state, id);
-  const targetWindow =
-    getActiveWindow(state) === 'JOIN_GAME' ? 'AVAILABLE_GAMES' : 'NEW_GAME';
+  const nextWindow =
+    getActiveWindow(state) === 'JOIN_GAME' ||
+    getPreviousWindow(state) === 'AVAILABLE_GAMES'
+      ? 'AVAILABLE_GAMES'
+      : 'NEW_GAME';
   return {
-    targetWindow,
+    nextWindow,
     user: {
       id,
       exists: Boolean(localUser),

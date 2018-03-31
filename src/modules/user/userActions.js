@@ -27,9 +27,11 @@ export const validateUser = user => {
   };
 };
 
-export const deleteUser = user => {
+export const leaveGame = user => {
+  console.log(user);
+  alert();
   return {
-    type: 'DELETE_USER',
+    type: 'LEAVE_GAME',
     ...user
   };
 };

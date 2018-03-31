@@ -27,42 +27,70 @@ const gameActions = ({ games, users }) => {
       });
 
       games.add(game);
-      return Object.assign({}, action, game, { targets: [game.ownerId] });
+      return Object.assign({
+        type: action.type,
+        games: { [game.id]: game },
+        targets: [game.ownerId]
+      });
     },
     confirmGame(action) {
       const user = users.getById(action.userId);
       const game = games.getByUserId(user.id);
       game.setIsConfirmed(true);
-      game.addUser(user);
+      game.addUserById(user);
       games.confirmById(game.id);
-      return Object.assign({}, action, game, { targets: [game.ownerId] });
+      return Object.assign(
+        {},
+        {
+          type: action.type,
+          games: { [game.id]: game },
+          targets: [game.ownerId]
+        }
+      );
     },
     validateGame(action) {
       const game = games.getByUserId(action.userId);
-      const isValid = games.nameAvailable(action.name) && action.name.length > 0;
+      const isValid =
+        games.nameAvailable(action.name) && action.name.length > 0;
       game.setName(action.name);
       game.setIsValid(isValid);
       game.setIsValidated(true);
-      return Object.assign({}, action, game, {
-        targets: [action.userId]
-      });
+      return Object.assign(
+        {},
+        {
+          type: action.type,
+          games: { [game.id]: game },
+          targets: [action.userId]
+        }
+      );
     },
     startGame(action) {
-      const game = games.getById(action.userId);
+      const game = games.getByUserId(action.userId);
       game.setIsActive(true);
-      return Object.assign({}, action, game, { targets: game.getUserIds() });
+      return Object.assign(
+        {},
+        {
+          type: action.type,
+          games: { [game.id]: game },
+          targets: game.getUserIds()
+        }
+      );
     },
     joinGame(action) {
       const user = users.getById(action.userId);
       const game = games.getById(action.id);
-      game.addUser(user);
-      const userInstances = game
-        .getUserIds()
-        .reduce((previous, next) => ({
+      game.addUserById(user);
+      games.addUserById(user.id, game.id);
+      const userInstances = game.getUserIds().reduce(
+        (previous, next) => ({
           ...previous,
           [next]: users.getById(next)
-        }), {});
-      return Object.assign({}, action, game, {
+        }),
+        {}
+      );
+      return Object.assign({
+        type: action.type,
+        games: { [game.id]: game },
         users: userInstances,
         targets: game.getUserIds()
       });
@@ -70,29 +98,70 @@ const gameActions = ({ games, users }) => {
     pauseGame(action) {
       const game = games.getByUserId(action.userId);
       game.setIsPaused(true);
-      return Object.assign({}, action, game, { targets: game.getUserIds() });
+      return Object.assign({
+        type: action.type,
+        games: { [game.id]: game },
+        targets: game.getUserIds()
+      });
     },
     resumeGame(action) {
       const game = games.getByUserId(action.userId);
       game.setIsPaused(false);
-      return Object.assign({}, action, game, { targets: game.getUserIds() });
+      return Object.assign({
+        type: action.type,
+        games: { [game.id]: game },
+        targets: game.getUserIds()
+      });
+    },
+    leaveGame(action) {
+      const user = users.getById(action.userId);
+      const game = games.getByUserId(action.userId);
+      game.deleteUser(user);
+      games.deleteUserById(user.id);
+      return Object.assign({
+        type: action.type,
+        games: { [game.id]: game },
+        users: game.getUserIds().reduce(
+          (previous, userId) => ({
+            ...previous,
+            [userId]: users.getById(userId)
+          }),
+          {}
+        ),
+        targets: game.getUserIds()
+      });
     },
     quitGame(action) {
       const user = users.getById(action.userId);
       const game = games.getByUserId(user.id);
-      game.setIsAborted(true);
-      return Object.assign({}, action, game, { targets: game.getUserIds() });
+      game.deleteUserById(user.id);
+
+      const result = Object.assign({
+        type: action.type,
+        games: { [game.id]: game },
+        targets: game.getUserIds()
+      });
+
+      games.deleteByOwnerId(user.id);
+      return result;
     },
     exitGame(action) {
       const game = games.getByUserId(action.userId);
-      return Object.assign({}, action, game, { targets: game.getUserIds() });
+      return Object.assign({
+          type: action.type,
+          games: { [game.id]: game },
+          targets: game.getUserIds()
+        }
+      );
     },
     availableGames(action) {
       const availableGames = games.getConfirmed();
-      return Object.assign({}, action, {
-        availableGames,
-        targets: [action.userId]
-      });
+      return Object.assign({
+          type: action.type,
+          games: availableGames,
+          targets: [action.userId]
+        }
+      );
     }
   };
 };

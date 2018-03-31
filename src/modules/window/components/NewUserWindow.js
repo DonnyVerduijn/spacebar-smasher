@@ -11,7 +11,7 @@ class NewUserWindow extends Component {
   }
 
   render() {
-    const { targetWindow, validateUser, confirmUser, previousWindow, user } = this.props;
+    const { nextWindow, validateUser, confirmUser, previousWindow, user } = this.props;
     return (
       <Window>
         <form>
@@ -29,7 +29,7 @@ class NewUserWindow extends Component {
             label="next"
             type="submit"
             className="Raised"
-            onClick={() => confirmUser(user.name, targetWindow)}
+            onClick={() => confirmUser(user.name, nextWindow)}
           />
         </Flex>
         </form>
@@ -39,7 +39,7 @@ class NewUserWindow extends Component {
 }
 
 NewUserWindow.propTypes = {
-  targetWindow: PropTypes.string,
+  nextWindow: PropTypes.string,
   instantiateUser: PropTypes.func,
   validateUser: PropTypes.func,
   confirmUser: PropTypes.func,

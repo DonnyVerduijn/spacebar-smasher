@@ -17,6 +17,10 @@ export const getGameUsers = (state, id) => {
     return state.games[id] ? state.games[id].joinedUsers : [];
 };
 
+export const getGameOwner = (state, id) => {
+    return state.games[id] ? state.games[id].ownerId : null;
+};
+
 export const getGameName = (state, id) => {
     return state.games[id] ? state.games[id].name : '';
 };
@@ -27,4 +31,8 @@ export const getGame = (state, id) => {
 
 export const getAllGames = (state) => {
     return Object.keys(state.games).map(key => state.games[key]);
+};
+
+export const getTimeStarted = (state, id) => {
+    return state.games[id] ? state.games[id].timeStarted : null;
 };

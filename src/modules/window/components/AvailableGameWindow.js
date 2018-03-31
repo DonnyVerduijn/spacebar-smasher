@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Window from './../../../components/Window';
 import Table from './../../../components/Table';
+import Flex from './../../../components/Flex';
+import Button from './../../../components/Button';
 
 class AvailableGameWindow extends Component {
   componentDidMount() {
@@ -9,7 +11,7 @@ class AvailableGameWindow extends Component {
   }
 
   render() {
-    const { games, joinGame } = this.props;
+    const { games, previousWindow, joinGame } = this.props;
     console.log(games);
     return (
       <Window>
@@ -22,6 +24,18 @@ class AvailableGameWindow extends Component {
             joinGame(games[index].id);
           }}
         />
+         <Flex justifyContent="space-between">
+          <Button
+            className="Flat"
+            label={'back'}
+            onClick={previousWindow}
+          />
+          <Button
+            label="new Game"
+            className="Raised"
+            onClick={previousWindow}
+          />
+        </Flex>
       </Window>
     );
   }
@@ -30,7 +44,8 @@ class AvailableGameWindow extends Component {
 AvailableGameWindow.propTypes = {
   getAvailableGames: PropTypes.func,
   games: PropTypes.array,
-  joinGame: PropTypes.func
+  joinGame: PropTypes.func,
+  previousWindow: PropTypes.func
 };
 
 export default AvailableGameWindow;

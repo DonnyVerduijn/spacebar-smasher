@@ -9,32 +9,36 @@ const userActions = ({ users }) => {
       user.setIsValid(isValid);
       user.setIsValidated(true);
       users.add(user);
-      return Object.assign({}, action, user, { targets: [action.userId] });
+      return Object.assign({}, action, {
+        users: { [user.id]: user },
+        targets: [action.userId]
+      });
     },
     validateUser(action) {
       const user = users.getById(action.userId);
-      const isValid = users.nameAvailable(action.name) && action.name.length > 0;
+      const isValid =
+        users.nameAvailable(action.name) && action.name.length > 0;
       user.setName(action.name);
       user.setIsValid(isValid);
       user.setIsValidated(true);
-      return Object.assign({}, action,
-        user,
-        { targets: [action.userId] }
-      );
+      return Object.assign({}, action, {
+        users: { [user.id]: user },
+        targets: [action.userId]
+      });
     },
     confirmUser(action) {
       const user = users.getById(action.userId);
       user.setIsConfirmed(true);
       users.confirmById(user.id);
-      return Object.assign({}, user, action, { targets: [action.userId] });
+      return Object.assign({}, action, { users: { [user.id]: user }, targets: [action.userId] });
     },
     getUser(action) {
       const user = users.getById(action.id);
-      return { ...user, ...action };
+      return { users: { [user.id]: user }, ...action };
     },
     updateUser(action) {
       const user = users.getById(action.id);
-      return { ...user, ...action };
+      return { users: { [user.id]: user }, ...action };
     }
   };
 };

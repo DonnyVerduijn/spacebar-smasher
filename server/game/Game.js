@@ -9,12 +9,12 @@ const proto = {
   getUserIds() {
     return this.joinedUsers.map(user => user.id);
   },
-  addUser(user) {
+  addUserById(user) {
     this.joinedUsers.push({ id: user.id, joinedAt: Date.now() });
   },
-  deleteUser(userId) {
+  deleteUser(user) {
     this.joinedUsers = this.joinedUsers.filter(({ id }) => {
-      return id !== userId;
+      return id !== user.id;
     });
   },
   setName(value) {

@@ -3,6 +3,7 @@ const HashMap = require('hashmap');
 const GameCollection = () => {
   const games = {};
   const nameHashMap = new HashMap();
+  const ownerIdHashMap = new HashMap();
   const userIdHashMap = new HashMap();
 
   const deleteById = id => {
@@ -10,6 +11,8 @@ const GameCollection = () => {
     const game = games[id];
     // if the instance exists
     if (game) {
+      // remove ownerId key from owners array
+      ownerIdHashMap.delete(game.ownerId);
       // iterate over every user id in users array
       game.joinedUsers.forEach(userId => {
         // and clean up the hashmap
@@ -25,23 +28,37 @@ const GameCollection = () => {
   return {
     add: game => {
       games[game.id] = game;
+      ownerIdHashMap.set(game.ownerId, game.id);
       userIdHashMap.set(game.ownerId, game.id);
+    },
+    addUserById: (userId, gameId) => {
+      // const games2 = games;
+      // const owners = ownerIdHashMap;
+      // const users = userIdHashMap;
+      // console.log(games2, owners, users);
+      userIdHashMap.set(userId, gameId);
+    },
+    deleteUserById: userId => {
+      userIdHashMap.delete(userId);
     },
     confirmById: id => {
       nameHashMap.set(games[id].name, id);
     },
     deleteById,
-    deleteByUserId: userId => {
+    deleteByOwnerId: userId => {
       // get the game id
-      const id = userIdHashMap.get(userId);
+      const id = ownerIdHashMap.get(userId);
       // get the game instance
       deleteById(id);
     },
     getAll: () => {
       return games;
     },
+    getByOwnerId(ownerId) {
+      return ownerId ? games[ownerIdHashMap.get(ownerId)] : null;
+    },
     getByUserId(userId) {
-      return userId ? games[userIdHashMap.get(userId)] : undefined;
+      return userId ? games[userIdHashMap.get(userId)] : null;
     },
     getById: id => {
       return games[id];
@@ -57,7 +74,7 @@ const GameCollection = () => {
       return nameHashMap.get(name) === undefined;
     },
     ownerIdExists: ownerId => {
-      const gameId = userIdHashMap.get(ownerId);
+      const gameId = ownerIdHashMap.get(ownerId);
       return games[gameId] && games[gameId].ownerId === ownerId;
     }
   };

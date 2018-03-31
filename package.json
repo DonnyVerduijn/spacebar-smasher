@@ -5,6 +5,7 @@
   "description": "little online game using socket.io where players battle eachother with the amount of spacebar hits they make",
   "dependencies": {
     "hashmap": "^2.3.0",
+    "howler": "^2.0.9",
     "javascript-time-ago": "^1.0.28",
     "lodash.debounce": "^4.0.8",
     "lodash.snakecase": "^4.1.1",

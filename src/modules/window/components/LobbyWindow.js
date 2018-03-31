@@ -59,15 +59,18 @@ class LobbyWindow extends Component {
   }
 
   render() {
-    const { gameName, startGame, quitGame } = this.props;
+    const { gameName, startGame, isOwner, quitGame, leaveGame } = this.props;
     return (
       <Window>
         <Display>{gameName}</Display>
         <Table rows={this.state.users} />
         <Flex justifyContent="space-between">
-          <Button label="quit" className="Flat" onClick={quitGame} />
           <Button
-            //   disabled={!isValid}
+            className="Flat"
+            label={isOwner ? 'quit' : 'leave'}
+            onClick={isOwner ? quitGame : leaveGame}
+          />
+          <Button
             label="Start"
             className="Raised"
             onClick={startGame}
@@ -82,7 +85,9 @@ LobbyWindow.propTypes = {
   gameName: PropTypes.string,
   users: PropTypes.arrayOf(PropTypes.object),
   startGame: PropTypes.func,
-  quitGame: PropTypes.func
+  quitGame: PropTypes.func,
+  leaveGame: PropTypes.func,
+  isOwner: PropTypes.bool
 };
 
 export default LobbyWindow;
