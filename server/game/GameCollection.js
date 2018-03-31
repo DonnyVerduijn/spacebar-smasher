@@ -32,10 +32,6 @@ const GameCollection = () => {
       userIdHashMap.set(game.ownerId, game.id);
     },
     addUserById: (userId, gameId) => {
-      // const games2 = games;
-      // const owners = ownerIdHashMap;
-      // const users = userIdHashMap;
-      // console.log(games2, owners, users);
       userIdHashMap.set(userId, gameId);
     },
     deleteUserById: userId => {

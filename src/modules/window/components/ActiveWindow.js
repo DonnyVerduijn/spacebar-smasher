@@ -10,6 +10,7 @@ import MainWindowContainer from '../containers/MainWindowContainer';
 import PauseWindowContainer from './../containers/PauseWindowContainer';
 import GameOverWindowContainer from './../containers/GameOverWindowContainer';
 import NoConnectionWindowContainer from './../containers/NoConnectionWindowContainer';
+import GameWindowContainer from '../containers/GameWindowContainer';
 
 const getActiveWindow = (active) => {
     console.log(active);
@@ -33,6 +34,8 @@ const getActiveWindow = (active) => {
         return <HighScoreWindowContainer/>;
         case 'NO_CONNECTION':
         return <NoConnectionWindowContainer/>;
+        case 'GAME':
+        return <GameWindowContainer/>;
         default:
         return null;
     }

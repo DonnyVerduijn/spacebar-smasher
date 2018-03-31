@@ -23,3 +23,7 @@ export const getUser = (state, id) => {
 export const getUserName = (state, id) => {
     return state.users[id] ? state.users[id].name : '';
 };
+
+export const getUserScore = (state, id) => {
+    return state.users[id] ? state.users[id].score : null;
+};
