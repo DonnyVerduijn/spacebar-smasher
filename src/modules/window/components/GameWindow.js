@@ -34,7 +34,7 @@ class GameWindow extends Component {
 
   // THIS IS HOT!!!!!!
   renderCanvasElements(context) {
-    const { users, game } = this.state;
+    const { users } = this.state;
     // users.forEach((user, index) => {
       const size = {
         x: 25,

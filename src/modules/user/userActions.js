@@ -28,8 +28,6 @@ export const validateUser = user => {
 };
 
 export const leaveGame = user => {
-  console.log(user);
-  alert();
   return {
     type: 'LEAVE_GAME',
     ...user
