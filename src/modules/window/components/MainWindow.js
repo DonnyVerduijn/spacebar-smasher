@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 import Window from './../../../components/Window';
 import ItemList from './../../../components/ItemList';
 
-
-const MainWindow = ({ menuItems, listItemClicked }) => {
+const MainWindow = ({ localUserId, menuItems, listItemClicked }) => {
   return (
     <Window>
       <ItemList
-        className="Menu"
         items={menuItems}
-        onClick={listItemClicked}
+        onClick={itemId => listItemClicked({ itemId, userId: localUserId })}
+        style={{ textAlign: 'center' }}
       />
     </Window>
   );
 };
 
 MainWindow.propTypes = {
+  localUserId: PropTypes.string,
   menuItems: PropTypes.array,
   listItemClicked: PropTypes.func,
   children: PropTypes.node

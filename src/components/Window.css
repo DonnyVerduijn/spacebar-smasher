@@ -4,8 +4,8 @@
     top: 50%;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.65);
-    padding: 2.5em;
+    padding: 2em;
     border-radius: .25em;
-    width: 350px;
+    width: 20em;
     /* border: 1em white outset */
 }

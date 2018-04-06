@@ -3,47 +3,44 @@ const HashMap = require('hashmap');
 const UserCollection = () => {
   const users = {};
   const nameHashMap = new HashMap();
-  const persistentIdHashMap = new HashMap();
 
   return {
     add: user => {
       users[user.id] = user;
-
-      persistentIdHashMap.set(user.persistentId, user.id);
     },
     confirmById: id => {
       nameHashMap.set(users[id].name, id);
     },
+    unconfirmById: id => {
+      nameHashMap.remove(users[id].name);
+    },
     deleteById: id => {
       if (users[id]) {
         nameHashMap.delete(users[id].name);
-        persistentIdHashMap.delete(users[id].persistentId);
         Reflect.deleteProperty(users, id);
       }
     },
     getAll: () => {
       return users;
     },
-    getAllById: () => {
-      return Object.keys(users);
+    listByCurrentWindow: currentWindow => {
+      return Object.keys(users)
+        .filter(id => users[id].currentWindow === currentWindow)
+        .reduce((previous, next) => ({ ...previous, [next]: users[next] }), {});
     },
-    getByPersistentId: persistentId => {
-      return users[persistentIdHashMap.get(persistentId)];
+    getAvailable: () => {
+      return Object.keys(users)
+        .filter(
+          id => users[id].isAvailable &&
+            users[id].isConfirmed
+        )
+        .reduce((previous, next) => ({ ...previous, [next]: users[next] }), {});
     },
     getById: id => {
       return users[id];
     },
-    userWithIdExists: id => {
-      return users[id] !== undefined;
-    },
-    userWithPersistentIdExists: persistentId => {
-      return persistentIdHashMap.get(persistentId);
-    },
     nameAvailable: name => {
       return !nameHashMap.has(name);
-    },
-    nameHashMap: () => {
-      return nameHashMap.entries();
     }
   };
 };

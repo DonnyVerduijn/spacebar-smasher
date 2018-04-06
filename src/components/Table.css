@@ -33,10 +33,11 @@
 
 .Table tbody tr{
     border-top: 1px solid rgba(255,255,255, 1);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.Table tbody tr:hover a{
-    background: rgba(255,255,255,0.05);
+.Table tbody tr:hover{
+    border-bottom-color: white;
 }
 
 .Table span {
@@ -46,7 +47,7 @@
 }
 
 .Table a{
-    padding: .75em;
+    padding: .75em 0;
     display: block;
     color: white;
     text-decoration: none;

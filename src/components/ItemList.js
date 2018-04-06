@@ -3,15 +3,16 @@ import PropTypes from 'prop-types';
 import './ItemList.css';
 import Item from './Item';
 
-const ItemList = ({ className, items, onClick }) => {
+const ItemList = (props) => {
+  const { style, value, className, items, onClick } = props;
   return (
-    <ul className={`ItemList ${className}`}>
+    <ul style={style} className={`ItemList ${className}`}>
       {items.map((item, index) => {
         return (
           <Item
-            key={index}
-            label={item.value}
-            onClick={onClick ? () => onClick(index) : undefined}
+            key={item.id || index}
+            label={item[value] || item.value}
+            onClick={onClick ? () => onClick(item.id || index) : undefined}
           />
         );
       })}
@@ -26,7 +27,9 @@ ItemList.defaultProps = {
 ItemList.propTypes = {
   className: PropTypes.string,
   items: PropTypes.array.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  style: PropTypes.object,
+  value: PropTypes.string
 };
 
 export default ItemList;

@@ -4,6 +4,7 @@ const bindToSnakeCase = require('./utils/bindToSnakeCase');
 const gameActions = require('./game/gameActions');
 const userActions = require('./user/userActions');
 const socketActions = require('./socket/socketActions');
+const requestActions = require('./request/requestActions');
 const omit = require('./utils/omit');
 
 // create state container
@@ -15,14 +16,15 @@ const socketServer = SocketServer();
 const bindedActions = bindToSnakeCase({
   ...socketActions(state),
   ...userActions(state),
-  ...gameActions(state)
+  ...gameActions(state),
+  ...requestActions(state)
 });
 
 // console.log(bindedActions);
 
 // on every event from the socketserver
 socketServer.onEvent(action => {
-  // console.log('action', action);
+  console.log('action', action);
   // the defined action on corresponding key is called
   const result = bindedActions[action.type](action);
   console.log('result', result);

@@ -12,6 +12,7 @@ const gameReducer = (state = {}, action) => {
     case 'RESUME_GAME':
     case 'AVAILABLE_GAMES':
     case 'JOIN_GAME':
+    case 'ACCEPT_REQUEST':
       return action.games;
     case 'SOCKET_CONNECTED':
     case 'QUIT_GAME':

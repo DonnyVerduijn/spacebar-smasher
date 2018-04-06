@@ -7,14 +7,26 @@ const proto = {
   setIsConfirmed(value) {
     this.isConfirmed = value;
   },
+  setConfirmedAt(value) {
+    this.confirmedAt = value;
+  },
   setIsValidated(value) {
     this.isValidated = value;
   },
   setIsValid(value) {
     this.isValid = value;
   },
+  setIsAvailable(value) {
+    this.isAvailable = value;
+  },
   setScore(value) {
     this.score += value;
+  },
+  setCurrentWindow(value) {
+    this.currentWindow = value;
+  },
+  setIsDeleted(value) {
+    this.isDeleted = value;
   }
 };
 
@@ -32,12 +44,6 @@ const User = options => {
         configurable: false,
         enumerable: true
       },
-      persistentId: {
-        value: uuid(),
-        writable: false,
-        configurable: false,
-        enumerable: true
-      },
       isConfirmed: {
         value: false,
         writable: true,
@@ -45,6 +51,18 @@ const User = options => {
         enumerable: true
       },
       isValidated: {
+        value: false,
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      isAvailable: {
+        value: true,
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      isDeleted: {
         value: false,
         writable: true,
         configurable: false,
@@ -64,6 +82,18 @@ const User = options => {
       },
       isValid: {
         value: options.isValid || false,
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      currentWindow: {
+        value: options.currentWindow || 'MAIN',
+        writable: true,
+        configurable: false,
+        enumerable: true
+      },
+      confirmedAt: {
+        value: null,
         writable: true,
         configurable: false,
         enumerable: true

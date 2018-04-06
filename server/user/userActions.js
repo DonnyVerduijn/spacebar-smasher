@@ -1,19 +1,9 @@
-const User = require('./User');
+// import uuid from 'uuid4';
+
+// const User = require('./User');
 
 const userActions = ({ users }) => {
   return {
-    instantiateUser(action) {
-      users.deleteById(action.userId);
-      const user = User({ name: action.name, id: action.userId });
-      const isValid = users.nameAvailable(user.name) && user.name.length > 0;
-      user.setIsValid(isValid);
-      user.setIsValidated(true);
-      users.add(user);
-      return Object.assign({}, action, {
-        users: { [user.id]: user },
-        targets: [action.userId]
-      });
-    },
     validateUser(action) {
       const user = users.getById(action.userId);
       const isValid =
@@ -21,24 +11,89 @@ const userActions = ({ users }) => {
       user.setName(action.name);
       user.setIsValid(isValid);
       user.setIsValidated(true);
-      return Object.assign({}, action, {
+      return {
+        type: action.type,
         users: { [user.id]: user },
         targets: [action.userId]
-      });
+      };
+    },
+    requestUser(action) {
+      const user = users.getById(action.userId);
+
+      return {
+        type: action.type,
+        users: { [user.id]: user },
+        request: {
+          // id: uuid(),
+          localUserId: action.userId,
+          destinationUserId: action.enemyId,
+          createdAt: Date.now()
+        },
+        targets: [action.userId, action.enemyId]
+      };
     },
     confirmUser(action) {
       const user = users.getById(action.userId);
       user.setIsConfirmed(true);
+      user.setConfirmedAt(Date.now());
       users.confirmById(user.id);
-      return Object.assign({}, action, { users: { [user.id]: user }, targets: [action.userId] });
+      return {
+        type: action.type,
+        users: { [user.id]: user },
+        targets: Object.keys(users.listByCurrentWindow('AVAILABLE_USERS'))
+      };
+    },
+    unconfirmUser(action) {
+      const user = users.getById(action.userId);
+      user.setIsConfirmed(false);
+      users.unconfirmById(user.id);
+      return {
+        type: action.type,
+        users: { [user.id]: user },
+        targets: Object.keys(users.listByCurrentWindow('AVAILABLE_USERS'))
+      };
     },
     getUser(action) {
-      const user = users.getById(action.id);
-      return { users: { [user.id]: user }, ...action };
+      const user = users.getById(action.userId);
+      return {
+        type: action.type,
+        users: { [user.id]: user },
+        targets: [action.userId]
+      };
     },
     updateUser(action) {
-      const user = users.getById(action.id);
-      return { users: { [user.id]: user }, ...action };
+      const user = users.getById(action.userId);
+      return {
+        type: action.type,
+        users: { [user.id]: user },
+        targets: [action.userId]
+      };
+    },
+    deleteUser(action) {
+      const user = users.getById(action.userId);
+      user.setIsDeleted(true);
+      return {
+        type: action.type,
+        users: { [user.id]: user },
+        targets: Object.keys(users.listByCurrentWindow('AVAILABLE_USERS'))
+      };
+    },
+    navigateUser(action) {
+      const user = users.getById(action.userId);
+      if (user) {
+        user.setCurrentWindow(action.location);
+      }
+      return {
+        type: action.type,
+        targets: null
+      };
+    },
+    availableUsers(action) {
+      return {
+        type: action.type,
+        users: users.getAvailable(),
+        targets: [action.userId]
+      };
     }
   };
 };

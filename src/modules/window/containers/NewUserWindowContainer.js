@@ -1,23 +1,16 @@
 import { connect } from 'react-redux';
 import withSocket from './../../../utils/withSocket';
 import NewUserWindow from './../components/NewUserWindow';
-import { switchWindow } from './../windowActions';
 import * as actions from './../../user/userActions';
-import { getUser } from './../../user/userSelectors';
-import { getId } from './../../socket/socketSelectors';
+import * as fromUser from './../../user/userSelectors';
+import { getLocalUserId } from './../../window/windowSelectors';
 import debounce from 'lodash.debounce';
-import { getActiveWindow, getPreviousWindow } from '../windowSelectors';
 
 const mapStateToProps = state => {
-  const id = getId(state);
-  const localUser = getUser(state, id);
-  const nextWindow =
-    getActiveWindow(state) === 'JOIN_GAME' ||
-    getPreviousWindow(state) === 'AVAILABLE_GAMES'
-      ? 'AVAILABLE_GAMES'
-      : 'NEW_GAME';
+  const id = getLocalUserId(state);
+  const localUser = fromUser.getById(state, id);
+
   return {
-    nextWindow,
     user: {
       id,
       exists: Boolean(localUser),
@@ -29,22 +22,19 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch, { socket }) => {
-  const shouldValidate = debounce((id, name) => {
+  const shouldValidate = debounce(({ name }) => {
     socket.send(actions.validateUser({ name }));
   }, 200);
   return {
-    instantiateUser: () => {
-      socket.send(actions.instantiateUser());
+    navigateUser: (options) => {
+      socket.send(actions.navigateUser(options));
+      dispatch(actions.navigateUser(options));
     },
-    previousWindow: () => {
-      dispatch(switchWindow('MAIN'));
+    confirmUser: (options) => {
+      socket.send(actions.confirmUser(options));
     },
-    confirmUser: (name, target) => {
-      socket.send(actions.confirmUser({ name }));
-      dispatch(switchWindow(target));
-    },
-    validateUser: (id, name) => {
-      shouldValidate(id, name);
+    validateUser: (options) => {
+      shouldValidate(options);
     }
   };
 };

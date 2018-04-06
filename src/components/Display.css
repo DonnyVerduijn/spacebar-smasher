@@ -4,4 +4,6 @@
     text-align: left;
     color: white;
     display: block;
+    margin: 0 0 .5em;
+    /* white-space: nowrap; */
 }

@@ -2,20 +2,21 @@ import { connect } from 'react-redux';
 import withSocket from './../../../utils/withSocket';
 import LobbyWindow from './../components/LobbyWindow';
 import { switchWindow } from './../windowActions';
+import { navigateUser } from './../../user/userActions';
 import * as actions from './../../game/gameActions';
-import { getGameUsers, getGameName, getGameOwner } from './../../game/gameSelectors';
-import { getUserName } from './../../user/userSelectors';
+import * as fromGame from './../../game/gameSelectors';
+import * as fromUser from './../../user/userSelectors';
 import { getLocalGameId, getLocalUserId } from './../../window/windowSelectors';
 
 const mapStateToProps = state => {
-  const localGameId = getLocalGameId(state);
   const localUserId = getLocalUserId(state);
+  const game = fromGame.getById(state, getLocalGameId(state));
   return {
-    isOwner: getGameOwner(state, localGameId) === localUserId,
-    gameName: getGameName(state, localGameId),
-    users: getGameUsers(state, localGameId).map(({ id, joinedAt }) => ({
-      user: getUserName(state, id), joined: joinedAt
-    }))
+    game,
+    users: game ? game.userIds.map(id => ({
+      ...fromUser.getById(state, id),
+      isLocal: id === localUserId
+    })) : []
   };
 };
 
@@ -26,11 +27,8 @@ const mapDispatchToProps = (dispatch, { socket }) => {
     },
     quitGame: () => {
       socket.send(actions.quitGame());
+      socket.send(navigateUser('MAIN'));
       // we shortcut the window redirection locally
-      dispatch(switchWindow('MAIN'));
-    },
-    leaveGame: () => {
-      socket.send(actions.leaveGame());
       dispatch(switchWindow('MAIN'));
     }
   };

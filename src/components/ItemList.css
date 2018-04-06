@@ -4,3 +4,11 @@
     margin: 0;
   }
   
+.ItemList.Scrollable{
+  overflow-y: auto;
+  max-height: 10em;
+}
+
+.ItemList.GutterBottom{
+  margin-bottom: 2em;
+}

@@ -9,6 +9,8 @@
     "javascript-time-ago": "^1.0.28",
     "lodash.debounce": "^4.0.8",
     "lodash.snakecase": "^4.1.1",
+    "material-ui": "^1.0.0-beta.40",
+    "material-ui-icons": "^1.0.0-beta.36",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -19,7 +21,7 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "rxjs": "^5.5.6",
-    "typeface-roboto": "0.0.50",
+    "typeface-roboto": "^0.0.54",
     "uuid4": "^1.0.0",
     "whatwg-fetch": "^2.0.3",
     "ws": "^4.0.0"

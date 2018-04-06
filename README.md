@@ -5,20 +5,12 @@ little online game using socket.io where players battle eachother with the amoun
 ## TODO
 
 - attach handler to reconnect button 3
+- broadcast DELETE_USER in socketClosed to all clients
 
-- implement availableUsersList
-  - sort users by most recently created
-  - only show users that are NOT inside a game
-  - show name and fight button
-  - back and refresh button
-
-- LobbyWindow implementation
-  - remove joined at attribute
-  - show username and user color attribute
-  - users can select their own color
-  - users cannot use the same color at once
-  - lobbyWindow leave/exit button is always exit
-  - startbutton only enabled after all users have chosen their color
+- RequestWindow
+  - fix deny button handler
+  - fix accept button handler
+  - fix cancel button handler
 
 - implement highscoreList 1
   - show 10 best highscores 1

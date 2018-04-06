@@ -63,11 +63,12 @@ class GameWindow extends Component {
   }
 
   render() {
+    const { game } = this.props;
     return (
       <Canvas
         width={window.innerWidth}
         height={window.innerHeight}
-        isActive={this.props.game.isActive}
+        isActive={game ? game.isActive : false}
         render={context => this.renderCanvasElements(context)}
       />
     );

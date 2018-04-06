@@ -6,7 +6,7 @@ const windowReducer = (state = windowState, action) => {
     case 'QUIT_GAME':
       return {
         ...state,
-        localUserId: null,
+        localUserId: Object.keys(action.users)[0],
         localGameId: null,
         events: [...state.events, { target: 'MAIN', createdAt: Date.now() }]
       };
@@ -18,25 +18,37 @@ const windowReducer = (state = windowState, action) => {
           { target: 'NO_CONNECTION', createdAt: Date.now() }
         ]
       };
-    case 'SWITCH_WINDOW':
-      return {
-        ...state,
-        events: [
-          ...state.events,
-          { target: action.target, createdAt: Date.now() }
-        ]
-      };
+    // case 'SWITCH_WINDOW':
+    //   return {
+    //     ...state,
+    //     events: [
+    //       ...state.events,
+    //       { target: action.target, createdAt: Date.now() }
+    //     ]
+    //   };
     case 'INSTANTIATE_USER':
       return {
         ...state,
         localUserId: action.users[Object.keys(action.users)[0]].id
       };
+    case 'ACCEPT_REQUEST':
     case 'INSTANTIATE_GAME':
-    case 'JOIN_GAME':
       return {
         ...state,
-        localGameId: action.games[Object.keys(action.games)[0]].id
+        localGameId: action.games[Object.keys(action.games)[0]].id,
+        events: [...state.events, { target: 'LOBBY', createdAt: Date.now() }]
       };
+    case 'SEND_REQUEST':
+    return {
+      ...state,
+      events: [...state.events, { target: 'REQUEST', createdAt: Date.now() }]
+    };
+    case 'CANCEL_REQUEST':
+    case 'DENY_REQUEST':
+    return {
+      ...state,
+      events: [...state.events, { target: 'AVAILABLE_USERS', createdAt: Date.now() }]
+    };
     case 'START_GAME':
     return {
       ...state,

@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AvailableGameWindowContainer from './../containers/AvailableGameWindowContainer';
+import AvailableUserWindowContainer from './../containers/AvailableUserWindowContainer';
 import HighScoreWindowContainer from './../containers/HighScoreWindowContainer';
 import LobbyWindowContainer from './../containers/LobbyWindowContainer';
-import NewGameWindowContainer from './../containers/NewGameWindowContainer';
 import NewUserWindowContainer from './../containers/NewUserWindowContainer';
 import MainWindowContainer from '../containers/MainWindowContainer';
 import PauseWindowContainer from './../containers/PauseWindowContainer';
 import GameOverWindowContainer from './../containers/GameOverWindowContainer';
 import NoConnectionWindowContainer from './../containers/NoConnectionWindowContainer';
 import GameWindowContainer from '../containers/GameWindowContainer';
+import RequestWindowContainer from '../containers/RequestWindowContainer';
 
 const getActiveWindow = (active) => {
     console.log(active);
@@ -20,16 +20,16 @@ const getActiveWindow = (active) => {
         case 'NEW_USER':
         case 'JOIN_GAME':
         return <NewUserWindowContainer/>;
-        case 'NEW_GAME':
-        return <NewGameWindowContainer/>;
-        case 'AVAILABLE_GAMES':
-        return <AvailableGameWindowContainer/>;
+        case 'AVAILABLE_USERS':
+        return <AvailableUserWindowContainer/>;
         case 'LOBBY':
         return <LobbyWindowContainer/>;
         case 'PAUSE':
         return <PauseWindowContainer/>;
         case 'GAME_OVER':
         return <GameOverWindowContainer/>;
+        case 'REQUEST':
+        return <RequestWindowContainer/>;
         case 'HIGHSCORES':
         return <HighScoreWindowContainer/>;
         case 'NO_CONNECTION':

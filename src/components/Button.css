@@ -8,16 +8,58 @@
     text-transform: lowercase;
     font-variant: small-caps;
     outline: none;
+    line-height: 1.5em;
     cursor: pointer;
-    padding: .5em 1.25em;
-    border-radius: .25em;
+    padding: .5em 1.25em .5em;
+    border-radius: 2em;
     transition: border-color color .15s ease-in-out
   }
-   
-  .Button.Flat:hover{
-    /* color: rgb(255, 255, 255); */
+
+  .Button.HasIcon {
+    padding-bottom: .25em;
   }
 
+  .Button.Left{
+    padding-left: .75em;
+  }
+
+  .Button.Right {
+    padding-right: .75em;
+  }
+
+  .Button.Center{
+    margin: 0 auto;
+  }
+
+  .Button.Primary{
+    background: green;
+  }
+
+  .Left{
+    float: left;
+  }
+
+  .Right{
+    float: right;
+  }
+
+  .Button .Label{
+    margin: 0;
+    display: inline-block;
+  }
+
+  .Button .Icon.Left {
+    margin-right: .5em;
+  }
+
+  .Button .Icon.Right {
+    margin-left: .5em;
+  }
+
+  .Button.FullWidth {
+    width: 100%;
+  }
+   
   .Button.Raised{
     border: 1px solid white;
   }
