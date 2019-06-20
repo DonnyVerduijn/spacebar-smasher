@@ -50,7 +50,7 @@
   "homepage": "https://github.com/DonnyVerduijn/spacebar-smasher#readme",
   "devDependencies": {
     "concurrently": "^3.5.1",
-    "eslint": "^4.15.0",
+    "eslint": "^4.18.2",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-jest": "^21.6.1",
     "eslint-plugin-react": "^7.5.1",
